@@ -107,7 +107,7 @@ function LoginForm() {
                 &nbsp;
                 <hr />
                 <Grid container>
-                    <Grid item xs>
+                    <Grid item sm>
                         <Link href="reset" >
                             Forgot password?
                         </Link>
