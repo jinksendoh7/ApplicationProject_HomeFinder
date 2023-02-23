@@ -1,0 +1,33 @@
+.formContainer {
+    width: 30%;
+    text-align:left;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    padding: 25px 40px 25px 40px;
+    background-color: white;
+    box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+.wrapper-logo {
+    margin-top: 20px;
+    height: 220px;
+}
+
+.loginLogo {
+    display: flex;
+    width: auto;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.bg {
+    background-image: url(../../../assets/images/HomeBackground.jpg);
+    height: 100vh;
+    margin: 0 auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
