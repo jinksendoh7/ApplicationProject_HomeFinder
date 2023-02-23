@@ -2,7 +2,6 @@
 import CardComponent from "../../components/card/CardComponent";
 import LoginForm from "../../components/form/login/LoginForm";
 import "./LoginPage.css"
-import React from "react";
 
 const LoginPage = () => {
     return <CardComponent
