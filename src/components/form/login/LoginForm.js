@@ -105,12 +105,12 @@ function LoginForm() {
                 <hr />
                 <Grid container>
                     <Grid item xs>
-                        <Link href="#" >
+                        <Link href="reset" >
                             Forgot password?
                         </Link>
                     </Grid>
                     <Grid item>
-                        <Link href="#" >
+                        <Link href="signup" >
                             {"Don't have an account? Sign Up"}
                         </Link>
                     </Grid>
