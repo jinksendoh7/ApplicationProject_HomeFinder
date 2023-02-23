@@ -3,94 +3,121 @@ import { useNavigate } from 'react-router-dom';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
+import Link from '@mui/material/Link';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Grid from '@mui/material/Grid';
 
-import { GoogleButton } from 'react-google-button';
-import { UserAuth } from '../../../contexts/auth/AuthContext';
+import "../login/LoginForm.css"
+
+import Logo from '../../logo/Logo';
+import HomeFinderLogo from '../../../assets/images/HomeFinder_Logo.svg';
+
+
+function Copyright(props) {
+    return (
+        <Typography variant="body2" color="text.secondary" align="center" {...props}>
+            {'Copyright © '}
+            <Link color="inherit" href="www.HomeFinder.com">
+                www.HomeFinder.com
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
+
+//import { GoogleButton } from 'react-google-button';
+//import { UserAuth } from '../../../contexts/auth/AuthContext';
 
 
 
 function LoginForm() {
     // Provide Context
-    const { googleSignIn, user } = UserAuth();
+   // const { googleSignIn, user } = UserAuth();
 
     const navigate = useNavigate(); 
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = ('');
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
 
-   // const [errorMessage, setErrorMessage] = useState('');
+    // const [errorMessage, setErrorMessage] = useState('');
 
-   const handleGoogleSignIn = async () => {
+  /* const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
     } catch (error) {
       console.log(error);
     }
-  };
+  }; */
 
-  useEffect(() => {
+ /* useEffect(() => {
     if (user != null) {
       navigate('/dashboard'); // use hook to redirect to dashboard page upon successful login
     }
-  }, [user, navigate]);
+  }, [user, navigate]); */
 
 
     return (
-        <div className="signupContainer">
-            <form>
-                <div>
-                    <h1>Login</h1>
-                   
-                </div>
-                <div>
+        
+        <div className='bg'>
+            <div className='wrapper-logo' >
+                <Logo url={HomeFinderLogo} mainLogo='loginLogo'></Logo>
+            </div>
+            <div className="formContainer">
+                <form>
                     <TextField
+                        margin="normal"
                         required
-                        id="outlined-required"
+                        fullWidth
+                        id="email"
                         label="Email Address"
-                        size="small"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
                     />
-                </div>
-                &nbsp;
-                <div>
                     <TextField
+                        margin="normal"
                         required
-                        id="outlined-required"
+                        fullWidth
+                        name="password"
                         label="Password"
                         type="password"
-                        size="small"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
+                        id="password"
+                        autoComplete="current-password"
                     />
-                </div>
-                &nbsp;
-                <div>
-                    <TextField
-                        required
-                        id="outlined-required"
-                        label="Confirm Password"
-                        type="password"
-                        size="small"
-                        value={confirmPassword}
-                        onChange={(event) => setConfirmPassword(event.target.value)}
+                    <FormControlLabel
+                        control={<Checkbox value="remember" color="primary" />}
+                        label="Remember me"
                     />
-                </div>  
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        href="/"
+                        size="large"
+                    >Sign In
+                    </Button>
+                    <Typography align='center'> OR </Typography>
+                </form>
                 &nbsp;
-                <div>
-                    <Button variant="contained"> SUBMIT </Button>
-
-                    <GoogleButton onClick={handleGoogleSignIn} />
-                </div>
-            </form>
-            &nbsp;
-
-            <div>
-                Don't have an account already?  <br />
-                <button>Sign up here</button>
+                <hr />
+                <Grid container>
+                    <Grid item xs>
+                        <Link href="reset" >
+                            Forgot password?
+                        </Link>
+                    </Grid>
+                    <Grid item>
+                        <Link href="signup" >
+                            {"Don't have an account? Sign Up"}
+                        </Link>
+                    </Grid>
+                </Grid>
+                &nbsp;
+                <Copyright />
             </div>
-            
         </div>
     )
 }
