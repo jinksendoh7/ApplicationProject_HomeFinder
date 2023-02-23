@@ -9,6 +9,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 
+import { GoogleButton } from 'react-google-button';
+import FacebookLogin from 'react-facebook-login';
+import { UserAuth } from '../../../contexts/auth/AuthContext';
+
 import "../login/LoginForm.css"
 
 import Logo from '../../logo/Logo';
@@ -28,39 +32,45 @@ function Copyright(props) {
     );
 }
 
-//import { GoogleButton } from 'react-google-button';
-//import { UserAuth } from '../../../contexts/auth/AuthContext';
-
-
-
 function LoginForm() {
     // Provide Context
-   // const { googleSignIn, user } = UserAuth();
+    const { googleSignIn, user } = UserAuth();
+    const { facebookSignIn } = UserAuth();
 
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    // const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
-  /* const handleGoogleSignIn = async () => {
-    try {
-      await googleSignIn();
-    } catch (error) {
-      console.log(error);
-    }
-  }; */
+    const handleGoogleSignIn = async () => {
+        try {
+            await googleSignIn();
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
- /* useEffect(() => {
-    if (user != null) {
-      navigate('/dashboard'); // use hook to redirect to dashboard page upon successful login
-    }
-  }, [user, navigate]); */
+    const handleFacbookSignIn = async () => {
+        try {
+            await facebookSignIn();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+
+    useEffect(() => {
+        if (user != null) {
+            navigate('/dashboard'); // use hook to redirect to dashboard page upon successful login
+        }
+    }, [user, navigate]);
 
 
     return (
-        
+
         <div className='bg'>
             <div className='wrapper-logo' >
                 <Logo url={HomeFinderLogo} mainLogo='loginLogo'></Logo>
@@ -99,7 +109,19 @@ function LoginForm() {
                         size="large"
                     >Sign In
                     </Button>
+                    <p />
                     <Typography align='center'> OR </Typography>
+                    <p />
+                    <Grid container spacing={2} columns={16}>
+                        <Grid item xs={8}>
+                            <GoogleButton onClick={handleGoogleSignIn} />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <FacebookLogin onClick={handleFacbookSignIn} />
+                        </Grid>
+
+                    </Grid>
+
                 </form>
                 &nbsp;
                 <hr />
