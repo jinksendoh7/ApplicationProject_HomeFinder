@@ -13,6 +13,9 @@ import "../login/LoginForm.css"
 
 import Logo from '../../logo/Logo';
 import HomeFinderLogo from '../../../assets/images/HomeFinder_Logo.svg';
+import { GoogleButton } from 'react-google-button';
+import { UserAuth } from '../../../contexts/auth/AuthContext';
+
 
 
 function Copyright(props) {
@@ -28,35 +31,34 @@ function Copyright(props) {
     );
 }
 
-//import { GoogleButton } from 'react-google-button';
-//import { UserAuth } from '../../../contexts/auth/AuthContext';
 
 
 
 function LoginForm() {
     // Provide Context
-   // const { googleSignIn, user } = UserAuth();
+   const { googleSignIn, user } = UserAuth();
 
     const navigate = useNavigate(); 
 
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    // const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
-  /* const handleGoogleSignIn = async () => {
+  const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
     } catch (error) {
       console.log(error);
     }
-  }; */
+  }; 
 
- /* useEffect(() => {
+ useEffect(() => {
     if (user != null) {
       navigate('/dashboard'); // use hook to redirect to dashboard page upon successful login
     }
-  }, [user, navigate]); */
+  }, [user, navigate]);
+  
 
 
     return (
@@ -99,6 +101,7 @@ function LoginForm() {
                         size="large"
                     >Sign In
                     </Button>
+                    <div class="margin-break"></div>
                     <Typography align='center'> OR </Typography>
                 </form>
                 &nbsp;
