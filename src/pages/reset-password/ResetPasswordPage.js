@@ -7,4 +7,4 @@ const ResetPassword = () => {
     )
   };
   
-export default ResetPasswordPage;
+export default ResetForm;
