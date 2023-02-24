@@ -41,7 +41,7 @@ function LoginForm() {
 
     const responseFacebook = (response) => {
         console.log(response);
-      }
+    }
 
     const navigate = useNavigate();
 
@@ -125,7 +125,6 @@ function LoginForm() {
                         <Grid item xs={8}>
                             <FacebookLogin onClick={handleFacbookSignIn}
                                 appId="1268321037096741"
-                                
                             />
                         </Grid>
                     </Grid>
