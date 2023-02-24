@@ -14,7 +14,8 @@ function App() {
   return ( 
      <AuthContextProvider>
         <Routes>
-          <Route path="/" element={<LoginPage />}>
+            <Route path="/" element={<LoginPage />}>
+            <Route index element={<LoginPage />} />
             <Route path="reset" element={<ResetPasswordPage />} />
             <Route path="signup" element={<SignupPage />} />
             <Route
