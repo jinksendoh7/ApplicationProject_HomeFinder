@@ -16,6 +16,7 @@ function App() {
         <Routes>
             <Route path="/" element={<LayoutPage />}>
             <Route index element={<LoginPage />} />
+            <Route path="login" element={<LoginPage />} />
             <Route path="reset" element={<ResetPasswordPage />} />
             <Route path="signup" element={<SignupPage />} />
             <Route
