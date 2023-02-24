@@ -17,6 +17,9 @@ import "../login/LoginForm.css"
 
 import Logo from '../../logo/Logo';
 import HomeFinderLogo from '../../../assets/images/HomeFinder_Logo.svg';
+import { GoogleButton } from 'react-google-button';
+import { UserAuth } from '../../../contexts/auth/AuthContext';
+
 
 
 function Copyright(props) {
@@ -34,8 +37,7 @@ function Copyright(props) {
 
 function LoginForm() {
     // Provide Context
-    const { googleSignIn, user } = UserAuth();
-    const { facebookSignIn } = UserAuth();
+   // const { googleSignIn, user } = UserAuth();
 
     const navigate = useNavigate();
 
@@ -109,7 +111,7 @@ function LoginForm() {
                         size="large"
                     >Sign In
                     </Button>
-                    <p />
+                    <div class="margin-break"></div>
                     <Typography align='center'> OR </Typography>
                     <p />
                     <Grid container spacing={2} columns={16}>
@@ -126,7 +128,7 @@ function LoginForm() {
                 &nbsp;
                 <hr />
                 <Grid container>
-                    <Grid item xs>
+                    <Grid item sm>
                         <Link href="reset" >
                             Forgot password?
                         </Link>

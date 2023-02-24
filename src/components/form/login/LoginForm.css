@@ -1,23 +1,29 @@
 .formContainer {
-    width: 30%;
+    width: 27%;
     text-align:left;
     position: relative;
     left: 50%;
     transform: translate(-50%, 20%);
-    padding: 25px 40px 25px 40px;
+    padding: 35px 40px 25px 40px;
     background-color: white;
     box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.4);
     border-radius: 10px;
 }
 
+@media only screen and (max-width: 600px) { /* For Mobile Screen */
+    .formContainer {
+        width: 280px;
+    }
+}
+
+
 .wrapper-logo {
-    margin-top: 20px;
-    height: 220px;
+    min-height: 220px;
 }
 
 .loginLogo {
     display: flex;
-    width: auto;
+    width: 100%;
     height: 300px;
     margin: 0 auto;
 }
@@ -29,5 +35,8 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+.margin-break{
+    margin: 1rem;
 }
 

@@ -3,7 +3,7 @@ import { Outlet, Link } from "react-router-dom";
 const LayoutPage = () => {
   return (
     <>
-      <nav>
+     {/*  <nav>
         <ul>
           <li>
             <Link to="/">Login</Link>
@@ -15,7 +15,7 @@ const LayoutPage = () => {
             <Link to="/signup">Signup</Link>
           </li>
         </ul>
-      </nav>
+      </nav> */}
 
       <Outlet />
     </>
