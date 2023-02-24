@@ -1,5 +1,5 @@
 .formContainer {
-    width: 27%;
+    width:500px;
     text-align:left;
     position: relative;
     left: 50%;
@@ -8,11 +8,19 @@
     background-color: white;
     box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.4);
     border-radius: 10px;
+ 
 }
 
+@media only screen and (min-width: 992px) {
+    .formContainer {
+        width: 28%;
+        margin-bottom: 5rem;
+    }
+}
 @media only screen and (max-width: 600px) { /* For Mobile Screen */
     .formContainer {
         width: 280px;
+        margin-bottom: 5rem;
     }
 }
 
