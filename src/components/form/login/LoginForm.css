@@ -16,7 +16,11 @@
     }
 }
 
-
+.icon{
+    width: 32px;
+    height: 32px;
+    padding-right: 1rem;
+}
 .wrapper-logo {
     min-height: 220px;
 }
@@ -40,3 +44,6 @@
     margin: 1rem;
 }
 
+.MuiButton-outlined {
+    text-transform: capitalize !important;
+  }

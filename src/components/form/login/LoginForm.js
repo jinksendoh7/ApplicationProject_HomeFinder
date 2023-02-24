@@ -8,9 +8,9 @@ import Link from '@mui/material/Link';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
+import GoogleIcon from '../../../assets/images/google.svg';
+import FacebookIcon from '../../../assets/images/facebook.svg';
 
-import { GoogleButton } from 'react-google-button';
-import FacebookLogin from 'react-facebook-login'
 import { UserAuth } from '../../../contexts/auth/AuthContext';
 
 import "../login/LoginForm.css"
@@ -118,14 +118,22 @@ function LoginForm() {
                     <div class="margin-break"></div>
                     <Typography align='center'> OR </Typography>
                     <div class="margin-break"></div>
-                    <Grid container spacing={2} columns={16}>
-                        <Grid item xs={8}>
-                            <GoogleButton onClick={handleGoogleSignIn} />
+                    <Grid container spacing={2} 
+                     columns={16}
+                     justifyContent="space-around"
+                     alignItems="center"
+                     >
+                        <Grid item sm={8} justifyContent="flex-end">
+                            <Button variant="outlined" onClick={handleGoogleSignIn}>
+                                <img src={GoogleIcon}  class="icon"/>
+                                Signin with Google
+                            </Button>
                         </Grid>
-                        <Grid item xs={8}>
-                            <FacebookLogin onClick={handleFacbookSignIn}
-                                appId="1268321037096741"
-                            />
+                        <Grid item sm={8}>
+                        <Button variant="outlined" onClick={handleGoogleSignIn}>
+                                <img src={FacebookIcon}  class="icon"/>
+                                Signin with Facebook
+                            </Button>
                         </Grid>
                     </Grid>
 
