@@ -69,7 +69,7 @@ function LoginForm() {
 
 
     useEffect(() => {
-        if (user != null) {
+        if (user !== null) {
             navigate('/dashboard'); // use hook to redirect to dashboard page upon successful login
         }
     }, [user, navigate]);
