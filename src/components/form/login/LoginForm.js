@@ -10,15 +10,14 @@ import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 
 import { GoogleButton } from 'react-google-button';
-import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login'
 import { UserAuth } from '../../../contexts/auth/AuthContext';
 
 import "../login/LoginForm.css"
 
 import Logo from '../../logo/Logo';
 import HomeFinderLogo from '../../../assets/images/HomeFinder_Logo.svg';
-import { GoogleButton } from 'react-google-button';
-import { UserAuth } from '../../../contexts/auth/AuthContext';
+
 
 
 
@@ -37,7 +36,12 @@ function Copyright(props) {
 
 function LoginForm() {
     // Provide Context
-   // const { googleSignIn, user } = UserAuth();
+    const { googleSignIn, user } = UserAuth();
+    const { facebookSignIn } = UserAuth();
+
+    const responseFacebook = (response) => {
+        console.log(response);
+      }
 
     const navigate = useNavigate();
 
@@ -113,15 +117,17 @@ function LoginForm() {
                     </Button>
                     <div class="margin-break"></div>
                     <Typography align='center'> OR </Typography>
-                    <p />
+                    <div class="margin-break"></div>
                     <Grid container spacing={2} columns={16}>
                         <Grid item xs={8}>
                             <GoogleButton onClick={handleGoogleSignIn} />
                         </Grid>
                         <Grid item xs={8}>
-                            <FacebookLogin onClick={handleFacbookSignIn} />
+                            <FacebookLogin onClick={handleFacbookSignIn}
+                                appId="1268321037096741"
+                                
+                            />
                         </Grid>
-
                     </Grid>
 
                 </form>
