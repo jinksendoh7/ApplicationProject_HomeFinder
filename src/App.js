@@ -7,6 +7,7 @@ import LayoutPage from "./pages/common/LayoutPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import LoginPage from "./pages/login/LoginPage";
 import ResetPasswordPage from "./pages/reset-password/ResetPasswordPage";
+import ChangePasswordPage from "./pages/change-password/ChangePasswordPage";
 import SignupPage from "./pages/signup/SignupPage";
 import ProtectedPage from "./pages/common/ProtectedPage";
 
@@ -19,6 +20,7 @@ function App() {
             <Route path="login" element={<LoginPage />} />
             <Route path="reset" element={<ResetPasswordPage />} />
             <Route path="signup" element={<SignupPage />} />
+            <Route path="changepassword" element={<ChangePasswordPage />} />
             <Route
                 path='/dashboard'
                 element={

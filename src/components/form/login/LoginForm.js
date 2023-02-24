@@ -18,6 +18,7 @@ import "../login/LoginForm.css"
 import Logo from '../../logo/Logo';
 import HomeFinderLogo from '../../../assets/images/HomeFinder_Logo.svg';
 
+import reset from '../../../pages/reset-password/ResetPasswordPage'
 
 
 
