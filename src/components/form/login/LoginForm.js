@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import TextField from '@mui/material/TextField';
@@ -9,12 +9,15 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 
+import { GoogleButton } from 'react-google-button';
+import FacebookLogin from 'react-facebook-login'
+import { UserAuth } from '../../../contexts/auth/AuthContext';
+
 import "../login/LoginForm.css"
 
 import Logo from '../../logo/Logo';
 import HomeFinderLogo from '../../../assets/images/HomeFinder_Logo.svg';
-import { GoogleButton } from 'react-google-button';
-import { UserAuth } from '../../../contexts/auth/AuthContext';
+
 
 
 
@@ -31,38 +34,49 @@ function Copyright(props) {
     );
 }
 
-
-
-
 function LoginForm() {
     // Provide Context
-   const { googleSignIn, user } = UserAuth();
+    const { googleSignIn, user } = UserAuth();
+    const { facebookSignIn } = UserAuth();
 
-    const navigate = useNavigate(); 
+    const responseFacebook = (response) => {
+        console.log(response);
+    }
+
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const [errorMessage, setErrorMessage] = useState('');
 
-  const handleGoogleSignIn = async () => {
-    try {
-      await googleSignIn();
-    } catch (error) {
-      console.log(error);
-    }
-  }; 
+    const handleGoogleSignIn = async () => {
+        try {
+            await googleSignIn();
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
- useEffect(() => {
-    if (user != null) {
-      navigate('/dashboard'); // use hook to redirect to dashboard page upon successful login
-    }
-  }, [user, navigate]);
-  
+    const handleFacbookSignIn = async () => {
+        try {
+            await facebookSignIn();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+
+
+    useEffect(() => {
+        if (user != null) {
+            navigate('/dashboard'); // use hook to redirect to dashboard page upon successful login
+        }
+    }, [user, navigate]);
 
 
     return (
-        
+
         <div className='bg'>
             <div className='wrapper-logo' >
                 <Logo url={HomeFinderLogo} mainLogo='loginLogo'></Logo>
@@ -103,6 +117,18 @@ function LoginForm() {
                     </Button>
                     <div class="margin-break"></div>
                     <Typography align='center'> OR </Typography>
+                    <div class="margin-break"></div>
+                    <Grid container spacing={2} columns={16}>
+                        <Grid item xs={8}>
+                            <GoogleButton onClick={handleGoogleSignIn} />
+                        </Grid>
+                        <Grid item xs={8}>
+                            <FacebookLogin onClick={handleFacbookSignIn}
+                                appId="1268321037096741"
+                            />
+                        </Grid>
+                    </Grid>
+
                 </form>
                 &nbsp;
                 <hr />

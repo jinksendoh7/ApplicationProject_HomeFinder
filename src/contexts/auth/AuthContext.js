@@ -7,13 +7,14 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
 } from 'firebase/auth';
+
 import { auth } from '../../configs/FirebaseConfig';
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  
+
   // Email and Password Logins here
   const Signup = (email, password) => {
     createUserWithEmailAndPassword(email, password)
@@ -23,17 +24,28 @@ export const AuthContextProvider = ({ children }) => {
     signInWithEmailAndPassword(email, password)
   }
   const LogOut = () => {
-      signOut(auth)
+    signOut(auth)
   }
-  
+
   // Social Logins Start here
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-     signInWithPopup(auth, provider);
+    signInWithPopup(auth, provider);
     //signInWithRedirect(auth, provider)
   };
 
- 
+  //Facebook Login still broken.
+  // const facebookSignIn = () => {
+  //   const provider = new firebase.auth.FacebookAuthProvider();
+  //   provider.addScope('user_birthday');
+
+  //   firebase.auth().signInWithPopup(provider).then(function (result) {
+  //     // This gives you a Facebook Access Token.
+  //     const token = result.credential.accessToken;
+  //     // The signed-in user info.
+  //     const user = result.user;
+  //   })
+  // }
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {

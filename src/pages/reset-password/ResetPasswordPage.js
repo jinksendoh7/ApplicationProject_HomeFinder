@@ -1,4 +1,3 @@
-
 import "./ResetPasswordPage.css"
 
 const ResetPassword = () => {

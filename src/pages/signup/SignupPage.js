@@ -1,4 +1,3 @@
-
 import "./SignupPage.css"
 
 const SignupPage = () => {
