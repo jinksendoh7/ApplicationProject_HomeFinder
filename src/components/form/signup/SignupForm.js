@@ -14,28 +14,8 @@ import { Typography } from '@mui/material';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 
+import CopyRight from '../../copyright/CopyRight';
 import './SignupForm.css';
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {'Copyright © '}
-      <Link
-        color="inherit"
-        href="www.HomeFinder.com"
-      >
-        www.HomeFinder.com
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 function SignUpForm() {
   const [name, setName] = useState('');
@@ -87,7 +67,7 @@ function SignUpForm() {
                 required
                 id="firstName"
                 label="First Name"
-                // size="small"
+                fullWidth
                 value={name}
                 onChange={(event) => setName(event.target.value)}
               />
@@ -101,7 +81,7 @@ function SignUpForm() {
                 required
                 id="lastName"
                 label="Last Name"
-                // size="small"
+                fullWidth
                 value={lastName}
                 onChange={(event) => setLastName(event.target.value)}
               />
@@ -242,7 +222,8 @@ function SignUpForm() {
           </Grid>
         </Grid>
         &nbsp;
-        <Copyright />
+        {/* <Copyright /> */}
+        <CopyRight />
       </div>
     </div>
   );
