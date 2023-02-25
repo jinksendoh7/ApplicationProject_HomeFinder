@@ -67,7 +67,7 @@ function SignUpForm() {
           mainLogo="loginLogo"
         ></Logo>
       </div>
-      <div className="formContainer">
+      <div className="formContainer form-wrapper">
         <form>
           {/* Beginning of grid */}
           <Grid
@@ -117,7 +117,27 @@ function SignUpForm() {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-          {/* End of email text field */}
+          {/*Password Field */}
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password2"
+            label="Confirm Password"
+            type="password"
+            id="password2"
+            autoComplete="current-password"
+          />
           <ToggleButtonGroup
             color="primary"
             value={userType}
@@ -144,7 +164,7 @@ function SignUpForm() {
               Member User
             </ToggleButton>
           </ToggleButtonGroup>
-          {/*End of ToggleButton  */}
+          {/* checkbutton */}
           <FormControlLabel
             control={
               <Checkbox
