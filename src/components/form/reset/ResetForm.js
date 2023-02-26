@@ -1,47 +1,37 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import "../login/LoginForm.css";
-import { Typography } from "@mui/material";
-import Logo from "../../logo/Logo";
-import HomeFinderLogo from "../../../assets/images/HomeFinder_Logo.svg";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="www.HomeFinder.com">
-        www.HomeFinder.com
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import '../login/LoginForm.css';
+import { Typography } from '@mui/material';
+import Logo from '../../logo/Logo';
+import HomeFinderLogo from '../../../assets/images/HomeFinder_Logo.svg';
+import CopyRight from '../../copyright/CopyRight';
 
 function ResetForm() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [email, setEmail] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   return (
     <div className="bg">
       <div className="wrapper-logo">
-        <Logo url={HomeFinderLogo} mainLogo="loginLogo"></Logo>
+        <Logo
+          url={HomeFinderLogo}
+          mainLogo="loginLogo"
+        ></Logo>
       </div>
       <div className="formContainer">
         <form>
-            <Typography>{"Lost your password? Please enter your email address. You will receive a link to create a new password via email."}</Typography>
+          <Typography>
+            {
+              'Lost your password? Please enter your email address. You will receive a link to create a new password via email.'
+            }
+          </Typography>
           <TextField
             margin="normal"
             required
@@ -67,11 +57,12 @@ function ResetForm() {
         <hr />
         <Grid container>
           <Grid item>
-            <Link href="login">{"Remember your password?"}</Link>
+            <Link href="login">{'Remember your password?'}</Link>
           </Grid>
         </Grid>
         &nbsp;
-        <Copyright />
+        {/* <Copyright /> */}
+        <CopyRight />
       </div>
     </div>
   );
