@@ -1,31 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import "../login/LoginForm.css";
-import { Typography } from "@mui/material";
 import Logo from "../../logo/Logo";
 import HomeFinderLogo from "../../../assets/images/HomeFinder_Logo.svg";
+import Copyright from "../../copyright/CopyRight";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="www.HomeFinder.com">
-        www.HomeFinder.com
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 function ChangePasswordForm() {
   const navigate = useNavigate();

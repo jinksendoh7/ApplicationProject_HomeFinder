@@ -17,14 +17,26 @@ import ToggleButton from '@mui/material/ToggleButton';
 import CopyRight from '../../copyright/CopyRight';
 import './SignupForm.css';
 
+
 function SignUpForm() {
-  const [name, setName] = useState('');
+  const [firstName, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [recieve, setRecieve] = useState(false);
 
-  const [errorMessage, setErrorMessage] = useState('');
+
+  console.log(firstName);
+  console.log(lastName);
+  console.log(email);
+  console.log(password);
+  console.log(userType);
+  console.log(confirmPassword);
+  console.log(recieve);
+
+  //const [errorMessage, setErrorMessage] = useState('');
 
   const handleSignUpWithGoogle = () => {
     //Codes here
@@ -35,9 +47,14 @@ function SignUpForm() {
   };
 
   const handleChange = (e) => {
+    setUserType(e.target.value);
     // Codes here.
     //console.log(e.target.value);
   };
+  
+  const SubmitHandler = () => {
+
+  }
 
   return (
     <div className="bg">
@@ -48,7 +65,7 @@ function SignUpForm() {
         ></Logo>
       </div>
       <div className="formContainer form-wrapper">
-        <form>
+        <form onSubmit = {SubmitHandler}>
           {/* Beginning of grid */}
           <Grid
             container
@@ -68,7 +85,7 @@ function SignUpForm() {
                 id="firstName"
                 label="First Name"
                 fullWidth
-                value={name}
+                value={firstName}
                 onChange={(event) => setName(event.target.value)}
               />
             </Grid>
@@ -106,6 +123,8 @@ function SignUpForm() {
             label="Password"
             type="password"
             id="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
             autoComplete="current-password"
           />
           <TextField
@@ -116,6 +135,8 @@ function SignUpForm() {
             label="Confirm Password"
             type="password"
             id="password2"
+            value={confirmPassword}
+            onChange={(event) => setConfirmPassword(event.target.value)}
             autoComplete="current-password"
           />
           <ToggleButtonGroup
@@ -148,7 +169,8 @@ function SignUpForm() {
           <FormControlLabel
             control={
               <Checkbox
-                value="inspiration"
+                value= {recieve}
+                onChange= {() => setRecieve(!recieve)}
                 color="primary"
               />
             }
@@ -184,6 +206,7 @@ function SignUpForm() {
               >
                 <img
                   src={GoogleIcon}
+                  alt='google-icon'
                   class="icon"
                 />
                 Sign up with Google
@@ -199,6 +222,7 @@ function SignUpForm() {
               >
                 <img
                   src={FacebookIcon}
+                  alt='facebook-icon'
                   class="icon"
                 />
                 Sign up with Facebook
