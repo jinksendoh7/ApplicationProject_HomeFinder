@@ -18,6 +18,10 @@ export const AuthContextProvider = ({ children }) => {
   // Email and Password Logins here
   const Signup = (email, password) => {
     createUserWithEmailAndPassword(email, password)
+    .then((result) => {
+      setUser(result.user);
+    })
+
   }
 
   const Login = (email, password) => {

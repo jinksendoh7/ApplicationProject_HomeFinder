@@ -11,8 +11,6 @@ import GoogleIcon from '../../../assets/images/google.svg';
 import FacebookIcon from '../../../assets/images/facebook.svg';
 import { Typography } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import { Alert, AlertTitle } from '@mui/material';
-
 
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -22,8 +20,12 @@ import './SignupForm.css';
 
 import { db } from '../../../configs/FirebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { UserAuth } from '../../../contexts/auth/AuthContext';
+
+
 import ErrorComponent from '../../error/ErrorComponent';
 
+import StorageService from '../../../services/storage/StorageService';
 
 function SignUpForm() {
   const navigate = useNavigate();
@@ -38,6 +40,9 @@ function SignUpForm() {
   const [isError, setIsError] = useState(false);
   const [errMessage, setErrMessage] = useState('');
 
+  const { googleSignIn, facebookSignIn, SignUp, user } = UserAuth();
+
+
   const handleSignUpWithGoogle = () => {
     //Codes here
   };
@@ -46,13 +51,12 @@ function SignUpForm() {
     //Codes here.
   };
 
-  const handleChange = (e) => {
+  const handleChangeUserType = (e) => {
     setUserType(e.target.value);
-    // Codes here.
-    //console.log(e.target.value);
+
   };
 
-  const SubmitHandler = async (e) => {
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -66,7 +70,10 @@ function SignUpForm() {
     else {
 
       try {
-        const docRef = await addDoc(collection(db, 'users'), {
+        SignUp(email,password);
+    
+
+       /*  const docRef = await addDoc(collection(db, 'users'), {
           timestamp: serverTimestamp(),
           firstname: firstName,
           lastname: lastName,
@@ -75,7 +82,7 @@ function SignUpForm() {
           recieve: recieve,
           usertype: userType
         });
-        console.log('User added to database with ID: ', docRef.id);
+        console.log('User added to database with ID: ', docRef.id); */
         setName('');
         setLastName('');
         setEmail('');
@@ -98,8 +105,8 @@ function SignUpForm() {
           mainLogo="loginLogo"
         ></Logo>
       </div>
-      <div className="formContainer form-wrapper">
-        <form onSubmit={SubmitHandler} href="login" >
+      <div className="formContainer">
+        <form onSubmit={handleSubmitForm}  >
           {/* Beginning of grid */}
           <Grid
             container
@@ -118,7 +125,7 @@ function SignUpForm() {
                 required
                 id="firstName"
                 label="First Name"
-                fullWidth
+                fullWidth="full"
                 value={firstName}
                 onChange={(event) => setName(event.target.value)}
               />
@@ -132,7 +139,7 @@ function SignUpForm() {
                 required
                 id="lastName"
                 label="Last Name"
-                fullWidth
+                fullWidth="full"
                 value={lastName}
                 onChange={(event) => setLastName(event.target.value)}
               />
@@ -164,7 +171,7 @@ function SignUpForm() {
           <TextField
             margin="normal"
             required
-            fullWidth
+            fullWidth="full"
             name="password2"
             label="Confirm Password"
             type="password"
@@ -177,7 +184,7 @@ function SignUpForm() {
             color="primary"
             value={userType}
             exclusive
-            onChange={handleChange}
+            onChange={handleChangeUserType}
             aria-label="user"
             sx={{ mt: 1.5 }}
             fullWidth="full"
@@ -200,6 +207,7 @@ function SignUpForm() {
             </ToggleButton>
           </ToggleButtonGroup>
           {/* checkbutton */}
+          <div className="margin-break"></div>
           <FormControlLabel
             control={
               <Checkbox
@@ -210,9 +218,10 @@ function SignUpForm() {
             }
             label="I want to receive inspiration, marketing, promotions, and updates via email"
           />
+          <div className="margin-break"></div>
           <Button
             type="submit"
-            fullWidth
+            fullWidth="full"
             variant="contained"
             //href="/"  // This was causing the add document not to work.
             size="large"

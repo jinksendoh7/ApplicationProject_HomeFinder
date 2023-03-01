@@ -23,12 +23,7 @@ import reset from '../../../pages/reset-password/ResetPasswordPage';
 
 function LoginForm() {
   // Provide Context
-  const { googleSignIn, user } = UserAuth();
-  const { facebookSignIn } = UserAuth();
-
-  const responseFacebook = (response) => {
-    console.log(response);
-  };
+  const { googleSignIn, facebookSignIn, user } = UserAuth();
 
   const navigate = useNavigate();
 
@@ -114,7 +109,7 @@ function LoginForm() {
             container
             spacing={2}
             columns={16}
-            justifyContent="space-around"
+            justifyContent="space-between"
             alignItems="center"
           >
             <Grid
@@ -139,7 +134,7 @@ function LoginForm() {
             >
               <Button
                 variant="outlined"
-                onClick={handleGoogleSignIn}
+                onClick= {handleFacbookSignIn}
               >
                 <img
                   src={FacebookIcon}
