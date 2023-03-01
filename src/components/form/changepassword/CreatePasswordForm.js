@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+//import { useState } from "react";
+//import { useNavigate } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -10,10 +10,10 @@ import Copyright from "../../copyright/CopyRight";
 
 
 function ChangePasswordForm() {
-  const navigate = useNavigate();
+ // const navigate = useNavigate();
 
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+ // const [password, setPassword] = useState("");
+ // const [errorMessage, setErrorMessage] = useState("");
 
   return (
     <div className="bg">
