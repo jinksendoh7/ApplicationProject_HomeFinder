@@ -60,21 +60,6 @@ function SignUpForm() {
     //console.log(e.target.value);
   };
 
-  const newUser = () => {
-    let userID = '';
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential)=>{
-          //Signed In
-          const user = userCredential.user;
-          userID = user.uid;
-          console.log(userID, user);
-          console.log(user.uid);
-          return userID
-        }).catch ((error) => {
-         console.log(error.message);
-        })
-  } 
-
   const SubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -89,10 +74,13 @@ function SignUpForm() {
     else {
       setIsSuccess(true);
       setSuccessMessage('Welcome to HomeFinder!');
+
+      createUserWithEmailAndPassword(auth, email, password).then(
+        async (result) => {
+          console.log(result)
       try {
-        const userUID = newUser()
         const docRef = await addDoc(collection(db, 'users'), {
-          uid: userUID,
+          uid: `${result.user.uid}`,
           timestamp: serverTimestamp(),
           firstname: firstName,
           lastname: lastName,
@@ -115,7 +103,7 @@ function SignUpForm() {
         navigate('/');
       } catch (e) {
         console.error('Error adding user: ', e);
-      }
+      } })
     }
   }
 
