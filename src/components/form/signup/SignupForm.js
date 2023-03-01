@@ -254,6 +254,7 @@ function SignUpForm() {
               sm={8}
             >
               <Button
+                disabled="true" // // Disabled the signin button temporarily, until fix is found.
                 variant="outlined"
                 onClick={handleSignUpWithFaceBook}
               >
