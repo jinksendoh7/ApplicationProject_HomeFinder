@@ -16,14 +16,15 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 
 import CopyRight from '../../copyright/CopyRight';
+import SuccessComponent from '../../success/SuccessComponent';
+import ErrorComponent from '../../error/ErrorComponent';
 import './SignupForm.css';
 
 import { db } from '../../../configs/FirebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { UserAuth } from '../../../contexts/auth/AuthContext';
+import { auth } from '../../../configs/FirebaseConfig';
 
-
-import ErrorComponent from '../../error/ErrorComponent';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 import StorageService from '../../../services/storage/StorageService';
 
@@ -40,7 +41,10 @@ function SignUpForm() {
   const [isError, setIsError] = useState(false);
   const [errMessage, setErrMessage] = useState('');
 
-  const { googleSignIn, facebookSignIn, SignUp, user } = UserAuth();
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+
 
 
   const handleSignUpWithGoogle = () => {
@@ -68,12 +72,15 @@ function SignUpForm() {
       setErrMessage('Password length must be greater then 4 characters');
     }
     else {
+      setIsSuccess(true);
+      setSuccessMessage('Welcome to HomeFinder!');
 
+      createUserWithEmailAndPassword(auth, email, password).then(
+        async (result) => {
+          console.log(result)
       try {
-        SignUp(email,password);
-    
-
-       /*  const docRef = await addDoc(collection(db, 'users'), {
+        const docRef = await addDoc(collection(db, 'users'), {
+          uid: `${result.user.uid}`,
           timestamp: serverTimestamp(),
           firstname: firstName,
           lastname: lastName,
@@ -81,8 +88,11 @@ function SignUpForm() {
           password: password,
           recieve: recieve,
           usertype: userType
-        });
-        console.log('User added to database with ID: ', docRef.id); */
+        },
+        {
+          merge: true
+        })
+        console.log('User added to database with ID: ', docRef.id);
         setName('');
         setLastName('');
         setEmail('');
@@ -93,7 +103,7 @@ function SignUpForm() {
         navigate('/');
       } catch (e) {
         console.error('Error adding user: ', e);
-      }
+      } })
     }
   }
 
@@ -223,13 +233,13 @@ function SignUpForm() {
             type="submit"
             fullWidth="full"
             variant="contained"
-            //href="/"  // This was causing the add document not to work.
             size="large"
           >
             Sign Up
           </Button>
           <div class="error-error">
             {isError && <ErrorComponent message= {errMessage} />}
+            {isSuccess && <SuccessComponent message={successMessage} />}
           </div>
           <div class="margin-break"></div>
           <Typography align="center"> OR </Typography>
@@ -263,6 +273,7 @@ function SignUpForm() {
               sm={8}
             >
               <Button
+                disabled="true" // // Disabled the signin button temporarily, until fix is found.
                 variant="outlined"
                 onClick={handleSignUpWithFaceBook}
               >
