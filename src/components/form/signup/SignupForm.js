@@ -23,7 +23,7 @@ import './SignupForm.css';
 import { db } from '../../../configs/FirebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { auth } from '../../../configs/FirebaseConfig';
-
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 
@@ -46,9 +46,40 @@ function SignUpForm() {
 
 
 
-  const handleSignUpWithGoogle = () => {
-    //Codes here
-  };
+  const handleSignUpWithGoogle = async (e) => {
+    e.preventDefault();
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        const name = result.user.displayName;
+        const email = result.user.email;
+        console.log('My name is : ', name);
+        console.log('My email is: ', email)
+      try {
+        await addDoc(collection(db, 'users'), {
+          uid: `${result.user.uid}`,
+          timestamp: serverTimestamp(),
+          name: name,
+          email: email,
+          recieve: recieve,
+          usertype: userType
+        },
+        {
+          merge: true
+        })
+        setName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setUserType('');
+        setRecieve(false);
+        navigate('/');
+      }catch(e) {
+        console.log(e);
+      }
+    })
+  }
 
   const handleSignUpWithFaceBook = () => {
     //Codes here.
@@ -56,7 +87,6 @@ function SignUpForm() {
 
   const handleChange = (e) => {
     setUserType(e.target.value);
-    // Codes here.
     //console.log(e.target.value);
   };
 
@@ -78,32 +108,33 @@ function SignUpForm() {
       createUserWithEmailAndPassword(auth, email, password).then(
         async (result) => {
           console.log(result)
-      try {
-        const docRef = await addDoc(collection(db, 'users'), {
-          uid: `${result.user.uid}`,
-          timestamp: serverTimestamp(),
-          firstname: firstName,
-          lastname: lastName,
-          email: email,
-          password: password,
-          recieve: recieve,
-          usertype: userType
-        },
-        {
-          merge: true
+          try {
+            const docRef = await addDoc(collection(db, 'users'), {
+              uid: `${result.user.uid}`,
+              timestamp: serverTimestamp(),
+              firstname: firstName,
+              lastname: lastName,
+              email: email,
+              password: password,
+              recieve: recieve,
+              usertype: userType
+            },
+              {
+                merge: true
+              })
+            console.log('User added to database with ID: ', docRef.id);
+            setName('');
+            setLastName('');
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
+            setUserType('');
+            setRecieve(false);
+            navigate('/');
+          } catch (e) {
+            console.error('Error adding user: ', e);
+          }
         })
-        console.log('User added to database with ID: ', docRef.id);
-        setName('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
-        setUserType('');
-        setRecieve(false);
-        navigate('/');
-      } catch (e) {
-        console.error('Error adding user: ', e);
-      } })
     }
   }
 
@@ -178,6 +209,7 @@ function SignUpForm() {
             onChange={(event) => setPassword(event.target.value)}
             autoComplete="current-password"
           />
+          {/*Confirm Password Field */}
           <TextField
             margin="normal"
             required
@@ -190,6 +222,7 @@ function SignUpForm() {
             onChange={(event) => setConfirmPassword(event.target.value)}
             autoComplete="current-password"
           />
+          {/*Home Owner/Member Select Field */}
           <ToggleButtonGroup
             color="primary"
             value={userType}
@@ -216,7 +249,7 @@ function SignUpForm() {
               Member User
             </ToggleButton>
           </ToggleButtonGroup>
-          {/* checkbutton */}
+          {/* Check Button Field To Receieve Updates etc. */}
           <FormControlLabel
             control={
               <Checkbox
@@ -227,6 +260,7 @@ function SignUpForm() {
             }
             label="I want to receive inspiration, marketing, promotions, and updates via email"
           />
+          {/*SIGN UP BUTTON */}
           <Button
             type="submit"
             fullWidth
@@ -235,13 +269,15 @@ function SignUpForm() {
           >
             Sign Up
           </Button>
-          <div class="error-error">
-            {isError && <ErrorComponent message= {errMessage} />}
+          {/*ERROR/SUCCESS MESSAGE DIV */}
+          <div class="error-success">
+            {isError && <ErrorComponent message={errMessage} />}
             {isSuccess && <SuccessComponent message={successMessage} />}
           </div>
           <div class="margin-break"></div>
           <Typography align="center"> OR </Typography>
           <div class="margin-break"></div>
+          {/*GOOGLE SIGNUP/ FACEBOOK SIGNUP */}
           <Grid
             container
             spacing={2}
