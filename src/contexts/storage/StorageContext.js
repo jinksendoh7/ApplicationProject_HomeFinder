@@ -1,4 +1,4 @@
-import { useContext, createContext } from 'react';
+/*import { useContext, createContext } from 'react';
 import { db } from "../../configs/FirebaseConfig";
 import { collection, addDoc} from 'firebase/firestore';
 
@@ -16,5 +16,5 @@ export const StorageContextProvider = ({ children }) => {
 
 export const StorageAuth = () => {
     return useContext(StorageContext);
-};
+}; */
 

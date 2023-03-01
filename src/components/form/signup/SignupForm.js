@@ -10,6 +10,9 @@ import Grid from '@mui/material/Grid';
 import GoogleIcon from '../../../assets/images/google.svg';
 import FacebookIcon from '../../../assets/images/facebook.svg';
 import { Typography } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+import { Alert, AlertTitle } from '@mui/material';
+
 
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -17,8 +20,12 @@ import ToggleButton from '@mui/material/ToggleButton';
 import CopyRight from '../../copyright/CopyRight';
 import './SignupForm.css';
 
+import { db } from '../../../configs/FirebaseConfig';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
 
 function SignUpForm() {
+  const navigate = useNavigate();
   const [firstName, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -27,16 +34,7 @@ function SignUpForm() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [recieve, setRecieve] = useState(false);
 
-
-  console.log(firstName);
-  console.log(lastName);
-  console.log(email);
-  console.log(password);
-  console.log(userType);
-  console.log(confirmPassword);
-  console.log(recieve);
-
-  //const [errorMessage, setErrorMessage] = useState('');
+  const [error, setError] = useState('');
 
   const handleSignUpWithGoogle = () => {
     //Codes here
@@ -51,9 +49,56 @@ function SignUpForm() {
     // Codes here.
     //console.log(e.target.value);
   };
-  
-  const SubmitHandler = () => {
 
+  const SubmitHandler = async (e) => {
+    e.preventDefault();
+
+    if (firstName === '' || lastName === '' || email === '' || password === '' || confirmPassword === '') {
+      return
+    }
+    if (password !== confirmPassword) {
+      setError(
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          Passwords do not match.
+        </Alert>
+      );
+      return
+    }
+    if (password.length <= 4 || confirmPassword <= 4) {
+       setError(
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          Password must be greater then 4 characters.
+        </Alert>
+      );
+      return
+    }
+    else {
+
+      try {
+        const docRef = await addDoc(collection(db, 'users'), {
+          timestamp: serverTimestamp(),
+          firstname: firstName,
+          lastname: lastName,
+          email: email,
+          password: password,
+          recieve: recieve,
+          usertype: userType
+        });
+        console.log('User added to database with ID: ', docRef.id);
+        setName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setUserType('');
+        setRecieve(false);
+        navigate('/');
+      } catch (e) {
+        console.error('Error adding user: ', e);
+      }
+    }
   }
 
   return (
@@ -65,7 +110,7 @@ function SignUpForm() {
         ></Logo>
       </div>
       <div className="formContainer form-wrapper">
-        <form onSubmit = {SubmitHandler}>
+        <form onSubmit={SubmitHandler} href="login" >
           {/* Beginning of grid */}
           <Grid
             container
@@ -169,8 +214,8 @@ function SignUpForm() {
           <FormControlLabel
             control={
               <Checkbox
-                value= {recieve}
-                onChange= {() => setRecieve(!recieve)}
+                checked={recieve}  // changed value to checked to enable the false state set after submission to uncheck if was checked originally.
+                onChange={(e) => setRecieve(e.target.checked)}
                 color="primary"
               />
             }
@@ -180,11 +225,16 @@ function SignUpForm() {
             type="submit"
             fullWidth
             variant="contained"
-            href="/"
+            //href="/"  // This was causing the add document not to work.
             size="large"
           >
             Sign Up
           </Button>
+          <div class="error-error">
+
+            {error}
+
+          </div>
           <div class="margin-break"></div>
           <Typography align="center"> OR </Typography>
           <div class="margin-break"></div>
