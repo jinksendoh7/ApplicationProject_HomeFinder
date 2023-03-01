@@ -11,18 +11,20 @@ import GoogleIcon from '../../../assets/images/google.svg';
 import FacebookIcon from '../../../assets/images/facebook.svg';
 import { Typography } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import { Alert, AlertTitle } from '@mui/material';
-
 
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 
 import CopyRight from '../../copyright/CopyRight';
+import SuccessComponent from '../../success/SuccessComponent';
+import ErrorComponent from '../../error/ErrorComponent';
 import './SignupForm.css';
 
 import { db } from '../../../configs/FirebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import ErrorComponent from '../../error/ErrorComponent';
+import { auth } from '../../../configs/FirebaseConfig';
+
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 
 function SignUpForm() {
@@ -38,6 +40,12 @@ function SignUpForm() {
   const [isError, setIsError] = useState(false);
   const [errMessage, setErrMessage] = useState('');
 
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+
+
+
   const handleSignUpWithGoogle = () => {
     //Codes here
   };
@@ -52,6 +60,21 @@ function SignUpForm() {
     //console.log(e.target.value);
   };
 
+  const newUser = () => {
+    let userID = '';
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential)=>{
+          //Signed In
+          const user = userCredential.user;
+          userID = user.uid;
+          console.log(userID, user);
+          console.log(user.uid);
+          return userID
+        }).catch ((error) => {
+         console.log(error.message);
+        })
+  } 
+
   const SubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -64,9 +87,12 @@ function SignUpForm() {
       setErrMessage('Password length must be greater then 4 characters');
     }
     else {
-
+      setIsSuccess(true);
+      setSuccessMessage('Welcome to HomeFinder!');
       try {
+        const userUID = newUser()
         const docRef = await addDoc(collection(db, 'users'), {
+          uid: userUID,
           timestamp: serverTimestamp(),
           firstname: firstName,
           lastname: lastName,
@@ -74,7 +100,10 @@ function SignUpForm() {
           password: password,
           recieve: recieve,
           usertype: userType
-        });
+        },
+        {
+          merge: true
+        })
         console.log('User added to database with ID: ', docRef.id);
         setName('');
         setLastName('');
@@ -214,13 +243,13 @@ function SignUpForm() {
             type="submit"
             fullWidth
             variant="contained"
-            //href="/"  // This was causing the add document not to work.
             size="large"
           >
             Sign Up
           </Button>
           <div class="error-error">
             {isError && <ErrorComponent message= {errMessage} />}
+            {isSuccess && <SuccessComponent message={successMessage} />}
           </div>
           <div class="margin-break"></div>
           <Typography align="center"> OR </Typography>
