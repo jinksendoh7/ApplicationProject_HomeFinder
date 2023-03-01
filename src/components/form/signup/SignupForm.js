@@ -22,6 +22,7 @@ import './SignupForm.css';
 
 import { db } from '../../../configs/FirebaseConfig';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import ErrorComponent from '../../error/ErrorComponent';
 
 
 function SignUpForm() {
@@ -30,11 +31,12 @@ function SignUpForm() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState('');
+  const [userType, setUserType] = useState('memberUser');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [recieve, setRecieve] = useState(false);
 
-  const [error, setError] = useState('');
+  const [isError, setIsError] = useState(false);
+  const [errMessage, setErrMessage] = useState('');
 
   const handleSignUpWithGoogle = () => {
     //Codes here
@@ -53,26 +55,13 @@ function SignUpForm() {
   const SubmitHandler = async (e) => {
     e.preventDefault();
 
-    if (firstName === '' || lastName === '' || email === '' || password === '' || confirmPassword === '') {
-      return
-    }
     if (password !== confirmPassword) {
-      setError(
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          Passwords do not match.
-        </Alert>
-      );
-      return
+      setIsError(true);
+      setErrMessage('Passwords do not match.');
     }
-    if (password.length <= 4 || confirmPassword <= 4) {
-       setError(
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          Password must be greater then 4 characters.
-        </Alert>
-      );
-      return
+    else if (password.length <= 4 || confirmPassword <= 4) {
+      setIsError(true);
+      setErrMessage('Password length must be greater then 4 characters');
     }
     else {
 
@@ -231,9 +220,7 @@ function SignUpForm() {
             Sign Up
           </Button>
           <div class="error-error">
-
-            {error}
-
+            {isError && <ErrorComponent message= {errMessage} />}
           </div>
           <div class="margin-break"></div>
           <Typography align="center"> OR </Typography>
