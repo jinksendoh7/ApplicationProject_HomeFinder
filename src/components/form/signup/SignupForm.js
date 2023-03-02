@@ -44,9 +44,40 @@ function SignUpForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
-  const handleSignUpWithGoogle = () => {
-    //Codes here
-  };
+  const handleSignUpWithGoogle = async (e) => {
+    e.preventDefault();
+   /*  const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then(async (result) => {
+        const name = result.user.displayName;
+        const email = result.user.email;
+        console.log('My name is : ', name);
+        console.log('My email is: ', email)
+      try {
+        await addDoc(collection(db, 'users'), {
+          uid: `${result.user.uid}`,
+          timestamp: serverTimestamp(),
+          name: name,
+          email: email,
+          recieve: recieve,
+          usertype: userType
+        },
+        {
+          merge: true
+        })
+        setName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setUserType('');
+        setRecieve(false);
+        navigate('/');
+      }catch(e) {
+        console.log(e);
+      }
+    }) */
+  }
 
   const handleSignUpWithFaceBook = () => {
     //Codes here.
@@ -54,7 +85,6 @@ function SignUpForm() {
 
   const handleChangeUserType = (e) => {
     setUserType(e.target.value);
-
   };
 
   const clearForm = () =>{
@@ -184,6 +214,7 @@ function SignUpForm() {
             onChange={(event) => setPassword(event.target.value)}
             autoComplete="current-password"
           />
+          {/*Confirm Password Field */}
           <TextField
             margin="normal"
             required
@@ -196,6 +227,7 @@ function SignUpForm() {
             onChange={(event) => setConfirmPassword(event.target.value)}
             autoComplete="current-password"
           />
+          {/*Home Owner/Member Select Field */}
           <ToggleButtonGroup
             color="primary"
             value={userType}
@@ -246,6 +278,7 @@ function SignUpForm() {
           <div class="margin-break"></div>
           <Typography align="center"> OR </Typography>
           <div class="margin-break"></div>
+          {/*GOOGLE SIGNUP/ FACEBOOK SIGNUP */}
           <Grid
             container
             spacing={2}

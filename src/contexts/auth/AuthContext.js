@@ -29,7 +29,7 @@ export const AuthContextProvider = ({ children }) => {
     return userInfo;
   }
   // eslint-disable-next-line
-  const Login = (email, password) => {
+  const LoginWithFirebaseAuth = (email, password) => {
     signInWithEmailAndPassword(email, password)
   }
   const LogOut = () => {
@@ -70,7 +70,14 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ googleSignIn, facebookSignIn, SignUpWithFirebaseAuth, LogOut, user }}>
+    <AuthContext.Provider value={{ 
+          googleSignIn,
+          facebookSignIn,
+          SignUpWithFirebaseAuth,
+          LoginWithFirebaseAuth,
+          LogOut,
+          user
+          }}>
       {children}
     </AuthContext.Provider>
   );
