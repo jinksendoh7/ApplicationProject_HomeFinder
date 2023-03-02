@@ -29,8 +29,10 @@ export const AuthContextProvider = ({ children }) => {
     return userInfo;
   }
   // eslint-disable-next-line
-  const LoginWithFirebaseAuth = (email, password) => {
-    signInWithEmailAndPassword(email, password)
+  const LoginWithFirebaseAuth = async (email, password) => {
+  
+   const result =  await signInWithEmailAndPassword(auth, email, password);
+    console.log(result.user);
   }
 
   const SignUpWithGoogle = async()=>{

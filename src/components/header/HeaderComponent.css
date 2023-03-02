@@ -1,0 +1,38 @@
+.headerLogo{
+    height: 140px;
+
+}
+.wrapperHeaderLogo{
+   margin-left: 1rem;
+}
+.drawerLogo{
+    width: 100%;
+    height: 110px;
+    margin: 0 auto;
+   
+}
+
+.top-header{
+    background-color: #1976d2;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    color: #FFF;
+    padding: .5rem 2rem;
+    justify-content: space-between;
+  }
+  .left-header{
+    display: inline-block;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    font-size: 1rem !important;
+    margin: 0 1rem;
+  }
+
+@media only screen and (max-width: 600px) { /* For Mobile Screen */
+  .hidden-sm{
+    display:none;
+  }
+}
