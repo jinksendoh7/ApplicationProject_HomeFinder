@@ -20,17 +20,17 @@ import SuccessComponent from '../../success/SuccessComponent';
 import ErrorComponent from '../../error/ErrorComponent';
 import './SignupForm.css';
 
-import { db } from '../../../configs/FirebaseConfig';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { auth } from '../../../configs/FirebaseConfig';
+import { serverTimestamp } from 'firebase/firestore';
 
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-
+import { UserAuth } from '../../../contexts/auth/AuthContext';
 import StorageService from '../../../services/storage/StorageService';
 
 function SignUpForm() {
   const navigate = useNavigate();
-  const [firstName, setName] = useState('');
+  const { SignUpWithFirebaseAuth } = UserAuth();
+
+
+  const [firstName, setfirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,9 +43,6 @@ function SignUpForm() {
 
   const [isSuccess, setIsSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
-
-
-
 
   const handleSignUpWithGoogle = () => {
     //Codes here
@@ -60,6 +57,17 @@ function SignUpForm() {
 
   };
 
+  const clearForm = () =>{
+    // clear controls
+    setfirstName('');
+    setLastName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setUserType('');
+    setRecieve(false);
+ }
+ 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
@@ -72,40 +80,33 @@ function SignUpForm() {
       setErrMessage('Password length must be greater then 4 characters');
     }
     else {
-      setIsSuccess(true);
-      setSuccessMessage('Welcome to HomeFinder!');
-
-      createUserWithEmailAndPassword(auth, email, password).then(
-        async (result) => {
-          console.log(result)
-      try {
-        const docRef = await addDoc(collection(db, 'users'), {
-          uid: `${result.user.uid}`,
-          timestamp: serverTimestamp(),
-          firstname: firstName,
-          lastname: lastName,
-          email: email,
-          password: password,
-          recieve: recieve,
-          usertype: userType
-        },
-        {
-          merge: true
-        })
-        console.log('User added to database with ID: ', docRef.id);
-        setName('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
-        setUserType('');
-        setRecieve(false);
-        navigate('/');
-      } catch (e) {
-        console.error('Error adding user: ', e);
-      } })
+      const userInfo =  await SignUpWithFirebaseAuth(email, password);
+          try {
+            const docRef = await StorageService.createDoc('users', {
+                  uid: `${userInfo.uid}`,
+                  timestamp: serverTimestamp(),
+                  firstname: firstName,
+                  lastname: lastName,
+                  email: email,
+                  password: password,
+                  recieve: recieve,
+                  usertype: userType
+                });
+            console.log('User added to database with ID: ', docRef.id);
+            clearForm();
+            setIsSuccess(true);
+            setSuccessMessage('Welcome to HomeFinder!');
+            navigate('/dashboard');
+        } catch (e) {
+            console.error('Error adding user: ', e);
+            setIsError(true);
+            setErrMessage(e.message);
+            setIsSuccess(false);
+          } 
+    
     }
   }
+
 
   return (
     <div className="bg">
@@ -116,6 +117,11 @@ function SignUpForm() {
         ></Logo>
       </div>
       <div className="formContainer">
+      
+          <div class="error-error">
+            {isError && <ErrorComponent message= {errMessage} />}
+            {isSuccess && <SuccessComponent message={successMessage} />}
+          </div>
         <form onSubmit={handleSubmitForm}  >
           {/* Beginning of grid */}
           <Grid
@@ -137,7 +143,7 @@ function SignUpForm() {
                 label="First Name"
                 fullWidth="full"
                 value={firstName}
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => setfirstName(event.target.value)}
               />
             </Grid>
             <Grid
@@ -237,10 +243,6 @@ function SignUpForm() {
           >
             Sign Up
           </Button>
-          <div class="error-error">
-            {isError && <ErrorComponent message= {errMessage} />}
-            {isSuccess && <SuccessComponent message={successMessage} />}
-          </div>
           <div class="margin-break"></div>
           <Typography align="center"> OR </Typography>
           <div class="margin-break"></div>

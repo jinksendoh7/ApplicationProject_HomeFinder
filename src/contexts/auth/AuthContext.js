@@ -19,12 +19,14 @@ export const AuthContextProvider = ({ children }) => {
 
   // Email and Password Logins here
   // eslint-disable-next-line
-  const Signup = (email, password) => {
-    createUserWithEmailAndPassword(email, password)
-    .then((result) => {
-      setUser(result.user);
-    })
-
+  const SignUpWithFirebaseAuth = async (email, password) => {
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    const userInfo = {
+      uid: result.user.uid,
+      email: result.email
+    };
+    setUser(userInfo);
+    return userInfo;
   }
   // eslint-disable-next-line
   const Login = (email, password) => {
@@ -68,7 +70,7 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ googleSignIn, facebookSignIn, LogOut, user }}>
+    <AuthContext.Provider value={{ googleSignIn, facebookSignIn, SignUpWithFirebaseAuth, LogOut, user }}>
       {children}
     </AuthContext.Provider>
   );

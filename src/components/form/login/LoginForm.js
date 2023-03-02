@@ -22,7 +22,7 @@ import CopyRight from '../../copyright/CopyRight';
 import reset from '../../../pages/reset-password/ResetPasswordPage';
 
 function LoginForm() {
-  // Provide Context
+  // Inject Context
   const { googleSignIn, facebookSignIn, user } = UserAuth();
 
   const navigate = useNavigate();

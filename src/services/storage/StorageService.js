@@ -1,18 +1,18 @@
 
-import { db } from '../../../configs/FirebaseConfig';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../../configs/FirebaseConfig';
+import { collection, addDoc } from 'firebase/firestore';
 
-class StorageService {
+export default class StorageService {
 
-    static async addData(docName, doc){
+    static async createDoc(docName, doc){
+        console.log(docName, doc);
         try {
             const docRef = await addDoc(collection(db, docName), doc);
+            return docRef;
         }
         catch(e){
-            console.log('Error saving in ', docName, doc);
+            console.log('Error saving in ', docName, 'with collection name =>', doc);
         } 
     }
 
 }
-
-module.exports = StorageService;
