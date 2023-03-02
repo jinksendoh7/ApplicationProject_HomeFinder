@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,6 +20,8 @@ import PhoneIphoneOutlinedIcon from '@mui/icons-material/PhoneIphoneOutlined';
 import LocalPostOfficeOutlinedIcon from '@mui/icons-material/LocalPostOfficeOutlined';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import GoogleIcon from '@mui/icons-material/Google';
+import { UserAuth } from '../../contexts/auth/AuthContext';
+import { RoutesConst } from '../../constants/AppConstants';
 
 import './HeaderComponent.css'
 const drawerWidth = 240;
@@ -27,6 +30,9 @@ const navItems = ['Rental Listing', 'Book a Virtual Tour', 'Tenants', 'Owners', 
 export default function HeaderComponent(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const { LogoutWithFirebaseAuth } = UserAuth();
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -51,6 +57,16 @@ export default function HeaderComponent(props) {
     </Box>
   );
 
+  const handleLogout = async() =>{
+      try {
+        await LogoutWithFirebaseAuth();
+        navigate(RoutesConst.SignIn)
+      } catch (error) {
+        console.log(error);
+      
+      }
+     }
+
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
@@ -69,7 +85,7 @@ export default function HeaderComponent(props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { md: 'none' } }}
           >
             <MenuIcon />
           </IconButton>
@@ -86,13 +102,18 @@ export default function HeaderComponent(props) {
             </div>
           </Typography>
         
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Box sx={{ display: { xs: 'none', md: 'block' } }}>
             {navItems.map((item) => (
               <Button key={item} sx={{ color: '#fff' }}>
                 {item}
               </Button>
             ))}
+        
           </Box>
+          <Button variant="contained" color="success" 
+            onClick={handleLogout} sx={{ mr: 3 }} >
+                Logout
+            </Button>
         </Toolbar>
       </AppBar>
       <Box component="nav">

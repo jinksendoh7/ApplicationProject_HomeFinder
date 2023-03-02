@@ -49,7 +49,7 @@ export const AuthContextProvider = ({ children }) => {
       return userInfo;
   
   }
-  const LogOut = () => {
+  const LogoutWithFirebaseAuth = async() => {
     signOut(auth)
   }
 
@@ -100,7 +100,7 @@ export const AuthContextProvider = ({ children }) => {
           SignUpWithFirebaseAuth,
           SignUpWithGoogle,
           LoginWithFirebaseAuth,
-          LogOut,
+          LogoutWithFirebaseAuth,
           user
           }}>
       {children}
