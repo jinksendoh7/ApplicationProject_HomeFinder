@@ -1,6 +1,6 @@
 import { useContext, createContext, useEffect, useState } from 'react';
 import {
-  FacebookAuthProvider,
+  //FacebookAuthProvider,
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
@@ -19,35 +19,64 @@ export const AuthContextProvider = ({ children }) => {
 
   // Email and Password Logins here
   // eslint-disable-next-line
-  const Signup = (email, password) => {
-    createUserWithEmailAndPassword(email, password)
+  const SignUpWithFirebaseAuth = async (email, password) => {
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    const userInfo = {
+      uid: result.user.uid,
+      email: result.email
+    };
+    setUser(userInfo);
+    return userInfo;
   }
   // eslint-disable-next-line
-  const Login = (email, password) => {
+  const LoginWithFirebaseAuth = (email, password) => {
     signInWithEmailAndPassword(email, password)
+  }
+
+  const SignUpWithGoogle = async()=>{
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+      const userInfo = { 
+          uid: result.user.uid,
+          firstname: result.user.displayName.split(" ")[0],
+          lastname: result.user.displayName.split(" ")[1],
+          email: result.user.email,
+      };
+      console.log(userInfo);
+      setUser(userInfo);
+      return userInfo;
+  
   }
   const LogOut = () => {
     signOut(auth)
   }
 
   // Social Logins Start here
-  const googleSignIn = () => {
+  const googleSignIn = async () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider);
+    const result =  await signInWithPopup(auth, provider);
+    const userInfo = { 
+        uid: result.user.uid,
+        firstname: result.user.displayName.split(" ")[0],
+        lastname: result.user.displayName.split(" ")[1],
+        email: result.user.email,
+    };
+    console.log(userInfo);
+    setUser(userInfo);
     //signInWithRedirect(auth, provider)
   };
 
 
   // Sign in Facebook using a popup.
   const facebookSignIn = () => {
-    const provider = new FacebookAuthProvider();
+    //const provider = new FacebookAuthProvider();
    
-    const result = signInWithPopup(auth, provider);
+   // const result = signInWithPopup(auth, provider);
 
     // The signed-in user info.
     // const user = result.user;
     // This gives you a Facebook Access Token.
-    const credential = FacebookAuthProvider.credentialFromResult(result);
+    // const credential = FacebookAuthProvider.credentialFromResult(result);
     // const token = credential.accessToken;
   }
 
@@ -56,7 +85,6 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log('User Loggedin', currentUser)
     });
     return () => {
       unsubscribe();
@@ -64,7 +92,15 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ googleSignIn, facebookSignIn, LogOut, user }}>
+    <AuthContext.Provider value={{ 
+          googleSignIn,
+          facebookSignIn,
+          SignUpWithFirebaseAuth,
+          SignUpWithGoogle,
+          LoginWithFirebaseAuth,
+          LogOut,
+          user
+          }}>
       {children}
     </AuthContext.Provider>
   );

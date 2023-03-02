@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
@@ -20,16 +21,18 @@ import SuccessComponent from '../../success/SuccessComponent';
 import ErrorComponent from '../../error/ErrorComponent';
 import './SignupForm.css';
 
-import { db } from '../../../configs/FirebaseConfig';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { auth } from '../../../configs/FirebaseConfig';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { serverTimestamp } from 'firebase/firestore';
 
+import { UserAuth } from '../../../contexts/auth/AuthContext';
+import StorageService from '../../../services/storage/StorageService';
+
+import { FireStoreConst } from '../../../constants/FirebaseConstants';
 
 function SignUpForm() {
+  const { SignUpWithFirebaseAuth, SignUpWithGoogle} = UserAuth();
   const navigate = useNavigate();
-  const [firstName, setName] = useState('');
+
+  const [firstName, setfirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -43,54 +46,54 @@ function SignUpForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
 
-
-
-
   const handleSignUpWithGoogle = async (e) => {
     e.preventDefault();
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then(async (result) => {
-        const name = result.user.displayName;
-        const email = result.user.email;
-        console.log('My name is : ', name);
-        console.log('My email is: ', email)
-      try {
-        await addDoc(collection(db, 'users'), {
-          uid: `${result.user.uid}`,
-          timestamp: serverTimestamp(),
-          name: name,
-          email: email,
-          recieve: recieve,
-          usertype: userType
-        },
-        {
-          merge: true
-        })
-        setName('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
-        setUserType('');
-        setRecieve(false);
-        navigate('/');
-      }catch(e) {
-        console.log(e);
-      }
-    })
+    const userInfo =  await SignUpWithGoogle();
+          try {
+            const docRef = await StorageService.createDoc(FireStoreConst.USER_DOC, {
+                  uid: `${userInfo.uid}`,
+                  timestamp: serverTimestamp(),
+                  firstname:`${userInfo.firstname}`,
+                  lastname: `${userInfo.lastname}`,
+                  email: `${userInfo.email}`,
+                  recieve: recieve,
+                  usertype: userType
+                });
+            console.log('User added to database with ID: ', docRef.id);
+            clearForm();
+            setIsSuccess(true);
+            setSuccessMessage('Welcome to HomeFinder!');
+       
+         
+        } catch (e) {
+            console.error('Error adding user: ', e);
+            setIsError(true);
+            setErrMessage(e.message);
+            setIsSuccess(false);
+            navigate('/dashboard');
+          } 
   }
 
   const handleSignUpWithFaceBook = () => {
     //Codes here.
   };
 
-  const handleChange = (e) => {
+  const handleChangeUserType = (e) => {
     setUserType(e.target.value);
-    //console.log(e.target.value);
   };
 
-  const SubmitHandler = async (e) => {
+  const clearForm = () =>{
+    // clear controls
+    setfirstName('');
+    setLastName('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setUserType('');
+    setRecieve(false);
+ }
+ 
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -102,39 +105,30 @@ function SignUpForm() {
       setErrMessage('Password length must be greater then 4 characters');
     }
     else {
-      setIsSuccess(true);
-      setSuccessMessage('Welcome to HomeFinder!');
-
-      createUserWithEmailAndPassword(auth, email, password).then(
-        async (result) => {
-          console.log(result)
+      const userInfo =  await SignUpWithFirebaseAuth(email, password);
           try {
-            const docRef = await addDoc(collection(db, 'users'), {
-              uid: `${result.user.uid}`,
-              timestamp: serverTimestamp(),
-              firstname: firstName,
-              lastname: lastName,
-              email: email,
-              password: password,
-              recieve: recieve,
-              usertype: userType
-            },
-              {
-                merge: true
-              })
-            console.log('User added to database with ID: ', docRef.id);
-            setName('');
-            setLastName('');
-            setEmail('');
-            setPassword('');
-            setConfirmPassword('');
-            setUserType('');
-            setRecieve(false);
-            navigate('/');
-          } catch (e) {
+            const docRef = await StorageService.createDoc(FireStoreConst.USER_DOC, {
+                  uid: `${userInfo.uid}`,
+                  timestamp: serverTimestamp(),
+                  firstname: firstName,
+                  lastname: lastName,
+                  email: email,
+                  recieve: recieve,
+                  usertype: userType
+                });
+                console.log('User added to database with ID: ', docRef.id);
+                navigate('/dashboard');
+                clearForm();
+                setIsSuccess(true);
+                setSuccessMessage('Welcome to HomeFinder!');
+           
+        } catch (e) {
             console.error('Error adding user: ', e);
-          }
-        })
+            setIsError(true);
+            setErrMessage(e.message);
+            setIsSuccess(false);
+          } 
+    
     }
   }
 
@@ -146,8 +140,13 @@ function SignUpForm() {
           mainLogo="loginLogo"
         ></Logo>
       </div>
-      <div className="formContainer form-wrapper">
-        <form onSubmit={SubmitHandler} href="login" >
+      <div className="formContainer">
+      
+          <div className="error-error">
+            {isError && <ErrorComponent message= {errMessage} />}
+            {isSuccess && <SuccessComponent message={successMessage} />}
+          </div>
+        <form onSubmit={handleSubmitForm}  >
           {/* Beginning of grid */}
           <Grid
             container
@@ -166,9 +165,9 @@ function SignUpForm() {
                 required
                 id="firstName"
                 label="First Name"
-                fullWidth
+                fullWidth={true}
                 value={firstName}
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => setfirstName(event.target.value)}
               />
             </Grid>
             <Grid
@@ -180,7 +179,7 @@ function SignUpForm() {
                 required
                 id="lastName"
                 label="Last Name"
-                fullWidth
+                fullWidth={true}
                 value={lastName}
                 onChange={(event) => setLastName(event.target.value)}
               />
@@ -192,7 +191,7 @@ function SignUpForm() {
             required
             id="email"
             label="Email Address"
-            fullWidth="full"
+            fullWidth={true}
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
@@ -200,7 +199,7 @@ function SignUpForm() {
           <TextField
             margin="normal"
             required
-            fullWidth
+            fullWidth = {true}
             name="password"
             label="Password"
             type="password"
@@ -213,7 +212,7 @@ function SignUpForm() {
           <TextField
             margin="normal"
             required
-            fullWidth
+            fullWidth={true}
             name="password2"
             label="Confirm Password"
             type="password"
@@ -227,10 +226,10 @@ function SignUpForm() {
             color="primary"
             value={userType}
             exclusive
-            onChange={handleChange}
+            onChange={handleChangeUserType}
             aria-label="user"
             sx={{ mt: 1.5 }}
-            fullWidth="full"
+            fullWidth={true}
           >
             <ToggleButton
               sx={{
@@ -249,7 +248,8 @@ function SignUpForm() {
               Member User
             </ToggleButton>
           </ToggleButtonGroup>
-          {/* Check Button Field To Receieve Updates etc. */}
+          {/* checkbutton */}
+          <div className="margin-break"></div>
           <FormControlLabel
             control={
               <Checkbox
@@ -260,23 +260,18 @@ function SignUpForm() {
             }
             label="I want to receive inspiration, marketing, promotions, and updates via email"
           />
-          {/*SIGN UP BUTTON */}
+          <div className="margin-break"></div>
           <Button
             type="submit"
-            fullWidth
+            fullWidth={true}
             variant="contained"
             size="large"
           >
             Sign Up
           </Button>
-          {/*ERROR/SUCCESS MESSAGE DIV */}
-          <div class="error-success">
-            {isError && <ErrorComponent message={errMessage} />}
-            {isSuccess && <SuccessComponent message={successMessage} />}
-          </div>
-          <div class="margin-break"></div>
+          <div className="margin-break"></div>
           <Typography align="center"> OR </Typography>
-          <div class="margin-break"></div>
+          <div className="margin-break"></div>
           {/*GOOGLE SIGNUP/ FACEBOOK SIGNUP */}
           <Grid
             container
@@ -297,7 +292,7 @@ function SignUpForm() {
                 <img
                   src={GoogleIcon}
                   alt='google-icon'
-                  class="icon"
+                  className="icon"
                 />
                 Sign up with Google
               </Button>
@@ -307,14 +302,14 @@ function SignUpForm() {
               sm={8}
             >
               <Button
-                disabled="true" // // Disabled the signin button temporarily, until fix is found.
+                disabled={true} // // Disabled the signin button temporarily, until fix is found.
                 variant="outlined"
                 onClick={handleSignUpWithFaceBook}
               >
                 <img
                   src={FacebookIcon}
                   alt='facebook-icon'
-                  class="icon"
+                  className="icon"
                 />
                 Sign up with Facebook
               </Button>

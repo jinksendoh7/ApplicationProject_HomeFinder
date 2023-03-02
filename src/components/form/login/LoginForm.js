@@ -18,23 +18,18 @@ import '../login/LoginForm.css';
 import Logo from '../../logo/Logo';
 import HomeFinderLogo from '../../../assets/images/HomeFinder_Logo.svg';
 import CopyRight from '../../copyright/CopyRight';
-
-import reset from '../../../pages/reset-password/ResetPasswordPage';
+import ErrorComponent from '../../error/ErrorComponent';
 
 function LoginForm() {
-  // Provide Context
-  const { googleSignIn, user } = UserAuth();
-  const { facebookSignIn } = UserAuth();
-
-  const responseFacebook = (response) => {
-    console.log(response);
-  };
+  // Inject Context
+  const { googleSignIn, facebookSignIn, user } = UserAuth();
 
   const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleGoogleSignIn = async () => {
@@ -42,6 +37,8 @@ function LoginForm() {
       await googleSignIn();
     } catch (error) {
       console.log(error);
+      setIsError(true);
+      setErrorMessage(error.message);
     }
   };
 
@@ -50,6 +47,7 @@ function LoginForm() {
       await facebookSignIn();
     } catch (error) {
       console.log(error);
+
     }
   };
 
@@ -68,6 +66,9 @@ function LoginForm() {
         ></Logo>
       </div>
       <div className="formContainer">
+      <div className="error-error">
+            {isError && <ErrorComponent message= {errorMessage} />}
+          </div>
         <form>
           <TextField
             margin="normal"
@@ -107,14 +108,14 @@ function LoginForm() {
           >
             Sign In
           </Button>
-          <div class="margin-break"></div>
+          <div className="margin-break"></div>
           <Typography align="center"> OR </Typography>
-          <div class="margin-break"></div>
+          <div className="margin-break"></div>
           <Grid
             container
             spacing={2}
             columns={16}
-            justifyContent="space-around"
+            justifyContent="space-between"
             alignItems="center"
           >
             <Grid
@@ -128,7 +129,7 @@ function LoginForm() {
               >
                 <img
                   src={GoogleIcon}
-                  class="icon"
+                  className="icon"
                 />
                 Signin with Google
               </Button>
@@ -138,13 +139,13 @@ function LoginForm() {
               sm={8}
             >
               <Button
-                disabled="true" // Disabled the signin button temporarily, until fix is found.
+                disabled={true} // Disabled the signin button temporarily, until fix is found.
                 variant="outlined"
-                onClick={handleFacbookSignIn}
+                onClick= {handleFacbookSignIn}
               >
                 <img
                   src={FacebookIcon}
-                  class="icon"
+                  className="icon"
                 />
                 Signin with Facebook
               </Button>
