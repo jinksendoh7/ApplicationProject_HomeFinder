@@ -27,6 +27,7 @@ import { UserAuth } from '../../../contexts/auth/AuthContext';
 import StorageService from '../../../services/storage/StorageService';
 
 import { FireStoreConst } from '../../../constants/FirebaseConstants';
+import { ErrorMessageConst, SuccessMessageConst,RoutesConst } from '../../../constants/AppConstants';
 
 function SignUpForm() {
   const { SignUpWithFirebaseAuth, SignUpWithGoogle} = UserAuth();
@@ -59,18 +60,17 @@ function SignUpForm() {
                   recieve: recieve,
                   usertype: userType
                 });
-            console.log('User added to database with ID: ', docRef.id);
+            console.log(SuccessMessageConst.CONSOLE_LOG_ADD_USER, docRef.id);
             clearForm();
             setIsSuccess(true);
-            setSuccessMessage('Welcome to HomeFinder!');
-       
+            setSuccessMessage(SuccessMessageConst.WELCOME_MESSAGE);
+            navigate(RoutesConst.DASHBOARD_ROUTE);
          
         } catch (e) {
             console.error('Error adding user: ', e);
             setIsError(true);
-            setErrMessage(e.message);
+            setErrMessage(ErrorMessageConst.INVALID_PASSWORD_LENGTH);
             setIsSuccess(false);
-            navigate('/dashboard');
           } 
   }
 
@@ -98,11 +98,11 @@ function SignUpForm() {
 
     if (password !== confirmPassword) {
       setIsError(true);
-      setErrMessage('Passwords do not match.');
+      setErrMessage(ErrorMessageConst.PASSWORD_DO_NOT_MATCH);
     }
     else if (password.length <= 4 || confirmPassword <= 4) {
       setIsError(true);
-      setErrMessage('Password length must be greater then 4 characters');
+      setErrMessage(ErrorMessageConst.INVALID_PASSWORD_LENGTH);
     }
     else {
       const userInfo =  await SignUpWithFirebaseAuth(email, password);
@@ -116,11 +116,11 @@ function SignUpForm() {
                   recieve: recieve,
                   usertype: userType
                 });
-                console.log('User added to database with ID: ', docRef.id);
-                navigate('/dashboard');
+                console.log(SuccessMessageConst.CONSOLE_LOG_ADD_USER, docRef.id);
+                navigate(RoutesConst.DASHBOARD_ROUTE);
                 clearForm();
                 setIsSuccess(true);
-                setSuccessMessage('Welcome to HomeFinder!');
+                setSuccessMessage(SuccessMessageConst.WELCOME_MESSAGE);
            
         } catch (e) {
             console.error('Error adding user: ', e);

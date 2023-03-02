@@ -13,10 +13,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Logo from '../logo/Logo';
+import HomeFinderLogo from '../../assets/images/HomeFinder_Logo.svg';
+import PhoneIphoneOutlinedIcon from '@mui/icons-material/PhoneIphoneOutlined';
+import LocalPostOfficeOutlinedIcon from '@mui/icons-material/LocalPostOfficeOutlined';
+import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
+import GoogleIcon from '@mui/icons-material/Google';
 
-
+import './HeaderComponent.css'
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact'];
+const navItems = ['Rental Listing', 'Book a Virtual Tour', 'Tenants', 'Owners', 'About', 'Contact'];
 
 export default function HeaderComponent(props) {
   const { window } = props;
@@ -28,9 +34,10 @@ export default function HeaderComponent(props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        HomeFinder
-      </Typography>
+         <Logo
+          url={HomeFinderLogo}
+          mainLogo="drawerLogo"
+        ></Logo>
       <Divider />
       <List>
         {navItems.map((item) => (
@@ -48,8 +55,14 @@ export default function HeaderComponent(props) {
 
   return (
     <Box sx={{ display: 'flex' }}>
+     
       <CssBaseline />
       <AppBar component="nav">
+      <div className='top-header'>
+        <div className='left-header'><PhoneIphoneOutlinedIcon/><span className="hidden-sm">(519) 567 8890</span>
+          &nbsp; <LocalPostOfficeOutlinedIcon/> <span className="hidden-sm">info@homefinder.com</span></div>
+        <div className="right-header"><FacebookOutlinedIcon/> &nbsp; <GoogleIcon/></div>
+      </div>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -65,8 +78,14 @@ export default function HeaderComponent(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            MUI
+            <div className="wrapperHeaderLogo">
+                <Logo
+                    url={HomeFinderLogo}
+                    mainLogo="headerLogo"
+                  ></Logo>
+            </div>
           </Typography>
+        
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
               <Button key={item} sx={{ color: '#fff' }}>

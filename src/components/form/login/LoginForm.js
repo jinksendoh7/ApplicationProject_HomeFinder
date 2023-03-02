@@ -12,17 +12,18 @@ import GoogleIcon from '../../../assets/images/google.svg';
 import FacebookIcon from '../../../assets/images/facebook.svg';
 
 import { UserAuth } from '../../../contexts/auth/AuthContext';
-
+import {ErrorMessageConst } from '../../../constants/AppConstants';
 import '../login/LoginForm.css';
 
 import Logo from '../../logo/Logo';
 import HomeFinderLogo from '../../../assets/images/HomeFinder_Logo.svg';
 import CopyRight from '../../copyright/CopyRight';
 import ErrorComponent from '../../error/ErrorComponent';
+import {RoutesConst} from '../../../constants/AppConstants'
 
 function LoginForm() {
   // Inject Context
-  const { googleSignIn, facebookSignIn, user } = UserAuth();
+  const { googleSignIn, facebookSignIn, LoginWithFirebaseAuth, user } = UserAuth();
 
   const navigate = useNavigate();
 
@@ -42,28 +43,52 @@ function LoginForm() {
     }
   };
 
+  const handleLogIn = async (e) => {
+    e.preventDefault();
+    try {
+      if(email.length > 0 && password.length > 0){
+        await LoginWithFirebaseAuth(email, password);
+        navigate(RoutesConst.DASHBOARD_ROUTE);
+      }
+      else{
+        setIsError(true);
+        setErrorMessage(ErrorMessageConst.INVALID_CREDENTIAL)
+      }
+    } catch (error) {
+      console.log(error);
+      setIsError(true);
+      setErrorMessage(error.message);
+    }
+  };
+
+
   const handleFacbookSignIn = async () => {
     try {
       await facebookSignIn();
     } catch (error) {
-      console.log(error);
+         console.log(error);
+      setIsError(true);
+      setErrorMessage(error.message);
 
     }
   };
 
   useEffect(() => {
-    if (user !== null) {
-      navigate('/dashboard'); // use hook to redirect to dashboard page upon successful login
+    if (user !== null && isError) {
+       // use hook to redirect to dashboard page upon successful login
+      navigate(RoutesConst.DASHBOARD_ROUTE);
     }
-  }, [user, navigate]);
+  }, [user, navigate, isError]);
 
   return (
     <div className="bg">
       <div className="wrapper-logo">
+      <div className='initialLogo'>
         <Logo
           url={HomeFinderLogo}
           mainLogo="loginLogo"
         ></Logo>
+        </div>
       </div>
       <div className="formContainer">
       <div className="error-error">
@@ -79,6 +104,7 @@ function LoginForm() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange = {(e) => setEmail(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -89,6 +115,7 @@ function LoginForm() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange = {(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
             control={
@@ -105,6 +132,7 @@ function LoginForm() {
             variant="contained"
             href="/"
             size="large"
+            onClick={(e) => handleLogIn(e)}
           >
             Sign In
           </Button>

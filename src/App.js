@@ -10,19 +10,20 @@ import ResetPasswordPage from "./pages/reset-password/ResetPasswordPage";
 import ChangePasswordPage from "./pages/change-password/ChangePasswordPage";
 import SignupPage from "./pages/signup/SignupPage";
 import ProtectedPage from "./pages/common/ProtectedPage";
+import {RoutesConst} from './constants/AppConstants';
 
 function App() {
   return ( 
      <AuthContextProvider>
         <Routes>
-            <Route path="/" element={<LayoutPage />}>
+            <Route path= {RoutesConst.ROUTE_HOME} element={<LayoutPage />}>
             <Route index element={<LoginPage />} />
-            <Route path="login" element={<LoginPage />} />
-            <Route path="reset" element={<ResetPasswordPage />} />
-            <Route path="signup" element={<SignupPage />} />
-            <Route path="changepassword" element={<ChangePasswordPage />} />
+            <Route path={RoutesConst.SIGNIN_ROUTE} element={<LoginPage />} />
+            <Route path={RoutesConst.RESET_PASSWORD_ROUTE}element={<ResetPasswordPage />} />
+            <Route path={RoutesConst.SIGNUP_ROUTE} element={<SignupPage />} />
+            <Route path={RoutesConst.CHANGE_PASSWORD_ROUTE} element={<ChangePasswordPage />} />
             <Route
-                path='/dashboard'
+                path={RoutesConst.DASHBOARD_ROUTE}
                 element={
                   <ProtectedPage>
                     <DashboardPage />
