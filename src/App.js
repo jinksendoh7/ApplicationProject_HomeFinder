@@ -7,7 +7,6 @@ import LayoutPage from "./pages/common/LayoutPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import LoginPage from "./pages/login/LoginPage";
 import ResetPasswordPage from "./pages/reset-password/ResetPasswordPage";
-import ChangePasswordPage from "./pages/change-password/ChangePasswordPage";
 import SignupPage from "./pages/signup/SignupPage";
 import ProtectedPage from "./pages/common/ProtectedPage";
 import {RoutesConst} from './constants/AppConstants';
@@ -21,7 +20,6 @@ function App() {
             <Route path={RoutesConst.SIGNIN_ROUTE} element={<LoginPage />} />
             <Route path={RoutesConst.RESET_PASSWORD_ROUTE}element={<ResetPasswordPage />} />
             <Route path={RoutesConst.SIGNUP_ROUTE} element={<SignupPage />} />
-            <Route path={RoutesConst.CHANGE_PASSWORD_ROUTE} element={<ChangePasswordPage />} />
             <Route
                 path={RoutesConst.DASHBOARD_ROUTE}
                 element={
