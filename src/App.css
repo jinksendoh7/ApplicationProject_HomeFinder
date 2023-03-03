@@ -56,14 +56,14 @@
   
 }
 
-.css-hyum1k-MuiToolbar-root {
+.MuiToolbar-root {
   min-height: 80px !important;
   padding-left: 10% !important;
   padding-right: 10% !important;
   
   justify-content: space-between;
 }
-.css-1kkpk3h-MuiButtonBase-root-MuiButton-root{
+.MuiAppBar-colorPrimary {
   color: #0d61b6 !important;
   font-weight: 500 !important;
   font-size: 1.2rem !important;
