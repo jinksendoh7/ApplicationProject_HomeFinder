@@ -12,7 +12,7 @@ const SearchListingInputComponent = () => {
                 sx={{
                     width: '100%',
                     display: 'flex',
-                    height:{ xs:550, sm: 420, md: 390, lg:320},
+                    height:{ xs:650, sm: 520, md: 450, lg:380},
                     borderRadius:2,
                     backgroundColor: 'primary.dark',
                     color: '#FFF',
