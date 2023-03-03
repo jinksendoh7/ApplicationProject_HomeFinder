@@ -8,11 +8,12 @@ const SearchListingInputComponent = () => {
         </div>
               <Box
                 sx={{
-                    width: '90%',
-                    height: 320,
-                    marginTop: {xs: 20, sm: 25, md: 28, lg:30},
-                    marginLeft: {xs:3, sm:5, md:'15%'},
-                    marginRight: {xs:3, sm:5, md:'15%'},
+                    width: '100%',
+                    display: 'flex',
+                    height:{ xs:520, sm: 400, md: 350, lg:320},
+                    marginTop: {xs: 22, sm: 28, md: 30, lg:35},
+                    marginLeft: {xs:'3%', sm:'5%', md:'15%'},
+                    marginRight: {xs:'-15px', sm:'5%', md:'15%'},
                     borderRadius:2,
                     backgroundColor: 'primary.dark',
                     opacity: [0.9, 0.8, 0.8],
@@ -22,6 +23,7 @@ const SearchListingInputComponent = () => {
                     },
                 }}
             />
+            <div className='wrap'>111</div>
     </>
     );
   };
