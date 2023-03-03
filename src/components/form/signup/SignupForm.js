@@ -126,7 +126,7 @@ function SignUpForm() {
       <div className="wrapper-logo">
         <Logo
           url={HomeFinderLogo}
-          mainLogo="loginLogo"
+          mainLogo="signUpLogo"
         ></Logo>
       </div>
       <div className="formContainer">

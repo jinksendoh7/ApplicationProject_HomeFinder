@@ -190,6 +190,8 @@ function LoginForm() {
         {/* <Copyright /> */}
         <CopyRight />
       </div>
+      <div className="margin-break"></div>
+      <div className="margin-break"></div>
     </div>
   );
 }

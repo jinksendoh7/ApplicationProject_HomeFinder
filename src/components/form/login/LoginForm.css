@@ -39,9 +39,7 @@
     height: 32px;
     padding-right: 1rem;
 }
-.wrapper-logo {
-    min-height: 180px;
-}
+
 
 .loginLogo {
     display: flex;
@@ -49,15 +47,20 @@
     height: 180px;
     margin: 0 auto;
 }
-
+.signUpLogo {
+    display: flex;
+    width: 100%;
+    height: 130px;
+    margin: 0 auto;
+}
 .bg {
     background-image: url(../../../assets/images/HomeBackground.jpg);
     background-position: center;
-    background-repeat: repeat;
+    background-repeat: no-repeat;
     position: fixed;
     z-index:2;
     width: 100%;
-    height: 100%;
+    height:100%;
     padding-bottom: 8rem !important;
    
 }
