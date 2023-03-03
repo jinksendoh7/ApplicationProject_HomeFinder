@@ -5,7 +5,7 @@ import GoogleIcon from '../../../assets/images/google.svg';
 import FacebookIcon from '../../../assets/images/facebook.svg';
 import { useNavigate } from "react-router-dom";
 import { Button, TextField, Link, Grid, Typography, Checkbox, FormControlLabel, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import CopyRight from '../../copyright/CopyRight';
+import CopyRightComponent from '../../copyright/CopyRightComponent';
 import SuccessComponent from '../../success/SuccessComponent';
 import ErrorComponent from '../../error/ErrorComponent';
 import './SignupForm.css';
@@ -322,7 +322,7 @@ function SignUpForm() {
         </Grid>
         &nbsp;
         {/* <Copyright /> */}
-        <CopyRight />
+        <CopyRightComponent />
       </div>
     </div>
   );

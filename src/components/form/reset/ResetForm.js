@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../login/LoginForm.css";
 import Logo from "../../logo/Logo";
 import HomeFinderLogo from "../../../assets/images/HomeFinder_Logo.svg";
-import CopyRight from "../../copyright/CopyRight";
+import CopyRightComponent from "../../copyright/CopyRightComponent";
 import { Button, TextField, Link, Grid, Typography } from "@mui/material";
 import { UserAuth } from "../../../contexts/auth/AuthContext";
 import { RoutesConst } from "../../../constants/AppConstants";
@@ -80,7 +80,7 @@ function ResetForm() {
         </Grid>
         &nbsp;
         {/* <Copyright /> */}
-        <CopyRight />
+        <CopyRightComponent />
       </div>
     </div>
   );

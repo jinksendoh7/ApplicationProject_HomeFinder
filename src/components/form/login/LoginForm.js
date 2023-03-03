@@ -9,7 +9,7 @@ import '../login/LoginForm.css';
 
 import Logo from '../../logo/Logo';
 import HomeFinderLogo from '../../../assets/images/HomeFinder_Logo.svg';
-import CopyRight from '../../copyright/CopyRight';
+import CopyRightComponent from '../../copyright/CopyRightComponent';
 import ErrorComponent from '../../error/ErrorComponent';
 import {RoutesConst} from '../../../constants/AppConstants'
 
@@ -187,8 +187,7 @@ function LoginForm() {
           </Grid>
         </Grid>
         &nbsp;
-        {/* <Copyright /> */}
-        <CopyRight />
+        <CopyRightComponent />
       </div>
       <div className="margin-break"></div>
       <div className="margin-break"></div>
