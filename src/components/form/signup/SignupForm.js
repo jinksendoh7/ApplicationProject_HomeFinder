@@ -1,21 +1,10 @@
 import { useState } from 'react';
-
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 import HomeFinderLogo from '../../../assets/images/HomeFinder_Logo.svg';
 import Logo from '../../logo/Logo';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Grid';
 import GoogleIcon from '../../../assets/images/google.svg';
 import FacebookIcon from '../../../assets/images/facebook.svg';
-import { Typography } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import ToggleButton from '@mui/material/ToggleButton';
-
+import { Button, TextField, Link, Grid, Typography, Checkbox, FormControlLabel, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import CopyRight from '../../copyright/CopyRight';
 import SuccessComponent from '../../success/SuccessComponent';
 import ErrorComponent from '../../error/ErrorComponent';
