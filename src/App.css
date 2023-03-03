@@ -38,7 +38,7 @@
 }
 
 
-.css-11b3ww9-MuiPaper-root-MuiAppBar-root{ /*header */
+.MuiAppBar-root{ /*header */
   background-color: #FFF !important;
   box-shadow: none !important;
   border-bottom: 2px solid #e3e3e3;
@@ -46,10 +46,10 @@
 
 }
 @media only screen and (max-width: 576px) { /* For Mobile Screen */
-  .css-11b3ww9-MuiPaper-root-MuiAppBar-root{ 
+  .MuiToolbar-root{ 
     display:none;
   }
-  .css-hyum1k-MuiToolbar-root {
+  .MuiToolbar-root {
     min-height: 80px !important;
   
   }
@@ -63,7 +63,7 @@
   
   justify-content: space-between;
 }
-.MuiAppBar-colorPrimary {
+.MuiButton-textPrimary  {
   color: #0d61b6 !important;
   font-weight: 500 !important;
   font-size: 1.2rem !important;
