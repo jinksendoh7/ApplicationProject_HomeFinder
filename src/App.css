@@ -42,18 +42,26 @@
   background-color: #FFF !important;
   box-shadow: none !important;
   border-bottom: 2px solid #e3e3e3;
-  min-height: 150px !important;
   color: #0a0b0b !important;
 
 }
 @media only screen and (max-width: 576px) { /* For Mobile Screen */
   .css-11b3ww9-MuiPaper-root-MuiAppBar-root{ 
-    min-height: 100px !important;
+    display:none;
   }
+  .css-hyum1k-MuiToolbar-root {
+    min-height: 80px !important;
+  
+  }
+  
 }
+
 .css-hyum1k-MuiToolbar-root {
+  min-height: 80px !important;
   padding-left: 10% !important;
   padding-right: 10% !important;
+  
+  justify-content: space-between;
 }
 .css-1kkpk3h-MuiButtonBase-root-MuiButton-root{
   color: #0d61b6 !important;

@@ -36,6 +36,7 @@ function LoginForm() {
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
+      navigate(RoutesConst.DASHBOARD_ROUTE);
     } catch (error) {
       console.log(error);
       setIsError(true);
