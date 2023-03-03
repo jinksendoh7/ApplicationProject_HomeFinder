@@ -33,7 +33,11 @@ export const AuthContextProvider = ({ children }) => {
   const LoginWithFirebaseAuth = async (email, password) => {
   
    const result =  await signInWithEmailAndPassword(auth, email, password);
-    console.log(result.user);
+   const userInfo = { 
+    uid: result.user.uid,
+    email: result.user.email,
+    };
+ 
   }
 
   const SignUpWithGoogle = async()=>{
@@ -45,9 +49,8 @@ export const AuthContextProvider = ({ children }) => {
           lastname: result.user.displayName.split(" ")[1],
           email: result.user.email,
       };
-      console.log(userInfo);
-      setUser(userInfo);
-      return userInfo;
+     ;
+     return userInfo;
   
   }
   const LogoutWithFirebaseAuth = async() => {
@@ -64,8 +67,7 @@ export const AuthContextProvider = ({ children }) => {
         lastname: result.user.displayName.split(" ")[1],
         email: result.user.email,
     };
-    console.log(userInfo);
-    setUser(userInfo);
+
     //signInWithRedirect(auth, provider)
   };
 
@@ -113,7 +115,8 @@ export const AuthContextProvider = ({ children }) => {
           LoginWithFirebaseAuth,
           LogoutWithFirebaseAuth,
           SendPasswordReset,
-          user
+          user,
+          setUser,
           }}>
       {children}
     </AuthContext.Provider>

@@ -15,7 +15,7 @@ import {RoutesConst} from '../../../constants/AppConstants'
 
 function LoginForm() {
   // Inject Context
-  const { googleSignIn, facebookSignIn, LoginWithFirebaseAuth, user } = UserAuth();
+  const { googleSignIn, facebookSignIn, LoginWithFirebaseAuth, user, setUser } = UserAuth();
 
   const navigate = useNavigate();
 

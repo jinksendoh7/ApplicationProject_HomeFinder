@@ -16,13 +16,13 @@
 @media only screen and (max-width: 900px) { /* For Mobile Screen */
     .search-box-bg{
         min-height: 600px;
-        padding: 10rem 3%;
+        padding: 14rem 3%;
     }
 }
 @media only screen and (max-width: 1200px) { /* For Mobile Screen */
     .search-box-bg{
         min-height: 550px;
-        padding: 10rem 4%;
+        padding: 14rem 4%;
     }
 }
 .wrap{
