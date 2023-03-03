@@ -131,7 +131,7 @@ export default function HeaderComponent(props) {
             ))}
         
           </Box>
-          <Button variant="contained" color="success" 
+          <Button variant="contained" color="success" disabledElevation
             onClick={handleLogout} sx={{ ml: 5 }} >
                 Logout
             </Button>
