@@ -6,7 +6,8 @@ import {
   signOut,
   onAuthStateChanged,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 
 import { auth } from '../../configs/FirebaseConfig';
@@ -83,6 +84,16 @@ export const AuthContextProvider = ({ children }) => {
   }
 
 
+  //reset func
+  const SendPasswordReset = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert("Password reset link sent!");
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -101,6 +112,7 @@ export const AuthContextProvider = ({ children }) => {
           SignUpWithGoogle,
           LoginWithFirebaseAuth,
           LogoutWithFirebaseAuth,
+          SendPasswordReset,
           user
           }}>
       {children}
