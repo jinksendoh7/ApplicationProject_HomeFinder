@@ -22,7 +22,7 @@ const SearchListingInputComponent = () => {
             >
             <SearchBoxForm/>
             </Box>
-            <div className='wrap'>111</div>
+            <div className='wrap'>&nbsp;</div>
             </div>
     </>
     );

@@ -57,13 +57,13 @@ export default function HeaderComponent(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { LogoutWithFirebaseAuth } = UserAuth();
+  const { LogoutWithFirebaseAuth, user } = UserAuth();
   const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
+    console.log(user)
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
          <Logo
@@ -131,7 +131,7 @@ export default function HeaderComponent(props) {
             ))}
         
           </Box>
-          <Button variant="contained" color="success" disabledElevation
+          <Button variant="contained" color="success" 
             onClick={handleLogout} sx={{ ml: 5 }} >
                 Logout
             </Button>

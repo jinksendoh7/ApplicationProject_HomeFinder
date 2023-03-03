@@ -5,7 +5,7 @@ function SearchBoxForm() {
   
   return (
     <>
-    <div class="form-row">
+    <div className="form-row">
       <div>
       <div className="form-control">
       <div className="item-control-stretch">
