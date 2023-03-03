@@ -39,12 +39,14 @@
     height: 32px;
     padding-right: 1rem;
 }
-
+.wrapper-logo{
+    min-height:220px;
+}
 
 .loginLogo {
     display: flex;
     width: 100%;
-    height: 180px;
+    height: 220px;
     margin: 0 auto;
 }
 .signUpLogo {
