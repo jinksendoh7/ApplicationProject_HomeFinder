@@ -1,5 +1,5 @@
 .headerLogo{
-    height: 140px;
+    height: 130px;
 
 }
 .wrapperHeaderLogo{
@@ -20,6 +20,7 @@
     color: #FFF;
     padding: .5rem 10%;
     justify-content: space-between;
+    
   }
   .left-header{
     display: inline-block;
@@ -35,12 +36,18 @@
   .hidden-sm{
     display:none;
   }
+  .headerLogo{
+    height: 80px;
+  }
+  .wrapperHeaderLogo{
+    margin: 0 !important;
+  }
 }
 
 @media only screen and (max-width: 320px) { /* For Mobile Screen */
-
     .headerLogo{
-      display:none
+        height: 80px;
+    
     }
   }
 

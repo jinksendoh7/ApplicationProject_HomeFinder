@@ -16,16 +16,42 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Logo from '../logo/Logo';
 import HomeFinderLogo from '../../assets/images/HomeFinder_Logo.svg';
-import PhoneIphoneOutlinedIcon from '@mui/icons-material/PhoneIphoneOutlined';
-import LocalPostOfficeOutlinedIcon from '@mui/icons-material/LocalPostOfficeOutlined';
-import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
-import GoogleIcon from '@mui/icons-material/Google';
 import { UserAuth } from '../../contexts/auth/AuthContext';
 import { RoutesConst } from '../../constants/AppConstants';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+import TopBarComponent from '../topbar/TopBarComponent';
+import Slide from '@mui/material/Slide';
+import PropTypes from 'prop-types';
 
 import './HeaderComponent.css'
 const drawerWidth = 240;
 const navItems = ['Rental Listing', 'Book a Virtual Tour', 'Tenants', 'Owners', 'About', 'Contact'];
+
+function HideOnScroll(props) {
+  const { children, window } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+  });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
+
+HideOnScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+
 
 export default function HeaderComponent(props) {
   const { window } = props;
@@ -70,15 +96,15 @@ export default function HeaderComponent(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
-     
-      <CssBaseline />
+     <>
       <AppBar component="nav">
-      <div className='top-header'>
-        <div className='left-header'><PhoneIphoneOutlinedIcon/><span className="hidden-sm">(519) 567 8890</span>
-          &nbsp; <LocalPostOfficeOutlinedIcon/> <span className="hidden-sm">info@homefinder.com</span></div>
-        <div className="right-header"><FacebookOutlinedIcon/> &nbsp; <GoogleIcon/></div>
-      </div>
+          <TopBarComponent/>
+      </AppBar>
+      <CssBaseline />
+    
+      <HideOnScroll {...props}>
+      <AppBar component="nav">
+      <TopBarComponent/>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -89,18 +115,13 @@ export default function HeaderComponent(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
+     
             <div className="wrapperHeaderLogo">
                 <Logo
                     url={HomeFinderLogo}
                     mainLogo="headerLogo"
                   ></Logo>
             </div>
-          </Typography>
         
           <Box sx={{ display: { xs: 'none', md: 'block' } }}>
             {navItems.map((item) => (
@@ -111,11 +132,14 @@ export default function HeaderComponent(props) {
         
           </Box>
           <Button variant="contained" color="success" 
-            onClick={handleLogout} sx={{ mr: 3 }} >
+            onClick={handleLogout} sx={{ ml: 5 }} >
                 Logout
             </Button>
         </Toolbar>
+        
       </AppBar>
+      
+      </HideOnScroll>
       <Box component="nav">
         <Drawer
           container={container}
@@ -133,6 +157,6 @@ export default function HeaderComponent(props) {
           {drawer}
         </Drawer>
       </Box>
-    </Box>
+    </>
   );
 }
