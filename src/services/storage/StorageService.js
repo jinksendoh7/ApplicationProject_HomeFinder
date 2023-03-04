@@ -1,6 +1,6 @@
 
 import { db } from '../../configs/FirebaseConfig';
-import { collection, addDoc, getDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 
 export default class StorageService {
 
@@ -16,19 +16,22 @@ export default class StorageService {
     
     static async getDocWhere(docName, key, value){
         try {
-            const docRef = doc(docName, key, value);
-                const docSnap = await getDoc(docRef);
+                let data;
+                const q = query(collection(db, docName), where(key, "==", value));
 
-                if (docSnap.exists()) {
-                    console.log("Document data:", docSnap.data());
-                    return docSnap.data();
-                } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-                }
+                const querySnapshot = await getDocs(q);
+                querySnapshot.forEach((doc) => {
+                    data = {
+                        id: doc.id,
+                        usertype: doc.data().usertype,
+                        displayName: doc.data().firstname + ' ' + doc.data().lastname,
+                        email: doc.data().email,
+                    }
+                });
+                return data;
         }
         catch(e){
-            console.log('Error saving in ', docName, 'with collection name =>', doc);
+            console.log('Error getting data in ', docName, 'with collection name =>', e);
         } 
     }
 

@@ -55,3 +55,19 @@
     background-color: #66cb66 !important;
     box-shadow: none !important;
   }
+  .property-label{
+    min-width: 100px;
+    font-size: .8rem;
+    padding: 5px;
+    font-weight: 700;
+    color: #FFF;
+    background-color: #ff9832;
+    text-transform: uppercase;
+    border-radius: 8px;
+    padding: .6rem 1rem;
+  }
+  .wrapper-header-items{
+    display:flex;
+    flex-direction: row;
+    min-width: 320px;
+  }

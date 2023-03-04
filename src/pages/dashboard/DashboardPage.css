@@ -1,4 +1,31 @@
-body {
- 
- 
+.container-wrapper{
+    margin: 0 auto;
+    width: 100%;
+}
+@media only screen and (min-width: 600px) and (max-width: 900px) {
+    .container-wrapper{
+        margin: 0 2rem;
+    }
+}
+@media only screen and (min-width: 901px) and (max-width: 1200px) {
+    .container-wrapper{
+        margin: 0 8rem;
+    }
+}
+@media only screen and (min-width: 1201px) and (max-width: 1366px) {
+    .container-wrapper{
+        margin: 0 10rem;
+    }
+}
+@media only screen and (min-width: 1367px) {
+    .container-wrapper{
+        margin: 0 12rem;
+    }
+}
+
+.homeowner-bg{
+    background-image: url('../../assets/images/homeOwnerbg.png');
+    background-size:cover;
+    background-repeat: no-repeat;
+    min-height: 455px;
 }

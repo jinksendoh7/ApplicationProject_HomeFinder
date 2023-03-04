@@ -31,13 +31,8 @@ export const AuthContextProvider = ({ children }) => {
   }
   // eslint-disable-next-line
   const LoginWithFirebaseAuth = async (email, password) => {
+    await signInWithEmailAndPassword(auth, email, password);
   
-   const result =  await signInWithEmailAndPassword(auth, email, password);
-   const userInfo = { 
-    uid: result.user.uid,
-    email: result.user.email,
-    };
- 
   }
 
   const SignUpWithGoogle = async()=>{
@@ -49,7 +44,7 @@ export const AuthContextProvider = ({ children }) => {
           lastname: result.user.displayName.split(" ")[1],
           email: result.user.email,
       };
-     ;
+    setUser(userInfo);
      return userInfo;
   
   }

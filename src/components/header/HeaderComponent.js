@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -9,6 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
+import Badge from '@mui/material/Badge';
+import MailIcon from '@mui/icons-material/Mail';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
@@ -22,7 +24,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import TopBarComponent from '../topbar/TopBarComponent';
 import Slide from '@mui/material/Slide';
 import PropTypes from 'prop-types';
-
+import {FireStoreConst} from '../../constants/FirebaseConstants'
 import './HeaderComponent.css'
 const drawerWidth = 240;
 const navItems = ['Rental Listing', 'Book a Virtual Tour', 'Tenants', 'Owners', 'About', 'Contact'];
@@ -55,15 +57,16 @@ HideOnScroll.propTypes = {
 
 export default function HeaderComponent(props) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const { LogoutWithFirebaseAuth, user } = UserAuth();
+  const { LogoutWithFirebaseAuth} = UserAuth();
+
   const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-    console.log(user)
+  
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
          <Logo
@@ -122,19 +125,39 @@ export default function HeaderComponent(props) {
                     mainLogo="headerLogo"
                   ></Logo>
             </div>
-        
+          <div className="wrapper-header-items">
+          {props.userType === FireStoreConst.USER_DOC_MEMBER_USER && 
+          <>
           <Box sx={{ display: { xs: 'none', md: 'block' } }}>
             {navItems.map((item) => (
               <Button key={item} sx={{ color: '#fff' }}>
                 {item}
               </Button>
             ))}
-        
           </Box>
-          <Button variant="contained" color="success" 
-            onClick={handleLogout} sx={{ ml: 5 }} >
-                Logout
-            </Button>
+             <Button variant="contained" color="success" 
+             onClick={handleLogout} sx={{ ml: 5 }} >
+                 Logout
+             </Button>
+             </>
+            }
+              {props.userType === FireStoreConst.USER_DOC_HOMEOWNER_USER && 
+              <>
+          <Box sx={{ display: { xs: 'none',sm:'none', md: 'inline-flex'}, flexDirection:{md:'row'}, gap:1, alignItems:'center',  }}>
+              <div className="property-label">Property Address</div>
+              <div className="property-text">123 A Place Street, London ON, N5Y 5R6</div>
+               <Badge badgeContent={8} color="error">
+                <MailIcon color="action" />
+              </Badge>
+          </Box>
+           <Button variant="contained" color="success" 
+           onClick={handleLogout} sx={{ ml: 5 }} >
+               Logout
+           </Button>
+           </>
+          }
+         
+            </div>
         </Toolbar>
         
       </AppBar>
