@@ -4,6 +4,10 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import PinDropOutlinedIcon from '@mui/icons-material/PinDropOutlined';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
+import HandymanOutlinedIcon from '@mui/icons-material/HandymanOutlined';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -39,7 +43,7 @@ function TabPanel(props) {
   }
 
 export default function TabsComponent() {
-  const [value, setValue] = useState('one');
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -48,11 +52,11 @@ export default function TabsComponent() {
   return (
     <Box sx={{ width: '100%' }}>
     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" variant="fullWidth">
-        <Tab label="Property Details" {...a11yProps(0)} />
-        <Tab label="Features & Amenities" {...a11yProps(1)} />
-        <Tab label="Media and Gallery" {...a11yProps(2)} />
-        <Tab label="Maintenances" {...a11yProps(3)} />
+      <Tabs value={value} onChange={handleChange}  variant="fullWidth">
+        <Tab icon={<PinDropOutlinedIcon/>} label="Property Details" {...a11yProps(0)} />
+        <Tab icon={<FactCheckOutlinedIcon/>} label="Features & Amenities" {...a11yProps(1)} />
+        <Tab icon={<AddAPhotoOutlinedIcon/>} label="Media and Gallery" {...a11yProps(2)} />
+        <Tab icon={<HandymanOutlinedIcon/>} label="Maintenance History" {...a11yProps(3)} />
       </Tabs>
     </Box>
     <TabPanel value={value} index={0}>
