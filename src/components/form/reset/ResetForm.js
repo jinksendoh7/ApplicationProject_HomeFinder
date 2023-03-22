@@ -69,7 +69,7 @@ function ResetForm() {
           >
             Reset Password
           </Button>
-          <div class="margin-break"></div>
+          <div className="margin-break"></div>
         </form>
         &nbsp;
         <hr />

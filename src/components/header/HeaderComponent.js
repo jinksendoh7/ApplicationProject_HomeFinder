@@ -26,6 +26,7 @@ import Slide from '@mui/material/Slide';
 import PropTypes from 'prop-types';
 import {FireStoreConst} from '../../constants/FirebaseConstants'
 import './HeaderComponent.css'
+import DropdownMenuComponent from '../dropdow-menu/DropdownMenuComponent';
 const drawerWidth = 240;
 const navItems = ['Rental Listing', 'Book a Virtual Tour', 'Tenants', 'Owners', 'About', 'Contact'];
 
@@ -96,8 +97,18 @@ export default function HeaderComponent(props) {
       }
      }
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+     const handleAddListing = async() =>{
+        navigate(RoutesConst.ADD_LISTING_ROUTE)
+      
+     }
 
+
+  const container = window !== undefined ? () => window().document.body : undefined;
+  const menus = [
+    {name: 'Add Listing', handler: handleAddListing},
+    {name: 'Add Property', handler: null},
+    {name: 'Saved Listings', handler: null},
+    {name: 'Logout', handler: handleLogout}]
   return (
      <>
       <AppBar component="nav">
@@ -135,10 +146,8 @@ export default function HeaderComponent(props) {
               </Button>
             ))}
           </Box>
-             <Button variant="contained" color="success" 
-             onClick={handleLogout} sx={{ ml: 5 }} >
-                 Logout
-             </Button>
+            
+         <DropdownMenuComponent  menuItems={menus}/>
              </>
             }
               {props.userType === FireStoreConst.USER_DOC_HOMEOWNER_USER && 
@@ -150,10 +159,9 @@ export default function HeaderComponent(props) {
                 <MailIcon color="action" />
               </Badge>
           </Box>
-           <Button variant="contained" color="success" 
-           onClick={handleLogout} sx={{ ml: 5 }} >
-               Logout
-           </Button>
+         
+         <DropdownMenuComponent  menuItems={menus}/>
+       
            </>
           }
          

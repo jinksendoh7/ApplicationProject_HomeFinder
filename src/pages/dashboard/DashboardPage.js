@@ -1,7 +1,7 @@
 
 import {Box, Grid, Paper} from '@mui/material'
 import { styled } from '@mui/material/styles';
-
+import {Outlet} from 'react-router-dom';
 import HeaderComponent from '../../components/header/HeaderComponent';
 import SearchListingInputComponent from '../../components/search-listing-input/SearchListingInputComponent';
 import './DashboardPage.css'
@@ -67,9 +67,7 @@ const DashboardPage = () => {
           </Grid>
           <Grid item  xs={12} sm={12} md={9}>
             <Item>
-              <div className='homeowner-bg'>
-                
-              </div>
+                <Outlet/>
             </Item>
           </Grid>
         </Grid>

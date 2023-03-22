@@ -2,15 +2,17 @@
 import './SidebarComponent.css'  
 import {Avatar, Typography, ListItem, Box, ListItemButton, ListItemText, List, Divider} from '@mui/material'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-
+import {useLocation} from 'react-router-dom';
+import { RoutesConst } from '../../constants/AppConstants';
 const SidebarComponent = ({user}) => {
+  const location = useLocation();
     return(
         <>    
         <div className="sidebar-container">
                <Avatar sx={{ bgcolor: ' #ff9832;'}}>A</Avatar>
               <div className='display-name'>
                 {user.displayName}
-                <span class="inline-block">
+                <span className="inline-block">
                        <CheckCircleOutlineIcon color={'success'}/>
                 </span>
                 
@@ -26,8 +28,13 @@ const SidebarComponent = ({user}) => {
                        </ListItemButton>
                      </ListItem>
                      <ListItem disablePadding>
+                       <ListItemButton 
+                       selected={location.pathname.split("/")[1]==='listing'}>
+                         <ListItemText primary="Listings" />
+                       </ListItemButton>
+                     </ListItem>
+                     <ListItem disablePadding>
                        <ListItemButton>
-                        
                          <ListItemText primary="Payments" />
                        </ListItemButton>
                      </ListItem>
