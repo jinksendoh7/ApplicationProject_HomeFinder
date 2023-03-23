@@ -8,12 +8,13 @@ import LoginPage from "./pages/login/LoginPage";
 import ResetPasswordPage from "./pages/reset-password/ResetPasswordPage";
 import SignupPage from "./pages/signup/SignupPage";
 import ProtectedPage from "./pages/common/ProtectedPage";
-import AddListingPage from "./pages/Listings/AddListingPage";
+import AddListingPage from "./pages/listings/AddListingPage";
 import {RoutesConst} from './constants/AppConstants';
 
 function App() {
   return ( 
      <AuthContextProvider>
+      
         <Routes>
             <Route index element={<LoginPage />} />
             <Route path={RoutesConst.SIGNIN_ROUTE} element={<LoginPage />} />
@@ -28,12 +29,9 @@ function App() {
                 }>
                     <Route
                     path={RoutesConst.ADD_LISTING_ROUTE}
-                    element={
-                        <AddListingPage />
+                    element={<AddListingPage />
                     }/>
           </Route>
-       
-         
         </Routes>
     </AuthContextProvider>
 
