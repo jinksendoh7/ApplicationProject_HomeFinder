@@ -26,7 +26,7 @@ import Slide from '@mui/material/Slide';
 import PropTypes from 'prop-types';
 import {FireStoreConst} from '../../constants/FirebaseConstants'
 import './HeaderComponent.css'
-import DropdownMenuComponent from '../dropdow-menu/DropdownMenuComponent';
+import DropdownMenuComponent from '../dropdown-menu/DropdownMenuComponent';
 const drawerWidth = 240;
 const navItems = ['Rental Listing', 'Book a Virtual Tour', 'Tenants', 'Owners', 'About', 'Contact'];
 

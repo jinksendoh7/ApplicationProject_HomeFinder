@@ -8,7 +8,7 @@ import PinDropOutlinedIcon from '@mui/icons-material/PinDropOutlined';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import HandymanOutlinedIcon from '@mui/icons-material/HandymanOutlined';
-
+import ListingDetailsForm from '../form/listings/ListingDetailsForm'
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
   
@@ -22,7 +22,7 @@ function TabPanel(props) {
       >
         {value === index && (
           <Box sx={{ p: 3 }}>
-            <Typography>{children}</Typography>
+            <div>{children}</div>
           </Box>
         )}
       </div>
@@ -45,22 +45,23 @@ function TabPanel(props) {
 export default function TabsComponent() {
   const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleNextTab = (event, newValue) => {
     setValue(newValue);
+
   };
 
   return (
     <Box sx={{ width: '100%' }}>
     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      <Tabs value={value} onChange={handleChange}  variant="fullWidth">
-        <Tab icon={<PinDropOutlinedIcon/>} label="Property Details" {...a11yProps(0)} />
-        <Tab icon={<FactCheckOutlinedIcon/>} label="Features & Amenities" {...a11yProps(1)} />
-        <Tab icon={<AddAPhotoOutlinedIcon/>} label="Media and Gallery" {...a11yProps(2)} />
-        <Tab icon={<HandymanOutlinedIcon/>} label="Maintenance History" {...a11yProps(3)} />
+      <Tabs value={value} onChange={handleNextTab} variant="fullWidth">
+        <Tab icon={<PinDropOutlinedIcon/>} disabled={value!==0} iconPosition="start" label="Listing Details" {...a11yProps(0)} />
+        <Tab icon={<FactCheckOutlinedIcon/>} disabled={value!==1} iconPosition="start" label="Features & Amenities" {...a11yProps(1)} />
+        <Tab icon={<AddAPhotoOutlinedIcon/>} disabled={value!==2} iconPosition="start" label="Media and Gallery" {...a11yProps(2)} />
+        <Tab icon={<HandymanOutlinedIcon/>}  disabled={value!==3} iconPosition="start" label="Maintenance History" {...a11yProps(3)} />
       </Tabs>
     </Box>
     <TabPanel value={value} index={0}>
-      Item One
+      <ListingDetailsForm handleNextTab={(e)=>handleNextTab(e, 1)} />
     </TabPanel>
     <TabPanel value={value} index={1}>
       Item Two
@@ -69,7 +70,7 @@ export default function TabsComponent() {
       Item Three
     </TabPanel>
     <TabPanel value={value} index={3}>
-      Maintenances
+      Maintenance History
     </TabPanel>
   </Box>
   );

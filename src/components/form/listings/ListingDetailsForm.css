@@ -1,0 +1,57 @@
+
+input{
+    min-width: 320px !important;
+}
+.listing-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1rem auto;
+ 
+}
+.form-row, .form-action-row{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100% !important;
+    justify-content:flex-start;
+    border-radius: 8px;
+    padding: .5rem;
+}   
+.gray{
+    background-color: #FFF;
+}
+.label{
+    margin: 0 1rem;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align:left;
+    padding-right: 1rem;
+}
+@media only screen and (min-width: 568px) { /* For LargeScreen */
+    
+        .form-row{
+            display: flex;
+            flex-direction: row;
+        }
+        .form-action-row{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+          
+        }
+        input{
+            width: 100% !important;
+        }
+ 
+  }
+  .MuiInputBase-adornedEnd{
+    margin-right: .5rem !important;
+  }
+  .ck.ck-editor__editable_inline{
+    height: 240px !important;
+
+  }
+  .ck-reset{
+    width: 85% !important;
+  } 

@@ -19,3 +19,9 @@ export const RoutesConst = {
     CHANGE_PASSWORD_ROUET: '/changepassword',
     ADD_LISTING_ROUTE: 'add'
 }
+export const LocalStorageKeysConst = {
+    LISTING_DETAILS: 'LISTING_DETAILS',
+    AMENITIES_FEATURES: 'AMENITIES_FEATURES',
+    MAINTENANCE_HISTORY: 'MAINTENANCE_HISTORY',
+    MEDIA_AND_GALLERY: 'MEDIA_AND_GALLERY'
+}

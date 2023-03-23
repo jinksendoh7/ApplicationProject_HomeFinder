@@ -45,7 +45,7 @@ const SidebarComponent = ({user}) => {
                    <List>
                    <ListItem disablePadding>
                        <ListItemButton>
-                         <ListItemText primary="Property Details" />
+                         <ListItemText primary="Properties" />
                        </ListItemButton>
                      </ListItem>
                      <ListItem disablePadding>
