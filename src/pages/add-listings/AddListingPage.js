@@ -1,6 +1,6 @@
 
 import {Box, Grid, Paper} from '@mui/material'
-import { styled } from '@mui/material/styles';
+
 import TabsComponent from '../../components/tabs/TabsComponents';
 import './ListingPage.css'
 import Alert from '@mui/material/Alert'

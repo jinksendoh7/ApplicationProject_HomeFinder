@@ -4,11 +4,12 @@ import './App.css';
 import { AuthContextProvider } from './contexts/auth/AuthContext';
 
 import DashboardPage from "./pages/dashboard/DashboardPage";
+import AddListingPage from "./pages/add-listings/AddListingPage";
 import LoginPage from "./pages/login/LoginPage";
 import ResetPasswordPage from "./pages/reset-password/ResetPasswordPage";
 import SignupPage from "./pages/signup/SignupPage";
 import ProtectedPage from "./pages/common/ProtectedPage";
-import AddListingPage from './pages/listings/AddListingPage';
+
 import {RoutesConst} from './constants/AppConstants';
 
 function App() {
