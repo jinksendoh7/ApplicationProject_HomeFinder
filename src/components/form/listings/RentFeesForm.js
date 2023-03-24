@@ -39,6 +39,7 @@ class RentFeesForm extends React.Component {
           aircon: 0.0,
           heater: 0.0,
           parking: 0.0,
+          totalFee: 0.0
      };
   }
   saveInLocalStorage = ()=>{
@@ -60,12 +61,26 @@ class RentFeesForm extends React.Component {
       console.error('Error adding user: ', e);
        } 
   }
- 
+  
+   sum = () => {
+      const total = 
+                    parseFloat(this.state.wifi) + 
+                    parseFloat(this.state.aircon) + 
+                    parseFloat(this.state.heater)+
+                    parseFloat(this.state.parking) +
+                    parseFloat(this.state.laundry) +
+                    parseFloat(this.state.rentPerMonth);
+
+      return this.setState({totalFee: parseFloat(total)});
+   
+  }
   render(){
-    const sum = () => {
-      return this.state.rentPerMonth + this.state.wifi + this.state.aircon;
-    }
+  
     
+    const formatter = new Intl.NumberFormat('en-CA', {
+      style: 'currency',
+      currency: 'CAD',
+    });
     const amenities = LocalStorage.getStorageItem(LocalStorageKeysConst.AMENITIES_FEATURES);
     return <div className="listing-form">
               <div className="form-row">
@@ -73,7 +88,11 @@ class RentFeesForm extends React.Component {
           id="outlined-number"
           label="Rent per Month (CAD $)"
           type="number"
-          onChange={(e) => this.setState({rentPerMonth: e.target.value})}
+          onChange={
+              (e) => {
+                    this.setState({rentPerMonth: e.target.value});
+                    }
+          }
           helperText={this.state.rentPerMonth === 0 ? "Please double check on the rate per month.": ""}
           value={this.state.rentPerMonth}
          
@@ -88,7 +107,9 @@ class RentFeesForm extends React.Component {
             <ToggleButton value={true}>Room Only</ToggleButton>
             <ToggleButton value={false}>Whole House</ToggleButton>
             </ToggleButtonGroup>
-           
+            <Button variant="contained"  onClick={() => this.sum()} color="warning" sx={{mt:2}}>
+              Compute Fees
+            </Button>
           </div>
           {
        amenities &&
@@ -108,7 +129,11 @@ class RentFeesForm extends React.Component {
                 <TextField
                     id="outlined-number"
                     type="number"
-                    onChange={(e) => this.setState({wifi: e.target.value})}
+                    onChange={
+                      (e) => {
+                            this.setState({wifi: e.target.value});
+                            }
+                  }
                     value={this.state.wifi}
                     min={0}
                   />
@@ -124,7 +149,11 @@ class RentFeesForm extends React.Component {
                 <TextField
                     id="outlined-number"
                     type="number"
-                    onChange={(e) => this.setState({laundry: e.target.value})}
+                    onChange={
+                      (e) => {
+                            this.setState({laundry: e.target.value});
+                            }
+                  }
                     value={this.state.laundry}
                     min={0}
                   />
@@ -140,7 +169,11 @@ class RentFeesForm extends React.Component {
                 <TextField
                     id="outlined-number"
                     type="number"
-                    onChange={(e) => this.setState({heater: e.target.value})}
+                    onChange={
+                      (e) => {
+                            this.setState({heater: e.target.value});
+                            }
+                  }
                     value={this.state.heater}
                     min={0}
                     
@@ -157,7 +190,11 @@ class RentFeesForm extends React.Component {
                 <TextField
                     id="outlined-number"
                     type="number"
-                    onChange={(e) => this.setState({aircon: e.target.value})}
+                    onChange={
+                      (e) => {
+                            this.setState({aircon: e.target.value});
+                            }
+                  }
                     value={this.state.aircon}
                     min={0}
                     
@@ -175,7 +212,11 @@ class RentFeesForm extends React.Component {
                     id="outlined-number"
                     type="number"
                     min={0}
-                    onChange={(e) => this.setState({parking: e.target.value})}
+                    onChange={
+                      (e) => {
+                            this.setState({parking: e.target.value});
+                            }
+                  }
                     value={this.state.parking}
                   
                   />
@@ -183,13 +224,15 @@ class RentFeesForm extends React.Component {
               }
             </List></Box>
             </div>
-          }
+          } <div>*Click on the compute fees button to calculate.</div>
+           
             <div className="form-row">
             <Box sx={{border:1, borderColor: '#e3e3e3', borderRadius: 1, padding: 2, width: '100%', display:'flex', flexDirection: 'row', justifyContent:'space-between'}}>
               <h3>Total Fees/ Month</h3>
-              <h3>CAD ${this.sum }</h3>
+              <h3>CAD {formatter.format(this.state.totalFee)}</h3>
              </Box>
             </div>
+           
           <div className="form-action-row">
           <Button variant="contained" 
                  color="success"

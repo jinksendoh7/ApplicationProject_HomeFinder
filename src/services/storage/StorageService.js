@@ -34,5 +34,6 @@ export default class StorageService {
             console.log('Error getting data in ', docName, 'with collection name =>', e);
         } 
     }
+    
 
 }
