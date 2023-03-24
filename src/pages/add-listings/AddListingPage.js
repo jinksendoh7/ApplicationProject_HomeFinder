@@ -32,7 +32,7 @@ const AddListingPage = () => {
               </Select>
             </FormControl>
            </div>
-            <div className="form-container">
+            <div>
               <TabsComponent propertyAddress={propAddr}/>
           </div>
       </div>

@@ -1,14 +1,10 @@
 
-input{
-    min-width: 290px !important;
-}
 .listing-form{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin: 1rem auto;
- 
- 
+    justify-content: space-between;
+    
+    align-items: stretch;
 }
 .form-row, .form-action-row{
     display: flex;
@@ -21,6 +17,9 @@ input{
 }   
 .gray{
     background-color: #FFF;
+}
+.btn-calculate{
+    margin-top: 1rem;
 }
 .label{
     margin: 0 1rem;
@@ -36,9 +35,7 @@ input{
     margin: 0 0 2rem 0;
 }
 @media only screen and (min-width: 568px) { /* For LargeScreen */
-    .listing-form{
-        width: 1050px
-    }
+    
         .form-row{
             display: flex;
             flex-direction: row;
