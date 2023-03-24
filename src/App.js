@@ -9,6 +9,7 @@ import LoginPage from "./pages/login/LoginPage";
 import ResetPasswordPage from "./pages/reset-password/ResetPasswordPage";
 import SignupPage from "./pages/signup/SignupPage";
 import ProtectedPage from "./pages/common/ProtectedPage";
+import SavedListingPage  from "./pages/saved-listing/SavedListingPage";
 
 import {RoutesConst} from './constants/AppConstants';
 
@@ -31,6 +32,10 @@ function App() {
                     <Route
                     path={RoutesConst.ADD_LISTING_ROUTE}
                     element={<AddListingPage />
+                    }/>
+                      <Route
+                    path={RoutesConst.SAVED_LISTING_ROUTE}
+                    element={<SavedListingPage />
                     }/>
           </Route>
         </Routes>
