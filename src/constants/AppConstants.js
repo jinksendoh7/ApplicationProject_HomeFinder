@@ -8,6 +8,7 @@ export const ErrorMessageConst = {
 export const SuccessMessageConst={
     WELCOME_MESSAGE: 'Welcome to HomeFinder!',
     CONSOLE_LOG_ADD_USER: 'User added to database with ID: ',
+    SUCCESS_SUBMIT_LISTING: 'Your listing has been added and can now be viewed by member users.'
 }
 export const RoutesConst = {
     HOME_ROUTE: '/',
@@ -17,11 +18,12 @@ export const RoutesConst = {
     SIGN_OUT: '/logout',
     RESET_PASSWORD_ROUTE: '/reset',
     CHANGE_PASSWORD_ROUET: '/changepassword',
-    ADD_LISTING_ROUTE: 'add'
+    ADD_LISTING_ROUTE: 'add',
+    SAVED_LISTING_ROUTE: 'saved-listing'
 }
 export const LocalStorageKeysConst = {
     LISTING_DETAILS: 'LISTING_DETAILS',
     AMENITIES_FEATURES: 'AMENITIES_FEATURES',
-    MAINTENANCE_HISTORY: 'MAINTENANCE_HISTORY',
-    MEDIA_AND_GALLERY: 'MEDIA_AND_GALLERY'
+    MEDIA_AND_GALLERY: 'MEDIA_AND_GALLERY',
+    RENT_OTHER_FEES: 'RENT_OTHER_FEES',
 }

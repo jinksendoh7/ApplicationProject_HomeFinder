@@ -1,6 +1,6 @@
 
 input{
-    min-width: 320px !important;
+    min-width: 290px !important;
 }
 .listing-form{
     display: flex;
@@ -8,12 +8,13 @@ input{
     justify-content: center;
     margin: 1rem auto;
  
+ 
 }
 .form-row, .form-action-row{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100% !important;
+
     justify-content:flex-start;
     border-radius: 8px;
     padding: .5rem;
@@ -28,16 +29,30 @@ input{
     text-align:left;
     padding-right: 1rem;
 }
+.form-error-text{
+    font-weight: 700;
+    font-size: .8rem;
+    color: #f83939;
+    margin: 0 0 2rem 0;
+}
 @media only screen and (min-width: 568px) { /* For LargeScreen */
-    
+    .listing-form{
+        width: 1050px
+    }
         .form-row{
             display: flex;
             flex-direction: row;
+            gap: 1rem;
+            align-items: flex-start;
+            justify-content: center;
+            
         }
         .form-action-row{
             display: flex;
             flex-direction: row;
             justify-content: center;
+            gap: .5rem;
+            margin-top: 2rem;
           
         }
         input{
@@ -55,3 +70,7 @@ input{
   .ck-reset{
     width: 85% !important;
   } 
+
+  .MuiToggleButtonGroup-root{
+    margin-top: .8rem;
+  }
