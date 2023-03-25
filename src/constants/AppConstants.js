@@ -8,7 +8,8 @@ export const ErrorMessageConst = {
 export const SuccessMessageConst={
     WELCOME_MESSAGE: 'Welcome to HomeFinder!',
     CONSOLE_LOG_ADD_USER: 'User added to database with ID: ',
-    SUCCESS_SUBMIT_LISTING: 'Your listing has been added and can now be viewed by member users.'
+    SUCCESS_SUBMIT_LISTING: 'Your listing has been added and can now be viewed by member users.',
+    EMPTY_SAVED_LISTING: '  You haved not saved any listing. Click on the heart icon when you see one when you stop saving.'
 }
 export const RoutesConst = {
     HOME_ROUTE: '/',
@@ -26,4 +27,5 @@ export const LocalStorageKeysConst = {
     AMENITIES_FEATURES: 'AMENITIES_FEATURES',
     MEDIA_AND_GALLERY: 'MEDIA_AND_GALLERY',
     RENT_OTHER_FEES: 'RENT_OTHER_FEES',
+    SAVED_LISTING: 'SAVED_LISTING'
 }
