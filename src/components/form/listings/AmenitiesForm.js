@@ -113,7 +113,7 @@ class AmenitiesForm extends React.Component {
               </ListItem>
             </List></Box>
             <Box sx={{border:1, borderColor: '#e3e3e3', borderRadius: 1, padding: .5, width: '100%'}}>
-          <h3>Property Souroundings</h3>
+          <h3>Property Surroundings</h3>
           <Alert severity="warning">Establishment is within 10km radius.</Alert>
           <List
               sx={{ width: '100%',  bgcolor: 'background.paper' }}
