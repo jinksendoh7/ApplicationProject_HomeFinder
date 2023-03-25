@@ -28,7 +28,7 @@ function LoginForm() {
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
-      navigate(RoutesConst.DASHBOARD_ROUTE);
+      navigate(RoutesConst.LISTING_ROUTE);
     } catch (error) {
       console.log(error);
       setIsError(true);
@@ -41,7 +41,7 @@ function LoginForm() {
     try {
       if(email.length > 0 && password.length > 0){
         await LoginWithFirebaseAuth(email, password);
-        navigate(RoutesConst.DASHBOARD_ROUTE);
+        navigate(RoutesConst.LISTING_ROUTE);
       }
       else{
         setIsError(true);
