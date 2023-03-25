@@ -16,7 +16,7 @@ export default function DropdownMenuComponent({menuItems}) {
   };
   const dropdowns =   
     menuItems.map((item,key) =>
-    <MenuItem key={key} onClick={item.handler}>{item.name}</MenuItem>);
+    <MenuItem key={key} onClick={()=>{item.handler(); handleClose();}}>{item.name}</MenuItem>);
 
   return (
     <div>
