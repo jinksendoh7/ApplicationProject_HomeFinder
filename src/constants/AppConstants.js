@@ -13,7 +13,8 @@ export const SuccessMessageConst={
 }
 export const RoutesConst = {
     HOME_ROUTE: '/',
-    DASHBOARD_ROUTE: '/listing',
+    LISTING_ROUTE: '/listing',
+    DASHBOARD_ROUTE: '/dashboard',
     SIGNIN_ROUTE: '/login',
     SIGNUP_ROUTE: '/signup',
     SIGN_OUT: '/logout',

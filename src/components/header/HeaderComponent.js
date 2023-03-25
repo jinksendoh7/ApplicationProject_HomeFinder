@@ -149,8 +149,12 @@ export default function HeaderComponent(props) {
               </Button>
             ))}
           </Box>
-            
-         <DropdownMenuComponent  menuItems={menus}/>
+          {props.userType === FireStoreConst.USER_DOC_MEMBER_USER && 
+             <Button color="success" variant="contained" onClick={()=>handleLogout()}> Logout</Button>
+          }
+          {props.userType === FireStoreConst.USER_DOC_HOMEOWNER_USER && 
+              <DropdownMenuComponent  menuItems={menus}/>
+          }
              </>
             }
               {props.userType === FireStoreConst.USER_DOC_HOMEOWNER_USER && 
@@ -162,9 +166,12 @@ export default function HeaderComponent(props) {
                 <MailIcon color="action" />
               </Badge>
           </Box>
-         
-         <DropdownMenuComponent  menuItems={menus}/>
-       
+          {props.userType === FireStoreConst.USER_DOC_MEMBER_USER && 
+             <Button color="success" variant="contained" onClick={()=>handleLogout()}> Logout</Button>
+          }
+          {props.userType === FireStoreConst.USER_DOC_HOMEOWNER_USER && 
+              <DropdownMenuComponent  menuItems={menus}/>
+          }
            </>
           }
          
