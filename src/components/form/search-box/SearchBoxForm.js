@@ -5,9 +5,9 @@ function SearchBoxForm() {
   
   return (
     <>
-    <div className="form-row">
+    <div className="form-item-row">
       <div>
-      <div className="form-control">
+      <div className="form-group-control">
       <div className="item-control-stretch">
           <TextField
              sx={{ m: 2 }}
@@ -57,7 +57,7 @@ function SearchBoxForm() {
 
       {/* Second Row */}
       <div>
-      <div className="form-control">
+      <div className="form-group-control">
     
         <div className="item-control">
             <FormControl sx={{ m: 2, minWidth: 80 }} fullWidth={true}>
@@ -97,7 +97,7 @@ function SearchBoxForm() {
               </div>
           
       </div>
-      <div className="form-control">
+      <div className="form-group-control">
 
       <Button variant="contained" color="success" 
             sx={{display:'block',width: {lg:'40%', md: '55%', sm: '80%'},mt:1, backgroundColor:'#ff9832', borderRadius: 2, padding:2, fontSize: '1.2rem', opacity: 1}}>

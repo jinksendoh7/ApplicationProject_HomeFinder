@@ -1,16 +1,22 @@
 import * as React from 'react';
-import './ListingDetailsForm.css'
-import Button from '@mui/material/Button';
-import EastOutlinedIcon from '@mui/icons-material/EastOutlined';
-import { LocalStorageKeysConst } from '../../../constants/AppConstants';
-import LocalStorage from '../../../services/storage/LocalStorage'
-import WestOutlinedIcon from '@mui/icons-material/WestOutlined';
-import Alert from '@mui/material/Alert'
+import { styled } from '@mui/material/styles';
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+import MuiAccordion from '@mui/material/Accordion';
+import MuiAccordionSummary from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import './FilterSidebarComponent.css';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button'
+
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
+
+
 import Switch from '@mui/material/Switch';
 import WifiIcon from '@mui/icons-material/Wifi';
 import LocalLaundryServiceOutlinedIcon from '@mui/icons-material/LocalLaundryServiceOutlined';
@@ -25,34 +31,90 @@ import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlin
 import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
 import Divider from '@mui/material/Divider'
 
-class AmenitiesForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = LocalStorage.getStorageItem(LocalStorageKeysConst.AMENITIES_FEATURES) === null ?{
-      wifi: false,
-      laundry: true,
-      aircon: false,
-      heater: false,
-      parking: false,
-      nearToPark: false,
-      nearToMall: false,
-      nearToGrocery: true,
-      nearToGovernment: false,
-      nearToBank: false,
-    }:
-    LocalStorage.getStorageItem(LocalStorageKeysConst.AMENITIES_FEATURES);
-  }
-  
-  saveInLocalStorage = ()=>{
-    LocalStorage.setStorageItem(LocalStorageKeysConst.AMENITIES_FEATURES, this.state);
-}
 
-  render(){
-    return <div className="listing-form">
-          <div className="form-row">
-          <Box sx={{border:1, borderColor: '#e3e3e3', borderRadius: 1, padding: .5, width: '100%'}}>
-          <h3>Home Features</h3>
-          <Alert severity="warning">Include only features that is part of the rent or fees.</Alert>
+const Accordion = styled((props) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  border: `1px solid ${theme.palette.divider}`,
+  '&:not(:last-child)': {
+    borderBottom: 0,
+  },
+  '&:before': {
+    display: 'none',
+  },
+}));
+
+const AccordionSummary = styled((props) => (
+  <MuiAccordionSummary
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
+    {...props}
+  />
+))(({ theme }) => ({
+  backgroundColor:
+    theme.palette.mode === 'dark'
+      ? 'rgba(255, 255, 255, .05)'
+      : 'rgba(0, 0, 0, .03)',
+   
+  flexDirection: 'row-reverse',
+  '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+    transform: 'rotate(90deg)',
+  },
+  '& .MuiAccordionSummary-content': {
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderTop: '1px solid rgba(0, 0, 0, .125)',
+
+}));
+
+export default function FilterSidebarComponent() {
+  const [expanded, setExpanded] = React.useState('panel1');
+  const [listingType, setListingType] = React.useState('All');
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+
+  const handleListingType = (event, value) => {
+    setListingType(value);
+  };
+
+
+  return (
+    <div>
+      <div class="form-alt-row">
+      <TextField label="Street Address or Keywords.." variant="outlined" sx={{minWidth:300}} />
+      <div className="small-text">LISTING TYPE</div>
+      <ToggleButtonGroup    
+      color="primary" 
+      value={listingType}
+      exclusive
+      onChange={handleListingType} >
+          <ToggleButton value="All" sx={{textTransform:'capitalize', fontWeight:700}}>
+            All
+          </ToggleButton>
+          <ToggleButton value="Room" sx={{textTransform:'capitalize', fontWeight:700}}>
+            Room Only
+          </ToggleButton>
+          <ToggleButton value="House" sx={{textTransform:'capitalize', fontWeight:700}}>
+            Whole House
+          </ToggleButton>
+   
+    </ToggleButtonGroup>
+       <Button variant="contained" color="success" size="large" sx={{marginTop:2, width:'100%'}} disableElevation>
+         Search
+        </Button>
+  
+      </div>
+   
+      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+          <Typography color="primary"><b>Home Features</b></Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
           <List
               sx={{ width: '100%',  bgcolor: 'background.paper' }}
             >
@@ -62,9 +124,7 @@ class AmenitiesForm extends React.Component {
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-wifi" primary="Wi-Fi" />
                 <Switch
-                  edge="end"
-                  onChange={() => this.setState({wifi: !this.state.wifi})}
-                  checked={this.state.wifi}
+                  edge="start"
                  />
               </ListItem>
               <ListItem>
@@ -73,10 +133,8 @@ class AmenitiesForm extends React.Component {
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Laundry" />
                 <Switch
-                  edge="end"
-                  onChange={() => this.setState({laundry: !this.state.laundry})}
-                  checked={this.state.laundry}
-                />
+                  edge="start"
+                 />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
@@ -84,9 +142,7 @@ class AmenitiesForm extends React.Component {
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Heater" />
                 <Switch
-                  edge="end"
-                  onChange={() => this.setState({heater: !this.state.heater})}
-                  checked={this.state.heater}
+                  edge="start"
                 />
               </ListItem>
               <ListItem>
@@ -95,9 +151,7 @@ class AmenitiesForm extends React.Component {
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Air Conditioned" />
                 <Switch
-                  edge="end"
-                  onChange={() => this.setState({aircon: !this.state.aircon})}
-                  checked={this.state.aircon}
+                  edge="start"
                 />
               </ListItem>
               <ListItem>
@@ -106,15 +160,19 @@ class AmenitiesForm extends React.Component {
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Parking" />
                 <Switch
-                  edge="end"
-                  onChange={() => this.setState({parking: !this.state.parking})}
-                  checked={this.state.parking}
+                  edge="start"
                 />
               </ListItem>
-            </List></Box>
-            <Box sx={{border:1, borderColor: '#e3e3e3', borderRadius: 1, padding: .5, width: '100%'}}>
-          <h3>Property Nearby</h3>
-          <Alert severity="warning">Establishment is within 10km radius.</Alert>
+            </List>
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+        <Typography color="primary"><b>Nearby</b></Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
           <List
               sx={{ width: '100%',  bgcolor: 'background.paper' }}
             >
@@ -124,10 +182,8 @@ class AmenitiesForm extends React.Component {
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-wifi" primary="Park and Playground" />
                 <Switch
-                  edge="end"
-                  onChange={() => this.setState({nearToPark: !this.state.nearToPark})}
-                  checked={this.state.nearToPark}
-                 />
+                  edge="start"
+                  />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
@@ -135,9 +191,7 @@ class AmenitiesForm extends React.Component {
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Shopping Malls" />
                 <Switch
-                  edge="end"
-                  onChange={() => this.setState({nearToMall: !this.state.nearToMall})}
-                  checked={this.state.nearToMall}
+                  edge="start"
                 />
               </ListItem>
               <ListItem>
@@ -146,9 +200,7 @@ class AmenitiesForm extends React.Component {
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Groceries" />
                 <Switch
-                  edge="end"
-                  onChange={() => this.setState({nearToGrocery: !this.state.nearToGrocery})}
-                  checked={this.state.nearToGrocery}
+                  edge="start"
                 />
               </ListItem>
               <ListItem>
@@ -157,10 +209,8 @@ class AmenitiesForm extends React.Component {
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Government Offices" />
                 <Switch
-                  edge="end"
-                  onChange={() => this.setState({nearToGovernment: !this.state.nearToGovernment})}
-                  checked={this.state.nearToGovernment}
-                />
+                  edge="start"
+                  />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
@@ -168,29 +218,14 @@ class AmenitiesForm extends React.Component {
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="ATM and Banks" />
                 <Switch
-                  edge="end"
-                  onChange={() => this.setState({nearToBank: !this.state.nearToBank})}
-                  checked={this.state.nearToBank}
+                  edge="start"
                 />
               </ListItem>
-            </List></Box>
-          </div>
-          <Divider/>
-          <div className="form-action-row">
-          <Button variant="contained" 
-                 color="success"
-                  onClick={() =>{
-                    this.props.handlePrevTab()}
-                  }>
-                  <WestOutlinedIcon/>Prev</Button>
-          <Button variant="contained" 
-                  onClick={() =>{
-                    this.saveInLocalStorage();
-                    this.props.handleNextTab()}
-                  }>Next
-          <EastOutlinedIcon/></Button>
-            </div>
+            </List>
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+     
     </div>
-  }
+  );
 }
-export default AmenitiesForm;

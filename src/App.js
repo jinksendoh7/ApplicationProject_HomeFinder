@@ -3,7 +3,7 @@ import './App.css';
 
 import { AuthContextProvider } from './contexts/auth/AuthContext';
 
-import DashboardPage from "./pages/dashboard/DashboardPage";
+import ListingPage from "./pages/listings/ListingsPage";
 import AddListingPage from "./pages/add-listings/AddListingPage";
 import LoginPage from "./pages/login/LoginPage";
 import ResetPasswordPage from "./pages/reset-password/ResetPasswordPage";
@@ -23,10 +23,10 @@ function App() {
             <Route path={RoutesConst.RESET_PASSWORD_ROUTE}element={<ResetPasswordPage />} />
             <Route path={RoutesConst.SIGNUP_ROUTE} element={<SignupPage />} />
             <Route
-                path={RoutesConst.DASHBOARD_ROUTE}
+                path={RoutesConst.LISTING_ROUTE}
                 element={
                   <ProtectedPage>
-                    <DashboardPage />
+                    <ListingPage />
                   </ProtectedPage>
                 }>
                     <Route

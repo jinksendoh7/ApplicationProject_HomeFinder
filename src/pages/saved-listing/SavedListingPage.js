@@ -25,6 +25,8 @@ import HouseOutlinedIcon from '@mui/icons-material/HouseOutlined';
 import BedroomChildOutlinedIcon from '@mui/icons-material/BedroomChildOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import Divider from '@mui/material/Divider'
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -97,18 +99,19 @@ const SavedListingPage = () => {
                     <div className="chip-stacked">
                       {
                       item.isRoomOnly?<Chip color="primary"  icon={<BedroomChildOutlinedIcon />} label="Room Only" /> 
-                      : <Chip color="primary" variant="outlined" icon={<HouseOutlinedIcon />} label="Whole House" />
+                      : <Chip color="primary" icon={<HouseOutlinedIcon />} label="Whole House" />
                     }
                     </div>
                     <Typography variant="body2" color="text.secondary">
                      {item.description}
                     </Typography>
+                    <Divider sx={{marginTop: 3, marginBottom: 2}}/>
                    <div className="chip-stacked">
-                        {item.wifi && <Chip color="success" icon={<WifiIcon />} label="Wifi" />}
-                        {item.laundry && <Chip color="primary" icon={<LocalLaundryServiceOutlinedIcon />} label="Laundry" />}
-                        {item.heater && <Chip color="warning" icon={<LocalFireDepartmentOutlinedIcon  />} label="Heater" />}
-                        {item.parking && <Chip color="success"  icon={<LocalParkingOutlinedIcon />} label="Parking" />}
-                        {item.aircon && <Chip color="warning"  icon={<AcUnitOutlinedIcon />} label="Air Con" />}
+                        {item.wifi && <Chip color="success"  variant="outlined" icon={<WifiIcon />} label="Wifi" />}
+                        {item.laundry && <Chip color="warning" variant="outlined" icon={<LocalLaundryServiceOutlinedIcon />} label="Laundry" />}
+                        {item.heater && <Chip color="info"  variant="outlined" icon={<LocalFireDepartmentOutlinedIcon  />} label="Heater" />}
+                        {item.parking && <Chip color="success"  variant="outlined"  icon={<LocalParkingOutlinedIcon />} label="Parking" />}
+                        {item.aircon && <Chip color="warning"  variant="outlined"  icon={<AcUnitOutlinedIcon />} label="Air Con" />}
                   </div>
                   </CardContent>
                 </CardActionArea>

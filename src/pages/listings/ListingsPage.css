@@ -1,0 +1,5 @@
+@media (min-width: 1200px){
+.MuiContainer-root {
+    max-width: 1536px !important;
+}
+}

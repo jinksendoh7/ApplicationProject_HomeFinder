@@ -2,7 +2,7 @@
 import {Box, Grid, Paper} from '@mui/material'
 import {useState} from 'react';
 import TabsComponent from '../../components/tabs/TabsComponents';
-import './ListingPage.css'
+import './AddListingPage.css'
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
