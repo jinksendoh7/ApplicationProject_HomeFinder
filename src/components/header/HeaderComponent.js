@@ -150,7 +150,7 @@ export default function HeaderComponent(props) {
             ))}
           </Box>
           {props.userType === FireStoreConst.USER_DOC_MEMBER_USER && 
-             <Button color="success" variant="contained"> Logout</Button>
+             <Button color="success" variant="contained" onClick={()=>handleLogout()}> Logout</Button>
           }
           {props.userType === FireStoreConst.USER_DOC_HOMEOWNER_USER && 
               <DropdownMenuComponent  menuItems={menus}/>
@@ -166,6 +166,9 @@ export default function HeaderComponent(props) {
                 <MailIcon color="action" />
               </Badge>
           </Box>
+          {props.userType === FireStoreConst.USER_DOC_MEMBER_USER && 
+             <Button color="success" variant="contained" onClick={()=>handleLogout()}> Logout</Button>
+          }
           {props.userType === FireStoreConst.USER_DOC_HOMEOWNER_USER && 
               <DropdownMenuComponent  menuItems={menus}/>
           }
