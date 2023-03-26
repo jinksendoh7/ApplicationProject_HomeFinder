@@ -11,7 +11,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
-import Switch from '@mui/material/Switch';
+import Checkbox from '@mui/material/Checkbox';
 import WifiIcon from '@mui/icons-material/Wifi';
 import LocalLaundryServiceOutlinedIcon from '@mui/icons-material/LocalLaundryServiceOutlined';
 import Box from '@mui/material/Box'
@@ -61,8 +61,7 @@ class AmenitiesForm extends React.Component {
                   <WifiIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-wifi" primary="Wi-Fi" />
-                <Switch
-                  edge="end"
+                <Checkbox
                   onChange={() => this.setState({wifi: !this.state.wifi})}
                   checked={this.state.wifi}
                  />
@@ -72,8 +71,7 @@ class AmenitiesForm extends React.Component {
                   <LocalLaundryServiceOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Laundry" />
-                <Switch
-                  edge="end"
+                <Checkbox
                   onChange={() => this.setState({laundry: !this.state.laundry})}
                   checked={this.state.laundry}
                 />
@@ -83,8 +81,7 @@ class AmenitiesForm extends React.Component {
                   <LocalFireDepartmentOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Heater" />
-                <Switch
-                  edge="end"
+                <Checkbox
                   onChange={() => this.setState({heater: !this.state.heater})}
                   checked={this.state.heater}
                 />
@@ -94,8 +91,7 @@ class AmenitiesForm extends React.Component {
                   <AcUnitOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Air Conditioned" />
-                <Switch
-                  edge="end"
+                <Checkbox
                   onChange={() => this.setState({aircon: !this.state.aircon})}
                   checked={this.state.aircon}
                 />
@@ -105,8 +101,7 @@ class AmenitiesForm extends React.Component {
                   <LocalParkingOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Parking" />
-                <Switch
-                  edge="end"
+                <Checkbox
                   onChange={() => this.setState({parking: !this.state.parking})}
                   checked={this.state.parking}
                 />
@@ -124,7 +119,7 @@ class AmenitiesForm extends React.Component {
                   <ParkOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-wifi" primary="Park and Playground" />
-                <Switch
+                <Checkbox
                   edge="end"
                   onChange={() => this.setState({nearToPark: !this.state.nearToPark})}
                   checked={this.state.nearToPark}
@@ -135,8 +130,7 @@ class AmenitiesForm extends React.Component {
                   <ShoppingBagOutlinedIcon/>
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Shopping Malls" />
-                <Switch
-                  edge="end"
+                <Checkbox
                   onChange={() => this.setState({nearToMall: !this.state.nearToMall})}
                   checked={this.state.nearToMall}
                 />
@@ -146,7 +140,7 @@ class AmenitiesForm extends React.Component {
                   <ShoppingCartOutlinedIcon  />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Groceries" />
-                <Switch
+                <Checkbox
                   edge="end"
                   onChange={() => this.setState({nearToGrocery: !this.state.nearToGrocery})}
                   checked={this.state.nearToGrocery}
@@ -157,7 +151,7 @@ class AmenitiesForm extends React.Component {
                   < AccountBalanceOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Government Offices" />
-                <Switch
+                <Checkbox
                   edge="end"
                   onChange={() => this.setState({nearToGovernment: !this.state.nearToGovernment})}
                   checked={this.state.nearToGovernment}
@@ -168,7 +162,7 @@ class AmenitiesForm extends React.Component {
                   < PriceChangeOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="ATM and Banks" />
-                <Switch
+                <Checkbox
                   edge="end"
                   onChange={() => this.setState({nearToBank: !this.state.nearToBank})}
                   checked={this.state.nearToBank}
