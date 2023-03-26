@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
-import { Typography, Grid, Chip,Divider } from '@mui/material';
+import { Typography, Grid, Chip,Divider, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 import CardMedia from '@mui/material/CardMedia';
@@ -26,8 +26,9 @@ import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
 import LocalLaundryServiceOutlinedIcon from '@mui/icons-material/LocalLaundryServiceOutlined';
 import './SearchResultsComponent.css'
 import { v4 as uuidv4 } from 'uuid';
+import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import LocalStorage from '../../services/storage/LocalStorage';
-import { LocalStorageKeysConst } from '../../constants/AppConstants';
+import { LocalStorageKeysConst, RoutesConst } from '../../constants/AppConstants';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -63,6 +64,11 @@ const checkIfSaved = (id)=>{
   }
  
   return bool;
+}
+
+const shareOnFacebook=()=>{
+  const navUrl = RoutesConst.SHARE_ON_FACEBOOK_ROUTE;
+  window.open(navUrl , '_blank');
 }
   return (
     <>
@@ -120,6 +126,8 @@ const checkIfSaved = (id)=>{
                         listing ={item} 
                         isSaved = {checkIfSaved(item.listing.id)}
                         onHandleSaved = {handleSaved }/>
+                        <div className="margin-break"></div>
+                        <Button variant="contained" disabledElevation onClick={shareOnFacebook} color="warning"> <FacebookOutlinedIcon/> Share</Button>
                 </div>
               
               </div>
