@@ -63,8 +63,6 @@ const SavedListingPage = () => {
       
       data.splice(index, 1); // 2nd parameter means remove one item only
     }
-    console.log(data, 'after')
-
     LocalStorage.setStorageItem(LocalStorageKeysConst.SAVED_LISTING, savedListing);
    
   }

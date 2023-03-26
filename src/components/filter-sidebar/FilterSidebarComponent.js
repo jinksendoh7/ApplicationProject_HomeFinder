@@ -15,7 +15,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-
+import Checkbox from '@mui/material/Checkbox';
 
 import Switch from '@mui/material/Switch';
 import WifiIcon from '@mui/icons-material/Wifi';
@@ -72,9 +72,20 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export default function FilterSidebarComponent(props) {
   const [expanded, setExpanded] = useState('panel1');
-  const [listingType, setListingType] = useState(null);
-  const [keyword, setKeyWord] = useState('');
+  const [listingType, setListingType] = useState('All');
+  const [keyword, setKeyWord] = useState(' ');
   const [price, setPrice] = useState(500);
+  const [wifi,setWifi] = useState(false);
+  const [laundry,setLaundry] = useState(false);
+  const [heater,setHeater] = useState(false);
+  const [aircon,setAircon] = useState(false);
+  const [parking,setParking] = useState(false);
+  const [nearToPark, setNearToPark] = useState(false);
+  const [nearToMall, setNearToMall] = useState(false);
+  const [nearToGrocery, setNearToGrocery] = useState(false);
+  const [nearToGovernment, setNearToGovernment] = useState(false);
+  const [nearToBank, setNearToBank] = useState(false);
+ 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -84,9 +95,23 @@ export default function FilterSidebarComponent(props) {
   };
 
   const handleSearch = ()=>{
-    props.handleSearch({keyword: keyword, isRoomOnly: listingType, price: price})
+    props.handleSearch(
+        { keyword: keyword === '' ? ' ': keyword, 
+          isRoomOnly: listingType,
+          price: price,
+          wifi: wifi,
+          laundry: laundry,
+          heater:heater,
+          aircon:aircon,
+          parking:parking,
+          nearToPark: nearToPark,
+          nearToMall: nearToMall,
+          nearToGrocery: nearToGrocery,
+          neartToGovernment: nearToGovernment,
+          nearToBank: nearToBank
+        })
   }
-
+ 
   return (
     <div>
       <div className="form-alt-row-outlined">
@@ -134,17 +159,20 @@ export default function FilterSidebarComponent(props) {
                   <WifiIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-wifi" primary="Wi-Fi" />
-                <Switch
-                  edge="start"
-                 />
+                <Checkbox
+                  checked={wifi}
+                  onChange={()=>setWifi(!wifi)}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <LocalLaundryServiceOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Laundry" />
-                <Switch
-                  edge="start"
+                <Checkbox
+                  checked={laundry}
+                  onChange={(e)=>setLaundry(e.target.checked)}
                  />
               </ListItem>
               <ListItem>
@@ -152,8 +180,10 @@ export default function FilterSidebarComponent(props) {
                   <LocalFireDepartmentOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Heater" />
-                <Switch
+                <Checkbox
                   edge="start"
+                  checked={heater}
+                  onChange={() => setHeater(!heater)}
                 />
               </ListItem>
               <ListItem>
@@ -161,8 +191,10 @@ export default function FilterSidebarComponent(props) {
                   <AcUnitOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Air Conditioned" />
-                <Switch
+                <Checkbox
                   edge="start"
+                  checked={aircon}
+                  onChange={() => setAircon(!aircon)}
                 />
               </ListItem>
               <ListItem>
@@ -170,8 +202,10 @@ export default function FilterSidebarComponent(props) {
                   <LocalParkingOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Parking" />
-                <Switch
+                <Checkbox
                   edge="start"
+                  checked={parking}
+                  onChange={() => setParking(!parking)}
                 />
               </ListItem>
             </List>
@@ -190,17 +224,21 @@ export default function FilterSidebarComponent(props) {
                   <ParkOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-wifi" primary="Park and Playground" />
-                <Switch
+                <Checkbox
                   edge="start"
-                  />
+                  checked={nearToPark}
+                  onChange={() => setNearToPark(!nearToPark)}
+                />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
                   <ShoppingBagOutlinedIcon/>
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Shopping Malls" />
-                <Switch
+                <Checkbox
                   edge="start"
+                  checked={nearToMall}
+                  onChange={() => setNearToMall(!nearToMall)}
                 />
               </ListItem>
               <ListItem>
@@ -208,8 +246,10 @@ export default function FilterSidebarComponent(props) {
                   <ShoppingCartOutlinedIcon  />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Groceries" />
-                <Switch
+                <Checkbox
                   edge="start"
+                  checked={nearToGrocery}
+                  onChange={() => setNearToGrocery(!nearToGrocery)}
                 />
               </ListItem>
               <ListItem>
@@ -217,17 +257,21 @@ export default function FilterSidebarComponent(props) {
                   < AccountBalanceOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="Government Offices" />
-                <Switch
+                <Checkbox
                   edge="start"
-                  />
+                  checked={nearToGovernment}
+                  onChange={() => setNearToGovernment(!nearToGovernment)}
+                />
               </ListItem>
               <ListItem>
                 <ListItemIcon>
                   < PriceChangeOutlinedIcon />
                 </ListItemIcon>
                 <ListItemText id="switch-list-label-bluetooth" primary="ATM and Banks" />
-                <Switch
+                <Checkbox
                   edge="start"
+                  checked={nearToBank}
+                  onChange={() => setNearToBank(!nearToBank)}
                 />
               </ListItem>
             </List>

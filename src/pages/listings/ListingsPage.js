@@ -28,7 +28,8 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function ListingsPage() {
 
-    const [results, setResults] = useState([]);
+    let [results, setResults] = useState([]);
+    const [isLoading,setIsLoading] = useState(false);
     const [savedListing,setSavedListing] = useState([]);
     const [filterValues, setFilterValues] = useState({keyword: '', listingType: 'All', price: 1000});
     let location = useLocation();
@@ -55,15 +56,67 @@ function ListingsPage() {
         setSavedListing(LocalStorage.getStorageItem(LocalStorageKeysConst.SAVED_LISTING));
       }
       const onHandleSearch = (filterData) =>{
-      
         setFilterValues(filterData);
-        //console.log(filterData);
-       const filteredResults = results.filter((el)=>{
-        return el.listing.propertyAddress.includes(filterData.keyword) &&
-               el.fees.totalFee >= filterData.price
-       })
-       console.log(filteredResults, 'FR')
-       setResults(filteredResults)
+        console.log('in', filterData);
+        setIsLoading(true);
+        setTimeout(() =>{
+          getResults().then(d => {
+            let filteredResults = d.filter((el)=>{
+              if(filterData.isRoomOnly==='All'){
+                  return el.listing.propertyAddress.includes(filterData.keyword) &&
+                   el.fees.totalFee >= filterData.price 
+               
+              }
+              else if(filterData.isRoomOnly === true){
+                  return el.listing.propertyAddress.includes(filterData.keyword) &&
+                         el.fees.totalFee >= filterData.price && el.fees.isRoomOnly === true
+                  }
+                  else{
+                    return el.listing.propertyAddress.includes(filterData.keyword) &&
+                    el.fees.totalFee >= filterData.price && !el.fees.isRoomOnly
+                  
+                  }
+              })
+            // Drilling down results further
+            if(filterData.wifi){
+               filteredResults = filteredResults.filter((el)=> el.amenities.wifi);
+              }
+            if(filterData.laundry){
+              filteredResults = filteredResults.filter((el)=> el.amenities.laundry);
+             }   
+            if(filterData.heater){
+              filteredResults = filteredResults.filter((el)=> el.amenities.heater);
+                }
+              if(filterData.aircon){
+                  filteredResults = filteredResults.filter((el)=> el.amenities.aircon);
+              }
+              if(filterData.parking){
+                filteredResults = filteredResults.filter((el)=> el.amenities.parking);
+              }
+              if(filterData.nearToPark){
+                filteredResults = filteredResults.filter((el)=> el.amenities.nearToPark);
+              }
+              if(filterData.nearToMall){
+                filteredResults = filteredResults.filter((el)=> el.amenities.nearToMall);
+              }
+              if(filterData.nearToGrocery){
+                filteredResults = filteredResults.filter((el)=> el.amenities.nearToGrocery);
+              }
+              if(filterData.nearToGovernment){
+                filteredResults = filteredResults.filter((el)=> el.amenities.nearToGovernment);
+              }
+              if(filterData.nearToBank){
+                filteredResults = filteredResults.filter((el)=> el.amenties.nearToBank);
+              }
+             
+             setResults(filteredResults)
+             setIsLoading(false)
+          });
+
+        }, 1500);
+    
+    
+       
         
       }
       useEffect(() => {
@@ -90,10 +143,20 @@ function ListingsPage() {
                 </Box>
                 <Box gridColumn="span 9">
                   <Item>
+                    {isLoading
+                    &&  
+                      <div className="padding">
+                          <SpinnerLoader color={'#0d61b6'} size={55} loading={isLoading}/>
+                      </div>
+                    }
+                    {!isLoading
+                    &&
                     <SearchResultsComponent 
                       data={results} 
                       filterValues={filterValues}
-                      handleSaved = {handleSavedListing}/></Item>
+                      handleSaved = {handleSavedListing}/>
+                    }
+                    </Item>
                 </Box>
               </Box>
 
