@@ -229,7 +229,7 @@ class RentFeesForm extends React.Component {
             <div className="form-row">
             <Box sx={{border:1, borderColor: '#e3e3e3', borderRadius: 1, padding: 2, width: '100%', display:'flex', flexDirection: 'row', justifyContent:'space-between'}}>
               <h3>Total Fees/ Month</h3>
-              <h3>CAD {formatter.format(this.state.totalFee)}</h3>
+              <h3>C{formatter.format(this.state.totalFee)}</h3>
              </Box>
             </div>
            

@@ -30,7 +30,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
 import Divider from '@mui/material/Divider'
-
+import {FormControl, InputLabel, Slider} from '@mui/material'
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -84,14 +84,15 @@ export default function FilterSidebarComponent() {
 
   return (
     <div>
-      <div class="form-alt-row">
+      <div className="form-alt-row-outlined">
       <TextField label="Street Address or Keywords.." variant="outlined" sx={{minWidth:300}} />
       <div className="small-text">LISTING TYPE</div>
       <ToggleButtonGroup    
       color="primary" 
       value={listingType}
       exclusive
-      onChange={handleListingType} >
+      onChange={handleListingType} 
+      sx={{marginBottom: 3}}>
           <ToggleButton value="All" sx={{textTransform:'capitalize', fontWeight:700}}>
             All
           </ToggleButton>
@@ -101,9 +102,14 @@ export default function FilterSidebarComponent() {
           <ToggleButton value="House" sx={{textTransform:'capitalize', fontWeight:700}}>
             Whole House
           </ToggleButton>
-   
     </ToggleButtonGroup>
-       <Button variant="contained" color="success" size="large" sx={{marginTop:2, width:'100%'}} disableElevation>
+  
+    <FormControl sx={{ marginBottom: 15, marginTop:10, minWidth: 80,  }} fullWidth={true}>
+              <InputLabel sx={{marginTop:1, color:'#1468bd !important', fontSize:'.8rem !important'}}>Price ($0 to $5,000)</InputLabel>
+              <Slider  color="primary" defaultValue={500} aria-label="Default" step={500} valueLabelDisplay="auto" max={5000} min={0} />
+            </FormControl>
+
+       <Button variant="contained" color="success" size="large" sx={{marginTop:5, width:'100%'}} disableElevation>
          Search
         </Button>
   
@@ -114,7 +120,6 @@ export default function FilterSidebarComponent() {
           <Typography color="primary"><b>Home Features</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
           <List
               sx={{ width: '100%',  bgcolor: 'background.paper' }}
             >
@@ -164,7 +169,6 @@ export default function FilterSidebarComponent() {
                 />
               </ListItem>
             </List>
-          </Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
@@ -172,7 +176,6 @@ export default function FilterSidebarComponent() {
         <Typography color="primary"><b>Nearby</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
           <List
               sx={{ width: '100%',  bgcolor: 'background.paper' }}
             >
@@ -222,7 +225,6 @@ export default function FilterSidebarComponent() {
                 />
               </ListItem>
             </List>
-          </Typography>
         </AccordionDetails>
       </Accordion>
      

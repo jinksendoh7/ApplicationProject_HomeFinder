@@ -1,0 +1,30 @@
+.form-alt-row{
+    border: 1px solid  #a1c2e2;
+    margin: .5rem 0;
+    border-radius: 5px;
+    padding: 1rem 1rem;
+    height: 275px;
+}
+.small-text{
+    font-weight: 700;
+    font-size: .8rem;
+    margin-top: 1rem;
+    color: #1468bd;
+}
+.actions-listing{
+    display:flex;
+    flex-direction: column;
+    align-content:flex-end;
+    margin: 1rem .5rem;
+    
+}
+.listing-title{
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #1468bd;
+    text-align: right;
+}
+.listing-button{
+    margin-top: 6rem;
+    text-align: right;
+}

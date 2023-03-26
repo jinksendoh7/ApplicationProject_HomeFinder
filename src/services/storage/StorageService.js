@@ -34,6 +34,22 @@ export default class StorageService {
             console.log('Error getting data in ', docName, 'with collection name =>', e);
         } 
     }
-    
+    static async getDocs(docName){
+        let data = []
+        try {
+            let i = 0;
+            const colRef = collection(db, docName);
+            const docsSnap = await getDocs(colRef);
+            if(docsSnap.docs.length > 0) {
+               docsSnap.forEach((doc) => {
+                 data[i] = doc.data()
+                i++;
+               })
+               return data;
+            }
+        } catch(e){
+            console.log('Error getting data in ', docName, 'with collection name =>', e);
+        }
+    }
 
 }

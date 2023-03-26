@@ -21,7 +21,8 @@ export const RoutesConst = {
     RESET_PASSWORD_ROUTE: '/reset',
     CHANGE_PASSWORD_ROUET: '/changepassword',
     ADD_LISTING_ROUTE: 'add',
-    SAVED_LISTING_ROUTE: 'saved-listing'
+    SAVED_LISTING_ROUTE: 'saved-listing',
+    SEARCH_LISTING_ROUTE: 'search-listing',
 }
 export const LocalStorageKeysConst = {
     LISTING_DETAILS: 'LISTING_DETAILS',
