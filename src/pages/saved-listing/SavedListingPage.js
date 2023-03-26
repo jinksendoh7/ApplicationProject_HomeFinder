@@ -26,11 +26,14 @@ import BedroomChildOutlinedIcon from '@mui/icons-material/BedroomChildOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Divider from '@mui/material/Divider'
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
+import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
-  padding: theme.spacing(2),
   textAlign: 'left',
   boxShadow:'none',
   border:'1px solid',
@@ -56,8 +59,6 @@ const SavedListingPage = () => {
 
   const handleDeleteSavedListing = (index) => {
     const data = savedListing;
-    console.log(data, 'before')
-    console.log(index);
     if (index > -1) { // only splice array when item is found
       
       data.splice(index, 1); // 2nd parameter means remove one item only
@@ -75,43 +76,48 @@ const SavedListingPage = () => {
       <div className="form-wrapper"> 
            <div className="form-header">
            <h1>Saved Listing</h1>
-           <ButtonSavedListing listing ={listing}/>
             </div>
             {savedListing &&
-            <div className="form-container">
             <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
 
           {savedListing && Array.from(savedListing).map((item, index) => (
-            <Grid item xs={2} sm={4} md={4} key={index} sx={{minWidth: 345}}>
+            <Grid item xs={2} sm={4} md={4}  lg={4} key={item.listing.id} >
               <Item>
-              <Card sx={{  maxWidth:345, border: 0, boxShadow:'none' }}>
+              <Card sx={{  border: 0, boxShadow:'none' }}>
                 <CardActionArea>
                   <CardMedia
                     component="img"
-                    height="140"
+                    height="180"
                     image={index % 2 ? SampleHome02:SampleHome01 }
-                    alt="green iguana"
+                 
                   />
                   <CardContent>
                     <Typography gutterBottom variant="body1" sx={{color: "#346506", fontWeight:'700', marginBottom: 1}} component="div">
-                        {item.address}
+                        {item.listing.propertyAddress}
                     </Typography>
                     <div className="chip-stacked">
                       {
-                      item.isRoomOnly?<Chip color="primary"  icon={<BedroomChildOutlinedIcon />} label="Room Only" /> 
-                      : <Chip color="primary" icon={<HouseOutlinedIcon />} label="Whole House" />
+                      item.fees.isRoomOnly?<Chip color="error"  icon={<BedroomChildOutlinedIcon />} label="Room Only" /> 
+                      : <Chip color="error" icon={<HouseOutlinedIcon />} label="Whole House" />
                     }
                     </div>
                     <Typography variant="body2" color="text.secondary">
-                     {item.description}
+                    {item.listing.overview.replace( /(<([^>]+)>)/ig, '').substring(0,100)}...
                     </Typography>
-                    <Divider sx={{marginTop: 3, marginBottom: 2}}/>
-                   <div className="chip-stacked">
-                        {item.wifi && <Chip color="success"  variant="outlined" icon={<WifiIcon />} label="Wifi" />}
-                        {item.laundry && <Chip color="warning" variant="outlined" icon={<LocalLaundryServiceOutlinedIcon />} label="Laundry" />}
-                        {item.heater && <Chip color="info"  variant="outlined" icon={<LocalFireDepartmentOutlinedIcon  />} label="Heater" />}
-                        {item.parking && <Chip color="success"  variant="outlined"  icon={<LocalParkingOutlinedIcon />} label="Parking" />}
-                        {item.aircon && <Chip color="warning"  variant="outlined"  icon={<AcUnitOutlinedIcon />} label="Air Con" />}
+               
+                    <div className="chip-stacked">
+                        {item.amenities.wifi && <Chip color="success"  variant="outlined" icon={<WifiIcon />} label="Wifi" />}
+                        {item.amenities.laundry && <Chip color="warning" variant="outlined" icon={<LocalLaundryServiceOutlinedIcon />} label="Laundry" />}
+                        {item.amenities.heater && <Chip color="error"  variant="outlined" icon={<LocalFireDepartmentOutlinedIcon  />} label="Heater" />}
+                        {item.amenities.parking && <Chip color="info"  variant="outlined"  icon={<LocalParkingOutlinedIcon />} label="Parking" />}
+                        {item.amenities.aircon && <Chip color="primary"  variant="outlined"  icon={<AcUnitOutlinedIcon />} label="Air Con" />}
+                  </div>
+                  <div className="chip-stacked">
+                        {item.amenities.nearToPark && <Chip color="error"  variant="outlined" icon={<ParkOutlinedIcon/>} label="Park" />}
+                        {item.amenities.nearToMall && <Chip color="info" variant="outlined" icon={<ShoppingBagOutlinedIcon/>} label="Shopping Mall" />}
+                        {item.amenities.nearToGrocery && <Chip color="success"  variant="outlined" icon={<ShoppingCartOutlinedIcon  />} label="Groceries" />}
+                        {item.amenities.nearToGovernment && <Chip color="primary"  variant="outlined"  icon={<AccountBalanceOutlinedIcon/>} label="Government Offices" />}
+                        {item.amenities.nearToBank && <Chip color="warning"  variant="outlined"  icon={< PriceChangeOutlinedIcon />} label="ATM and Bank" />}
                   </div>
                   </CardContent>
                 </CardActionArea>
@@ -130,7 +136,6 @@ const SavedListingPage = () => {
                   ))}
         </Grid>
           
-            </div>
           }
         {
           savedListing.length ===0 &&

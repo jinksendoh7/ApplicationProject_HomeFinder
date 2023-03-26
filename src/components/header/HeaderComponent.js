@@ -27,6 +27,7 @@ import PropTypes from 'prop-types';
 import {FireStoreConst} from '../../constants/FirebaseConstants'
 import './HeaderComponent.css'
 import DropdownMenuComponent from '../dropdown-menu/DropdownMenuComponent';
+import {Link} from 'react-router-dom';
 const drawerWidth = 240;
 const navItems = ['Rental Listing', 'Book a Virtual Tour', 'Tenants', 'Owners', 'About', 'Contact'];
 
@@ -112,6 +113,9 @@ export default function HeaderComponent(props) {
     {name: 'Add Property', handler: null},
     {name: 'Saved Listings', handler: handleSavedListing},
     {name: 'Logout', handler: handleLogout}]
+    const menusForMember = [
+      {name: 'Saved Listings', handler: handleSavedListing},
+      {name: 'Logout', handler: handleLogout}]
   return (
      <>
       <AppBar component="nav">
@@ -134,10 +138,12 @@ export default function HeaderComponent(props) {
           </IconButton>
      
             <div className="wrapperHeaderLogo">
+            <Link to="/listing" color="inherit">
                 <Logo
                     url={HomeFinderLogo}
                     mainLogo="headerLogo"
                   ></Logo>
+              </Link>
             </div>
           <div className="wrapper-header-items">
           {props.userType === FireStoreConst.USER_DOC_MEMBER_USER && 
@@ -149,12 +155,8 @@ export default function HeaderComponent(props) {
               </Button>
             ))}
           </Box>
-          {props.userType === FireStoreConst.USER_DOC_MEMBER_USER && 
-             <Button color="success" variant="contained" onClick={()=>handleLogout()}> Logout</Button>
-          }
-          {props.userType === FireStoreConst.USER_DOC_HOMEOWNER_USER && 
-              <DropdownMenuComponent  menuItems={menus}/>
-          }
+          <DropdownMenuComponent  menuItems={props.userType === FireStoreConst.USER_DOC_HOMEOWNER_USER ? menus: menusForMember}/>
+       
              </>
             }
               {props.userType === FireStoreConst.USER_DOC_HOMEOWNER_USER && 
@@ -166,12 +168,8 @@ export default function HeaderComponent(props) {
                 <MailIcon color="action" />
               </Badge>
           </Box>
-          {props.userType === FireStoreConst.USER_DOC_MEMBER_USER && 
-             <Button color="success" variant="contained" onClick={()=>handleLogout()}> Logout</Button>
-          }
-          {props.userType === FireStoreConst.USER_DOC_HOMEOWNER_USER && 
-              <DropdownMenuComponent  menuItems={menus}/>
-          }
+          <DropdownMenuComponent  menuItems={props.userType ===FireStoreConst.USER_DOC_HOMEOWNER_USER ? menus: menusForMember}/>
+        
            </>
           }
          

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import {useState} from 'react';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
@@ -30,7 +30,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 import PriceChangeOutlinedIcon from '@mui/icons-material/PriceChangeOutlined';
 import Divider from '@mui/material/Divider'
-
+import {FormControl, InputLabel, Slider} from '@mui/material'
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -70,9 +70,11 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 }));
 
-export default function FilterSidebarComponent() {
-  const [expanded, setExpanded] = React.useState('panel1');
-  const [listingType, setListingType] = React.useState('All');
+export default function FilterSidebarComponent(props) {
+  const [expanded, setExpanded] = useState('panel1');
+  const [listingType, setListingType] = useState(null);
+  const [keyword, setKeyWord] = useState('');
+  const [price, setPrice] = useState(1000);
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -81,29 +83,39 @@ export default function FilterSidebarComponent() {
     setListingType(value);
   };
 
+  const handleSearch = ()=>{
+    props.handleSearch({keyword: keyword, isRoomOnly: listingType, price: price})
+  }
 
   return (
     <div>
-      <div class="form-alt-row">
-      <TextField label="Street Address or Keywords.." variant="outlined" sx={{minWidth:300}} />
+      <div className="form-alt-row-outlined">
+      <TextField label="Street Address or Keywords.." variant="outlined" sx={{minWidth:300}} value={keyword}
+      onChange ={(e)=>setKeyWord(e.target.value)}/>
       <div className="small-text">LISTING TYPE</div>
       <ToggleButtonGroup    
       color="primary" 
       value={listingType}
       exclusive
-      onChange={handleListingType} >
-          <ToggleButton value="All" sx={{textTransform:'capitalize', fontWeight:700}}>
+      onChange={handleListingType} 
+      sx={{marginBottom: 3}}>
+           <ToggleButton value={null} sx={{textTransform:'capitalize', fontWeight:700}}>
             All
           </ToggleButton>
-          <ToggleButton value="Room" sx={{textTransform:'capitalize', fontWeight:700}}>
+          <ToggleButton value={true} sx={{textTransform:'capitalize', fontWeight:700}}>
             Room Only
           </ToggleButton>
-          <ToggleButton value="House" sx={{textTransform:'capitalize', fontWeight:700}}>
+          <ToggleButton value={false} sx={{textTransform:'capitalize', fontWeight:700}}>
             Whole House
           </ToggleButton>
-   
     </ToggleButtonGroup>
-       <Button variant="contained" color="success" size="large" sx={{marginTop:2, width:'100%'}} disableElevation>
+  
+    <FormControl sx={{ marginBottom: 15, marginTop:10, minWidth: 80,  }} fullWidth={true}>
+    <div className="small-text">RENT PRICE ( $0 to $5,000)</div>         
+    <Slider  value={price} color="primary"  step={250} onChange={(e)=>setPrice(e.target.value)} valueLabelDisplay="auto" max={5000} min={0} />
+            </FormControl>
+
+       <Button variant="contained" onClick={handleSearch} color="success" size="large" sx={{marginTop:5, width:'100%'}} disableElevation>
          Search
         </Button>
   
@@ -114,7 +126,6 @@ export default function FilterSidebarComponent() {
           <Typography color="primary"><b>Home Features</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
           <List
               sx={{ width: '100%',  bgcolor: 'background.paper' }}
             >
@@ -164,7 +175,6 @@ export default function FilterSidebarComponent() {
                 />
               </ListItem>
             </List>
-          </Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
@@ -172,7 +182,6 @@ export default function FilterSidebarComponent() {
         <Typography color="primary"><b>Nearby</b></Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
           <List
               sx={{ width: '100%',  bgcolor: 'background.paper' }}
             >
@@ -222,7 +231,6 @@ export default function FilterSidebarComponent() {
                 />
               </ListItem>
             </List>
-          </Typography>
         </AccordionDetails>
       </Accordion>
      
