@@ -74,7 +74,7 @@ export default function FilterSidebarComponent(props) {
   const [expanded, setExpanded] = useState('panel1');
   const [listingType, setListingType] = useState(null);
   const [keyword, setKeyWord] = useState('');
-  const [price, setPrice] = useState(1000);
+  const [price, setPrice] = useState(500);
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -99,7 +99,7 @@ export default function FilterSidebarComponent(props) {
       exclusive
       onChange={handleListingType} 
       sx={{marginBottom: 3}}>
-           <ToggleButton value={null} sx={{textTransform:'capitalize', fontWeight:700}}>
+           <ToggleButton value={"All"} sx={{textTransform:'capitalize', fontWeight:700}}>
             All
           </ToggleButton>
           <ToggleButton value={true} sx={{textTransform:'capitalize', fontWeight:700}}>
