@@ -136,7 +136,7 @@ const SavedListingPage = () => {
           
           }
         {
-          savedListing.length ===0 &&
+          savedListing ===null &&
           <div className="empty-cards">
               <FavoriteBorderIcon sx={{ fontSize: 64 }} />
               <div className="empty-cards-title">
