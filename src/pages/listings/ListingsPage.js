@@ -30,7 +30,7 @@ function ListingsPage() {
 
     const [results, setResults] = useState([]);
     const [savedListing,setSavedListing] = useState([]);
- 
+    const [filterValues, setFilterValues] = useState({keyword: '', listingType: 'All', price: 1000});
     let location = useLocation();
     let [loading, setLoading] = useState(true);
     let [color, setColor] = useState("#0d61b6");
@@ -54,6 +54,18 @@ function ListingsPage() {
       const handleSavedListing = () =>{
         setSavedListing(LocalStorage.getStorageItem(LocalStorageKeysConst.SAVED_LISTING));
       }
+      const onHandleSearch = (filterData) =>{
+      
+        setFilterValues(filterData);
+        //console.log(filterData);
+       const filteredResults = results.filter((el)=>{
+        return el.listing.propertyAddress.includes(filterData.keyword) &&
+               el.fees.totalFee >= filterData.price
+       })
+       console.log(filteredResults, 'FR')
+       setResults(filteredResults)
+        
+      }
       useEffect(() => {
         
         user.uid !== undefined && getUserType(user);
@@ -74,12 +86,13 @@ function ListingsPage() {
           <Outlet/>
               <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={1}>
                 <Box gridColumn="span 3">
-                  <Item><FilterSidebarComponent/></Item>
+                  <Item><FilterSidebarComponent handleSearch={onHandleSearch}/></Item>
                 </Box>
                 <Box gridColumn="span 9">
                   <Item>
                     <SearchResultsComponent 
                       data={results} 
+                      filterValues={filterValues}
                       handleSaved = {handleSavedListing}/></Item>
                 </Box>
               </Box>

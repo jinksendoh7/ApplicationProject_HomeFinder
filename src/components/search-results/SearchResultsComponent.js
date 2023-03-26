@@ -40,7 +40,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function SearchResultsComponent({data, savedListing, handleSaved}) {
+export default function SearchResultsComponent({data, filterValues, handleSaved}) {
   const theme = useTheme();
 
   const formatter = new Intl.NumberFormat('en-CA', {
@@ -62,7 +62,7 @@ const checkIfSaved = (id)=>{
  
   return bool;
 }
-
+console.log(filterValues)
   return (
     <>
     
@@ -74,7 +74,7 @@ const checkIfSaved = (id)=>{
         {
           data && Array.from(data).map((item, index) => (
             <Item key = {uuidv4()} > 
-            <Grid container spacing={2} key={index}>
+            <Grid container spacing={2} key={item.listing.id}>
             <Grid item xs={12} md={3}>
             <CardMedia
                     component="img"
