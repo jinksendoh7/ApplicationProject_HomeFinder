@@ -50,14 +50,16 @@ export default function SearchResultsComponent({data, filterValues, handleSaved}
 const checkIfSaved = (id)=>{
   let bool = false; 
   const savedListing = LocalStorage.getStorageItem(LocalStorageKeysConst.SAVED_LISTING);
-  
-  if(savedListing.length > 0) {
+  if(savedListing !==null) {
     for (let key in savedListing) {
        if(savedListing[key].listing.id === id){
           bool = true;
         }
     }
 
+  }
+  else{
+    bool = false;
   }
  
   return bool;
