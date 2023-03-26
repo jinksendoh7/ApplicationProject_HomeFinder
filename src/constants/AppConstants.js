@@ -23,6 +23,7 @@ export const RoutesConst = {
     ADD_LISTING_ROUTE: 'add',
     SAVED_LISTING_ROUTE: 'saved-listing',
     SEARCH_LISTING_ROUTE: 'search-listing',
+    SHARE_ON_FACEBOOK_ROUTE: 'https://www.facebook.com/sharer/sharer.php?u=' + 'https://github.com/knoldus/angular-facebook-twitter.git',
 }
 export const LocalStorageKeysConst = {
     LISTING_DETAILS: 'LISTING_DETAILS',
