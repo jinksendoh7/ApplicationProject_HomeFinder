@@ -64,7 +64,6 @@ const checkIfSaved = (id)=>{
  
   return bool;
 }
-console.log(filterValues)
   return (
     <>
     
