@@ -41,7 +41,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function SearchResultsComponent({data, filterValues, handleSaved}) {
+export default function SearchResultsComponent({data, filterValues, handleSaved, isHomeOwner}) {
   const theme = useTheme();
 
   const formatter = new Intl.NumberFormat('en-CA', {
@@ -74,7 +74,7 @@ const shareOnFacebook=()=>{
     <>
     
     <div className='form-header'>
-       <h1>Search Results ({data.length})</h1>
+       <h1>{ isHomeOwner ? 'My Listings' : 'Search Results' } ({ data.length})</h1>
     </div>
     <Box sx={{ width: '100%', margin:1 }}>
     <Stack>

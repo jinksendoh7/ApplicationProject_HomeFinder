@@ -14,6 +14,7 @@ export const SuccessMessageConst={
 export const RoutesConst = {
     HOME_ROUTE: '/',
     LISTING_ROUTE: '/listing',
+    PROPERTY_ROUTE: '/property',
     DASHBOARD_ROUTE: '/dashboard',
     SIGNIN_ROUTE: '/login',
     SIGNUP_ROUTE: '/signup',
@@ -21,6 +22,7 @@ export const RoutesConst = {
     RESET_PASSWORD_ROUTE: '/reset',
     CHANGE_PASSWORD_ROUET: '/changepassword',
     ADD_LISTING_ROUTE: 'add',
+    ADD_PROPERTY_ROUTE: 'add',
     SAVED_LISTING_ROUTE: 'saved-listing',
     SEARCH_LISTING_ROUTE: 'search-listing',
     SHARE_ON_FACEBOOK_ROUTE: 'https://www.facebook.com/sharer/sharer.php?u=' + 'https://github.com/knoldus/angular-facebook-twitter.git',
