@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
-import { Typography, Grid, Chip,Divider, Button } from '@mui/material';
+import { Typography, Grid, Chip, Divider, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
 import CardMedia from '@mui/material/CardMedia';
@@ -29,52 +29,56 @@ import { v4 as uuidv4 } from 'uuid';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import LocalStorage from '../../services/storage/LocalStorage';
 import { LocalStorageKeysConst, RoutesConst } from '../../constants/AppConstants';
+
+import LikesButton from '../likes-button/LikesButton';
+import TotalViews from '../total-views/TotalViews';
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'left',
-  boxShadow:'none',
-  border:'1px solid',
-  borderColor:'#e3e3e3',
+  boxShadow: 'none',
+  border: '1px solid',
+  borderColor: '#e3e3e3',
   marginBottom: 10,
   color: theme.palette.text.secondary,
 }));
 
-export default function SearchResultsComponent({data, filterValues, handleSaved, isHomeOwner}) {
+export default function SearchResultsComponent({ data, filterValues, handleSaved }) {
   const theme = useTheme();
 
   const formatter = new Intl.NumberFormat('en-CA', {
     style: 'currency',
     currency: 'CAD',
   });
-const checkIfSaved = (id)=>{
-  let bool = false; 
-  const savedListing = LocalStorage.getStorageItem(LocalStorageKeysConst.SAVED_LISTING);
-  if(savedListing !==null) {
-    for (let key in savedListing) {
-       if(savedListing[key].listing.id === id){
+  const checkIfSaved = (id) => {
+    let bool = false;
+    const savedListing = LocalStorage.getStorageItem(LocalStorageKeysConst.SAVED_LISTING);
+    if (savedListing !== null) {
+      for (let key in savedListing) {
+        if (savedListing[key].listing.id === id) {
           bool = true;
         }
+      }
+
+    }
+    else {
+      bool = false;
     }
 
+    return bool;
   }
-  else{
-    bool = false;
-  }
- 
-  return bool;
-}
 
-const shareOnFacebook=()=>{
-  const navUrl = RoutesConst.SHARE_ON_FACEBOOK_ROUTE;
-  window.open(navUrl , '_blank');
-}
+  const shareOnFacebook = () => {
+    const navUrl = RoutesConst.SHARE_ON_FACEBOOK_ROUTE;
+    window.open(navUrl, '_blank');
+  }
   return (
     <>
     
     <div className='form-header'>
-       <h1>{ isHomeOwner ? 'My Listings' : 'Search Results' } ({ data.length})</h1>
+       <h1>Search Results ({data.length})</h1>
     </div>
     <Box sx={{ width: '100%', margin:1 }}>
     <Stack>
@@ -95,52 +99,61 @@ const shareOnFacebook=()=>{
                   </Typography>
                   <div className="chip-stacked">
                       {
-                      item.fees.isRoomOnly?<Chip color="error"  icon={<BedroomChildOutlinedIcon />} label="Room Only" /> 
-                      : <Chip color="success" icon={<HouseOutlinedIcon />} label="Whole House" />
-                    }
+                        item.fees.isRoomOnly ? <Chip color="error" icon={<BedroomChildOutlinedIcon />} label="Room Only" />
+                          : <Chip color="success" icon={<HouseOutlinedIcon />} label="Whole House" />
+                      }
                     </div>
-                 <div> {item.listing.overview.replace( /(<([^>]+)>)/ig, '').substring(0,150)}...</div>
-                 <div className="chip-stacked">
-                        {item.amenities.wifi && <Chip color="success"  variant="outlined" icon={<WifiIcon />} label="Wifi" />}
-                        {item.amenities.laundry && <Chip color="warning" variant="outlined" icon={<LocalLaundryServiceOutlinedIcon />} label="Laundry" />}
-                        {item.amenities.heater && <Chip color="error"  variant="outlined" icon={<LocalFireDepartmentOutlinedIcon  />} label="Heater" />}
-                        {item.amenities.parking && <Chip color="info"  variant="outlined"  icon={<LocalParkingOutlinedIcon />} label="Parking" />}
-                        {item.amenities.aircon && <Chip color="primary"  variant="outlined"  icon={<AcUnitOutlinedIcon />} label="Air Con" />}
-                  </div>
-                  <div className="chip-stacked">
-                        {item.amenities.nearToPark && <Chip color="error"  variant="outlined" icon={<ParkOutlinedIcon/>} label="Park" />}
-                        {item.amenities.nearToMall && <Chip color="info" variant="outlined" icon={<ShoppingBagOutlinedIcon/>} label="Shopping Mall" />}
-                        {item.amenities.nearToGrocery && <Chip color="success"  variant="outlined" icon={<ShoppingCartOutlinedIcon  />} label="Groceries" />}
-                        {item.amenities.nearToGovernment && <Chip color="primary"  variant="outlined"  icon={<AccountBalanceOutlinedIcon/>} label="Government Offices" />}
-                        {item.amenities.nearToBank && <Chip color="warning"  variant="outlined"  icon={< PriceChangeOutlinedIcon />} label="ATM and Bank" />}
-                  </div>
-                </Grid>
-            
-            <Grid item xs={12} md={2}>
-              <div className="actions-listing">
-                <div className="listing-title">
-                  C{formatter.format(item.fees.totalFee)}
-                </div>
-                <div className="listing-button">
-                      <ButtonSavedListing 
-                        listing ={item} 
-                        isSaved = {checkIfSaved(item.listing.id)}
-                        onHandleSaved = {handleSaved }/>
+                    <div> {item.listing.overview.replace(/(<([^>]+)>)/ig, '').substring(0, 150)}...</div>
+                    <div className="chip-stacked">
+                      {item.amenities.wifi && <Chip color="success" variant="outlined" icon={<WifiIcon />} label="Wifi" />}
+                      {item.amenities.laundry && <Chip color="warning" variant="outlined" icon={<LocalLaundryServiceOutlinedIcon />} label="Laundry" />}
+                      {item.amenities.heater && <Chip color="error" variant="outlined" icon={<LocalFireDepartmentOutlinedIcon />} label="Heater" />}
+                      {item.amenities.parking && <Chip color="info" variant="outlined" icon={<LocalParkingOutlinedIcon />} label="Parking" />}
+                      {item.amenities.aircon && <Chip color="primary" variant="outlined" icon={<AcUnitOutlinedIcon />} label="Air Con" />}
+                    </div>
+                    <div className="chip-stacked">
+                      {item.amenities.nearToPark && <Chip color="error" variant="outlined" icon={<ParkOutlinedIcon />} label="Park" />}
+                      {item.amenities.nearToMall && <Chip color="info" variant="outlined" icon={<ShoppingBagOutlinedIcon />} label="Shopping Mall" />}
+                      {item.amenities.nearToGrocery && <Chip color="success" variant="outlined" icon={<ShoppingCartOutlinedIcon />} label="Groceries" />}
+                      {item.amenities.nearToGovernment && <Chip color="primary" variant="outlined" icon={<AccountBalanceOutlinedIcon />} label="Government Offices" />}
+                      {item.amenities.nearToBank && <Chip color="warning" variant="outlined" icon={< PriceChangeOutlinedIcon />} label="ATM and Bank" />}
+                    </div>
+
+                    <div className="like-views">
+                      <div className='total-likes'>
+                        <LikesButton />
+                      </div>
+                      <div className='total-views'>
+                        <TotalViews />
+                      </div>
+                    </div>
+
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <div className="actions-listing">
+                      <div className="listing-title">
+                        C{formatter.format(item.fees.totalFee)}
+                      </div>
+                      <div className="listing-button">
+                        <ButtonSavedListing
+                          listing={item}
+                          isSaved={checkIfSaved(item.listing.id)}
+                          onHandleSaved={handleSaved} />
                         <div className="margin-break"></div>
-                        <Button variant="contained" disabledElevation onClick={shareOnFacebook} color="warning"> <FacebookOutlinedIcon/> Share</Button>
-                </div>
-              
-              </div>
-            </Grid>
-            </Grid>
-            </Item>
-        
-    
+                        <Button variant="contained" disabledElevation onClick={shareOnFacebook} color="warning"> <FacebookOutlinedIcon /> Share</Button>
+                      </div>
+
+                    </div>
+                  </Grid>
+                </Grid>
+              </Item>
+
+
             ))}
         </Stack>
-  
-   
-  </Box>
-  </>
+
+
+      </Box>
+    </>
   );
 }

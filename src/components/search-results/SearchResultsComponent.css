@@ -28,3 +28,13 @@
     margin-top: 4.5rem;
     text-align: right;
 }
+
+.like-views {
+    display: flex;
+    /* border: 1px solid black; */
+    width: 140px;
+}
+
+.total-likes {
+    margin-right: 25px;
+}

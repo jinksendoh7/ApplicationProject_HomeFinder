@@ -1,0 +1,20 @@
+.likes-container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.likes-button:hover {
+    color:#238ffa;
+}
+
+.likes-button:active {
+    color:#104c88;
+}
+
+.likes-counter {
+    background-color: transparent;
+    font-size: 17px;
+    font-weight: bold;
+    color: #1976d2;
+}
