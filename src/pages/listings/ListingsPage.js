@@ -56,8 +56,9 @@ function ListingsPage() {
         setSavedListing(LocalStorage.getStorageItem(LocalStorageKeysConst.SAVED_LISTING));
       }
       const onHandleSearch = (filterData) =>{
-        setFilterValues(filterData);
         console.log('in', filterData);
+        setFilterValues(filterData);
+        
         setIsLoading(true);
         setTimeout(() =>{
           getResults().then(d => {
@@ -115,9 +116,7 @@ function ListingsPage() {
 
         }, 1500);
     
-    
-       
-        
+  
       }
       useEffect(() => {
         
