@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import VerifiedIcon from '@mui/icons-material/Verified';
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -15,10 +16,11 @@ function Item(props) {
           theme.palette.mode === "dark" ? "grey.300" : "grey.800",
         border: "1px solid",
         borderColor: (theme) =>
-          theme.palette.mode === "dark" ? "grey.800" : "grey.300",
+          theme.palette.mode === "dark" ? "#32965d" : "#7ae582",
         borderRadius: 2,
         fontSize: "0.875rem",
         fontWeight: "700",
+        maxWidth: 200,
         ...sx,
       }}
       {...other}
@@ -26,45 +28,34 @@ function Item(props) {
   );
 }
 
-const ViewAmenities = ({ handleCloseModal, dataItem }) => {
-  //forms
-  const [make, setMake] = useState();
-  const [vin, setVin] = useState();
-
-  console.log(typeof dataItem);
-const string = dataItem;
-
-const usingSplit = string.split(',');
-console.log("usingSplit", usingSplit.length);
+const ListRenovations = ({ dataItem }) => {
+  const string = dataItem;
+  const usingSplit = string.split(",");
+  console.log("usingSplit", usingSplit);
 
   return (
-
     <>
+     {usingSplit.length > 1
+          ? "The property has been recently refurbished."
+          : "The Residential Property Condition Assessment confirmed that the property is in good condition with no remedial work needed."}
       <Box
         sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          p: 1,
-          m: 1,
-          bgcolor: "background.paper",
-          maxWidth: 400,
-          borderRadius: 1,
+          display: "grid",
+          columnGap: 3,
+          rowGap: 1,
+          gridTemplateColumns: "repeat(2, 1fr)",
         }}
       >
-        
-        {usingSplit.length > 1 ? (
-        "Everything has recently been repaired:") : ("No repair needed.") 
-}
-            <div className="margin-break"></div>
-
-        {usingSplit.length > 1 && ( Array.from(usingSplit).map((item, index) => ( 
-            <Item key={index}><CheckCircleIcon />{item}</Item>
-           )) )} 
-        
+        {usingSplit.length > 1 &&
+          Array.from(usingSplit).map((item, index) => (
+            <Item key={index}>
+              <CheckCircleIcon color="success" />
+              {"  "}
+              {item}
+            </Item>
+          ))}
       </Box>
     </>
-      
-  )
-
+  );
 };
-export default ViewAmenities;
+export default ListRenovations;

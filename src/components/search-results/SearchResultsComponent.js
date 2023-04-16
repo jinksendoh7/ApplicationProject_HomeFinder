@@ -5,7 +5,6 @@ import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
 import { Typography, Grid, Chip, Divider, Button } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-
 import CardMedia from '@mui/material/CardMedia';
 import ButtonSavedListing from '../button-saved-listing/ButtonSavedListing'
 import SampleHome01 from '../../assets/images/houses/odd.png';
@@ -13,7 +12,6 @@ import SampleHome02 from '../../assets/images/houses/even.png'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import HouseOutlinedIcon from '@mui/icons-material/HouseOutlined';
 import BedroomChildOutlinedIcon from '@mui/icons-material/BedroomChildOutlined';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import WifiIcon from '@mui/icons-material/Wifi';
 import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
 import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined';
@@ -32,7 +30,7 @@ import { LocalStorageKeysConst, RoutesConst } from '../../constants/AppConstants
 import { useState } from "react";
 import HandymanIcon from '@mui/icons-material/Handyman';
 import ModalElement from '../modal/ModalElement';
-import ViewAmenities from '../list-renovations/ListRenovations';
+import ListRenovations from '../list-renovations/ListRenovations';
 import LikesButton from '../likes-button/LikesButton';
 import TotalViews from '../total-views/TotalViews';
 
@@ -180,7 +178,7 @@ const checkIfSaved = (id)=>{
           title={"List of Renovations"}
           isOpen={open}
           handleCloseModal={handleModalClose}
-          element={<ViewAmenities handleCloseModal={handleModalClose} dataItem={dataItem} />}
+          element={<ListRenovations dataItem={dataItem} />}
         />
       )}
     </>
