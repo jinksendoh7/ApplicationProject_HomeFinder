@@ -99,17 +99,17 @@ export default function HeaderComponent(props) {
      }
 
      const handleAddListing = async() =>{
-        navigate(RoutesConst.ADD_LISTING_ROUTE)
+        navigate(RoutesConst.LISTING_ROUTE+'/'+RoutesConst.ADD_LISTING_ROUTE)
       
      }
      const handleSavedListing = async() =>{
-      navigate(RoutesConst.SAVED_LISTING_ROUTE)
+      navigate(RoutesConst.LISTING_ROUTE+'/'+RoutesConst.SAVED_LISTING_ROUTE)
     
    }
    const handleAddProperty = async() =>{
-    navigate(RoutesConst.ADD_PROPERTY_ROUTE)
-  
+    navigate(RoutesConst.PROPERTY_ROUTE+'/'+RoutesConst.ADD_PROPERTY_ROUTE)
  }
+ 
   const container = window !== undefined ? () => window().document.body : undefined;
   const menus = [
     {name: 'Add Listing', handler: handleAddListing},

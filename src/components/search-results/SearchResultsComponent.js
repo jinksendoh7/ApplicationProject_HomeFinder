@@ -108,7 +108,7 @@ const checkIfSaved = (id)=>{
                     image={index % 2 ? SampleHome02:SampleHome01 }
                   />
             </Grid>
-               <Grid item xs={12} md={7}>
+               <Grid item xs={12} md={6}>
                   <Typography component="div" variant="body1" sx={{color: "#346506", mt:2, fontWeight:'700', marginBottom: 1}} color="text.primary">
                  <div> <LocationOnOutlinedIcon sx={{verticalAlign:'middle'}}/>  {item.listing.propertyAddress}</div>
                   </Typography>
@@ -144,7 +144,7 @@ const checkIfSaved = (id)=>{
                     </div>
 
                   </Grid>
-                  <Grid item xs={12} md={2}>
+                  <Grid item xs={12} md={3}>
                     <div className="actions-listing">
                       <div className="listing-title">
                         C{formatter.format(item.fees.totalFee)}
@@ -155,10 +155,12 @@ const checkIfSaved = (id)=>{
                           isSaved={checkIfSaved(item.listing.id)}
                           onHandleSaved={handleSaved} />
                         <div className="margin-break"></div>
-                         <Button variant="contained" disabledElevation onClick={shareOnFacebook} color="warning"> <FacebookOutlinedIcon /> Share</Button>
+                         <Button
+                            sx={{minWidth: 160}}
+                           variant="contained" disabledElevation onClick={shareOnFacebook} color="warning"> <FacebookOutlinedIcon /> Share</Button>
                          <div className="margin-break"></div>
                         <Button
-                          variant="contained"
+                          variant="outlined"
                           color="primary"
                           onClick={(e) => {
                             handleModalOpen(e.target.value);

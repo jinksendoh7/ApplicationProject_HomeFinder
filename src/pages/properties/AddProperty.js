@@ -43,7 +43,7 @@ const AddProperty = ()=>{
             city: city,
             province: province,
             postalCode: postalCode,
-            beddroom: bedroom,
+            bedroom: bedroom,
             toilet: toilet,
             parkingSlot: parkingSlot,
             area: area,
