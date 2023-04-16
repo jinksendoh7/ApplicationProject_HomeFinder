@@ -14,9 +14,9 @@ function ButtonSavedListing({listing, isSaved, onHandleSaved}) {
     return (
         <>      
       {isSaved ?
-             <Button variant="contained" color="primary" onClick={() => handleSavedListing(listing)}><FavoriteBorderIcon /> Saved</Button>
+             <Button sx={{width: 160}} variant="contained" color="primary" onClick={() => handleSavedListing(listing)}><FavoriteBorderIcon /> Saved</Button>
                 :
-          <Button variant="outlined" color="primary" onClick={() => handleSavedListing(listing)}><FavoriteBorderIcon /> Save</Button>
+          <Button    sx={{width: 160}} variant="outlined" color="primary" onClick={() => handleSavedListing(listing)}><FavoriteBorderIcon /> Save</Button>
         }
             </>
     );

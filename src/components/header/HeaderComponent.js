@@ -99,18 +99,21 @@ export default function HeaderComponent(props) {
      }
 
      const handleAddListing = async() =>{
-        navigate(RoutesConst.ADD_LISTING_ROUTE)
+        navigate(RoutesConst.LISTING_ROUTE+'/'+RoutesConst.ADD_LISTING_ROUTE)
       
      }
      const handleSavedListing = async() =>{
-      navigate(RoutesConst.SAVED_LISTING_ROUTE)
+      navigate(RoutesConst.LISTING_ROUTE+'/'+RoutesConst.SAVED_LISTING_ROUTE)
     
    }
+   const handleAddProperty = async() =>{
+    navigate(RoutesConst.PROPERTY_ROUTE+'/'+RoutesConst.ADD_PROPERTY_ROUTE)
+ }
 
   const container = window !== undefined ? () => window().document.body : undefined;
   const menus = [
     {name: 'Add Listing', handler: handleAddListing},
-    {name: 'Add Property', handler: null},
+    {name: 'Add Property', handler: handleAddProperty},
     {name: 'Saved Listings', handler: handleSavedListing},
     {name: 'Logout', handler: handleLogout}]
     const menusForMember = [
@@ -162,8 +165,6 @@ export default function HeaderComponent(props) {
               {props.userType === FireStoreConst.USER_DOC_HOMEOWNER_USER && 
               <>
           <Box sx={{ display: { xs: 'none',sm:'none', md: 'inline-flex'}, flexDirection:{md:'row'}, gap:1, alignItems:'center',  }}>
-              <div className="property-label">Property Address</div>
-              <div className="property-text">123 A Place Street, London ON, N5Y 5R6</div>
                <Badge badgeContent={8} color="error">
                 <MailIcon color="action" />
               </Badge>

@@ -1,0 +1,6 @@
+
+const ShowListings = () =>{
+    return (
+        '<<>>'
+    )
+}

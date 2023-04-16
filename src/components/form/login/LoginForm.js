@@ -69,7 +69,7 @@ function LoginForm() {
   useEffect(() => {
     if (user !== null && isError) {
        // use hook to redirect to dashboard page upon successful login
-      navigate(RoutesConst.DASHBOARD_ROUTE);
+      navigate(RoutesConst.LISTING_ROUTE);
     }
   }, [user, navigate, isError]);
 
