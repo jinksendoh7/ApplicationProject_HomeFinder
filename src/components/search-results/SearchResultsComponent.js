@@ -29,7 +29,10 @@ import { v4 as uuidv4 } from 'uuid';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import LocalStorage from '../../services/storage/LocalStorage';
 import { LocalStorageKeysConst, RoutesConst } from '../../constants/AppConstants';
-
+import { useState } from "react";
+import HandymanIcon from '@mui/icons-material/Handyman';
+import ModalElement from '../modal/ModalElement';
+import ViewAmenities from '../list-renovations/ListRenovations';
 import LikesButton from '../likes-button/LikesButton';
 import TotalViews from '../total-views/TotalViews';
 
