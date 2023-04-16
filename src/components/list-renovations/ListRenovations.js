@@ -37,7 +37,7 @@ const ListRenovations = ({ dataItem }) => {
     <>
      {usingSplit.length > 1
           ? "The property has been recently refurbished."
-          : "The Residential Property Condition Assessment confirmed that the property is in good condition with no remedial work needed."}
+          : "The property is in good condition with no remedial work needed."}
       <Box
         sx={{
           display: "grid",
