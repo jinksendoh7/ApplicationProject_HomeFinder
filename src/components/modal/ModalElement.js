@@ -19,6 +19,7 @@ export default function ModalElement({ title, isOpen, handleCloseModal, element 
   return (
     <>
       <Dialog
+        sx={{minWidth:320}}
         fullScreen={fullScreen}
         open={open}
         onClose={handleClose}

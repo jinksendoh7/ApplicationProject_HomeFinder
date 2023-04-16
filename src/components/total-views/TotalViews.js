@@ -4,8 +4,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import "../total-views/TotalViews.css";
 
 
-export default function TotalViews() {
-    const [views, setViews] = useState(Math.floor(Math.random() * 1000));
+export default function TotalViews({viewsCount}) {
+    const [views, setViews] = useState(viewsCount);
     const [viewed, setViewed] = useState(false);
 
     return (

@@ -54,6 +54,13 @@ const AddProperty = ()=>{
             isNew: isNew,
             createdBy: user.email,
             createdByUserId: user.id,
+            bestFeatures:{
+                wifi: false,
+                aircon: false,
+                heater: false,
+                parking: false,
+                laundry: false,
+            }
            
         });
         if(docRef){

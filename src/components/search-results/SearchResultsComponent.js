@@ -27,12 +27,13 @@ import { v4 as uuidv4 } from 'uuid';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import LocalStorage from '../../services/storage/LocalStorage';
 import { LocalStorageKeysConst, RoutesConst } from '../../constants/AppConstants';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HandymanIcon from '@mui/icons-material/Handyman';
 import ModalElement from '../modal/ModalElement';
 import ListRenovations from '../list-renovations/ListRenovations';
 import LikesButton from '../likes-button/LikesButton';
 import TotalViews from '../total-views/TotalViews';
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -56,7 +57,10 @@ export default function SearchResultsComponent({ data, filterValues, handleSaved
   });
    const [open, setOpen] = useState(false);
   const [dataItem, setDataItem] = useState([]);
-const [dataItem2, setDataItem2] = useState([]);
+  const [dataItem2, setDataItem2] = useState([]);
+  const [likes, setLikes] = useState(0);
+  const [views, setViews] = useState(0);
+
   const handleModalOpen = (getID) => {
     setOpen(true);
     setDataItem(getID);
@@ -87,6 +91,11 @@ const checkIfSaved = (id)=>{
     const navUrl = RoutesConst.SHARE_ON_FACEBOOK_ROUTE;
     window.open(navUrl, '_blank');
   }
+  useEffect(()=>{
+      setLikes(Math.floor(Math.random() * 500))
+      setViews(Math.floor(Math.random() * 1000))
+  },[setLikes, setViews])
+
   return (
     <>
     
@@ -134,10 +143,10 @@ const checkIfSaved = (id)=>{
 
                     <div className="like-views">
                       <div className='total-likes'>
-                        <LikesButton />
+                        <LikesButton likeCount={likes} />
                       </div>
                       <div className='total-views'>
-                        <TotalViews />
+                        <TotalViews viewsCount={views}/>
                       </div>
                     </div>
 
@@ -154,18 +163,24 @@ const checkIfSaved = (id)=>{
                           onHandleSaved={handleSaved} />
                         <div className="margin-break"></div>
                          <Button
-                            sx={{minWidth: 160}}
+                            sx={{minWidth: 180}}
                            variant="contained" disabledElevation onClick={shareOnFacebook} color="warning"> <FacebookOutlinedIcon /> Share</Button>
                          <div className="margin-break"></div>
                         <Button
-                          variant="outlined"
+                          variant="contained"
                           color="primary"
+                          sx={{minWidth: 180}}
+                          disableElevation
+                          disabled ={item.renovations === undefined}
                           onClick={(e) => {
                             handleModalOpen(e.target.value);
                           }}
                           value={item.renovations}
                         >
-                          <HandymanIcon />RENOVATIONS
+                          <HandymanIcon />RENOVATIONS<b>
+                          {item.renovations === undefined ? '': ' ('.concat(item.renovations.length,')')
+                          }
+                          </b>
                         </Button>
                       </div>
                     </div>

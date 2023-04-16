@@ -1,6 +1,6 @@
 
 import {Box, Grid, Paper} from '@mui/material'
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import TabsComponent from '../../components/tabs/TabsComponents';
 import './AddListingPage.css'
 
@@ -8,6 +8,10 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import StorageService from '../../services/storage/StorageService';
+import { FireStoreConst } from '../../constants/FirebaseConstants';
+
+import { UserAuth } from '../../contexts/auth/AuthContext';
 
 const AddListingPage = () => {
   const propAddress = '123 A Place Street, London ON, N5Y 5R6';
@@ -17,6 +21,32 @@ const AddListingPage = () => {
   const propAddress4 = '634 Baumgardner St, London ON, N8T 3L6';
   const propAddress5 = '999 York Rd, London ON, N6U 0L3';
   const [propAddr, setPropAddr] = useState(propAddress);
+  const { user,setUser } = UserAuth();
+  const [properties, setProperties] = useState([]);
+  const getProperties = async()=>{
+    const result_data =  await StorageService.getDocsById(
+        FireStoreConst.PROPERTY_DOC,
+        user.email)
+    return result_data;
+  }
+  const getUserInfo = async(user) => {
+   
+    const userInfo =  await StorageService.getDocWhere(
+      FireStoreConst.USER_DOC, 
+      FireStoreConst.USER_DOC_KEY,
+      user.uid
+  )
+  setUser(userInfo);
+}
+useEffect(() => {
+  user.uid !== undefined && getUserInfo(user);
+(async()=>{
+  const data = await getProperties();
+  setProperties(data);
+  setPropAddr(data[0].address1.concat('',data[0].address2,' ', data[0].city,' ', data[0].province,' ', data[0].postalCode))
+  
+})()
+}, [user]);
   return(
       <div className="form-wrapper"> 
           
@@ -31,12 +61,12 @@ const AddListingPage = () => {
                 label="Select Property"
                 onChange ={(e)=> setPropAddr(e.target.value)}
               >
-                <MenuItem value={propAddress}>{propAddress}</MenuItem>
-                <MenuItem value={propAddress1}>{propAddress1}</MenuItem>
-                <MenuItem value={propAddress2}>{propAddress2}</MenuItem>
-                <MenuItem value={propAddress3}>{propAddress3}</MenuItem>
-                <MenuItem value={propAddress4}>{propAddress4}</MenuItem>
-                <MenuItem value={propAddress5}>{propAddress5}</MenuItem>
+                {Array.from(properties).map((data, index) => (
+                <MenuItem selected={propAddr === data.address1.concat('',data.address2,' ', data.city,' ', data.province,' ', data.postalCode)} value={data.address1.concat('',data.address2,' ', data.city,' ', data.province,' ', data.postalCode)}>
+                  {data.address1.concat('',data.address2,' ', data.city,' ', data.province,' ', data.postalCode)}
+                  </MenuItem>
+             
+                ))}
               </Select>
             </FormControl>
            </div>
