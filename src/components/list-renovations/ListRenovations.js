@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import VerifiedIcon from '@mui/icons-material/Verified';
-
+import Alert from '@mui/material/Alert'
 function Item(props) {
   const { sx, ...other } = props;
   return (
@@ -20,7 +20,7 @@ function Item(props) {
         borderRadius: 2,
         fontSize: "0.875rem",
         fontWeight: "700",
-        maxWidth: 200,
+        maxWidth: 280,
         ...sx,
       }}
       {...other}
@@ -29,20 +29,21 @@ function Item(props) {
 }
 
 const ListRenovations = ({ dataItem }) => {
-  const string = dataItem;
+  const string = dataItem || [];
   const usingSplit = string.split(",");
   console.log("usingSplit", usingSplit);
 
   return (
     <>
      {usingSplit.length > 1
-          ? "The property has been recently refurbished."
-          : "The property is in good condition with no remedial work needed."}
+          ? <Alert severity="info"> The property has been recently refurbished.</Alert>
+          : <Alert severity="info">The property is in good condition with no remedial work needed.</Alert>}
       <Box
         sx={{
           display: "grid",
           columnGap: 3,
           rowGap: 1,
+          mt:5,
           gridTemplateColumns: "repeat(2, 1fr)",
         }}
       >

@@ -24,6 +24,7 @@ import LocalLaundryServiceOutlinedIcon from '@mui/icons-material/LocalLaundrySer
 import LocalFireDepartmentOutlinedIcon from '@mui/icons-material/LocalFireDepartmentOutlined';
 import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined';
 import SnackbarElement from "../../components/snack-bar/SnackbarElement";
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -126,9 +127,10 @@ const handleSavebestFeatures = async(index)=>{
                   </Typography>
                   <div style={{fontSize:15,margin:5}}> <b>{data.area} sq mtr</b></div>
                   </div>
-                  <div style={{flex:12}}></div>
+                  <div style={{flex:10}}></div>
                   <div className="flex-item">
                     <Button variant="contained" color="warning" disableElevation sx={{my:2}}>Update</Button>
+                    <Button variant="contained" color="error" disableElevation sx={{my:2, ml:2}}><DeleteOutlinedIcon/></Button>
                     <Button variant="outlined" disableElevation sx={{my:2, ml:2}}>Upload Media</Button>
                     <Button variant="outlined" onClick={()=>handleModalOpen(index)} disableElevation sx={{my:2, ml:2}}>Best Features</Button>
                   </div>
