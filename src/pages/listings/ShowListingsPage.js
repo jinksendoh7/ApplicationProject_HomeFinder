@@ -26,7 +26,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 
-function ListingsPage() {
+function ShowListingsPage() {
 
     let [results, setResults] = useState([]);
     const [isLoading,setIsLoading] = useState(false);
@@ -114,45 +114,37 @@ function ListingsPage() {
 
         }, 1500);
     
-  
+    
+       
+        
       }
       useEffect(() => {
         
         user.uid !== undefined && getUserType(user);
-        const timer = setTimeout(() => {
          
           getResults().then(d => setResults(d));
           setLoading(false);
-        }, 1500);
-        return () => clearTimeout(timer);
+       
       }, [user,location, userType]);
     
     return (
         <Box sx={{ display: 'flex' }}>
         <HeaderComponent 
         userType={userType}/>
-        {loading && <SpinnerLoader color={color} size={55} loading={loading}/>}
-        {!loading &&  userType === FireStoreConst.USER_DOC_MEMBER_USER &&  location.pathname === RoutesConst.LISTING_ROUTE &&     
-         <Container fixed  sx={{marginTop: 22, lg:{maxWidth:1366}}}>
+        { userType === FireStoreConst.USER_DOC_HOMEOWNER_USER  
+              &&   
+         <Container fixed  sx={{marginTop: 1, lg:{maxWidth:1366}}}>
           <Outlet/>
-              <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={1}>
-                <Box gridColumn="span 3">
-                  <Item><FilterSidebarComponent handleSearch={onHandleSearch}/></Item>
-                </Box>
-                <Box gridColumn="span 9">
+              <Box display="grid" gap={1}>
+                <Box>
                   <Item>
-                    {isLoading
-                    &&  
-                      <div className="padding">
-                          <SpinnerLoader color={'#0d61b6'} size={55} loading={isLoading}/>
-                      </div>
-                    }
-                    {!isLoading
-                    &&
+                    
+                    {
                     <SearchResultsComponent 
                       data={results} 
                       filterValues={filterValues}
-                      handleSaved = {handleSavedListing}/>
+                      handleSaved = {handleSavedListing}
+                      isHomeOwner={userType===FireStoreConst.USER_DOC_HOMEOWNER_USER}/>
                     }
                     </Item>
                 </Box>
@@ -160,36 +152,8 @@ function ListingsPage() {
 
           </Container>
         }
-           {!loading && userType === FireStoreConst.USER_DOC_HOMEOWNER_USER  
-              && 
-              <Container fixed  sx={{marginTop: 1, lg:{maxWidth:1366}}}>
-              <Box sx={{ flexGrow: 1, marginTop:21}}>
-                <Grid container spacing={0}>
-                  <Grid item xs={12} sm={12} md={3} sx={{display:{sm:'none', md:'block'}}} >
-                    <Item ><SidebarComponent user={user}/></Item>
-                  </Grid>
-                  <Grid item  xs={12} sm={12} md={9}>
-                    <Item>
-                        <Outlet/>
-                    </Item>
-                  </Grid>
-                </Grid>
-                </Box>
-                </Container>
-              }
-              {!loading && userType === FireStoreConst.USER_DOC_MEMBER_USER  
-               && location.pathname === RoutesConst.LISTING_ROUTE + '/' + RoutesConst.SAVED_LISTING_ROUTE
-                &&  
-                <Container fixed  sx={{marginTop: 22, lg:{maxWidth:1366}}}>
-                  <Grid item  xs={12} sm={12} md={9}>
-                 <Item>
-                     <Outlet/>
-                 </Item>
-               </Grid>
-               </Container>
-              }
         </Box>
     );
 }
 
-export default ListingsPage;
+export default ShowListingsPage;

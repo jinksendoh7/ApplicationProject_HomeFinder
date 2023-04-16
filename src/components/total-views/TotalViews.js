@@ -5,7 +5,7 @@ import "../total-views/TotalViews.css";
 
 
 export default function TotalViews() {
-    const [views, setViews] = useState(0);
+    const [views, setViews] = useState(Math.floor(Math.random() * 1000));
     const [viewed, setViewed] = useState(false);
 
     return (

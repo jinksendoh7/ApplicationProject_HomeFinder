@@ -89,28 +89,28 @@ const checkIfSaved = (id)=>{
   }
   return (
     <>
-
-      <div className='form-header'>
-        <h1>Search Results ({data.length})</h1>
-      </div>
-      <Box sx={{ width: '100%', margin: 1 }}>
-        <Stack>
-          {
-            data && Array.from(data).map((item, index) => (
-              <Item key={uuidv4()} >
-                <Grid container spacing={2} key={item.listing.id}>
-                  <Grid item xs={12} md={3}>
-                    <CardMedia
-                      component="img"
-                      height="100%"
-                      image={index % 2 ? SampleHome02 : SampleHome01}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={7}>
-                    <Typography component="div" variant="body1" sx={{ color: "#346506", mt: 2, fontWeight: '700', marginBottom: 1 }} color="text.primary">
-                      <div> <LocationOnOutlinedIcon sx={{ verticalAlign: 'middle' }} />  {item.listing.propertyAddress}</div>
-                    </Typography>
-                    <div className="chip-stacked">
+    
+    <div className='form-header'>
+       <h1>Search Results ({data.length})</h1>
+    </div>
+    <Box sx={{ width: '100%', margin:1 }}>
+    <Stack>
+        {
+          data && Array.from(data).map((item, index) => (
+            <Item key = {uuidv4()} > 
+            <Grid container spacing={2} key={item.listing.id}>
+            <Grid item xs={12} md={3}>
+            <CardMedia
+                    component="img"
+                    height="100%"
+                    image={index % 2 ? SampleHome02:SampleHome01 }
+                  />
+            </Grid>
+               <Grid item xs={12} md={6}>
+                  <Typography component="div" variant="body1" sx={{color: "#346506", mt:2, fontWeight:'700', marginBottom: 1}} color="text.primary">
+                 <div> <LocationOnOutlinedIcon sx={{verticalAlign:'middle'}}/>  {item.listing.propertyAddress}</div>
+                  </Typography>
+                  <div className="chip-stacked">
                       {
                         item.fees.isRoomOnly ? <Chip color="error" icon={<BedroomChildOutlinedIcon />} label="Room Only" />
                           : <Chip color="success" icon={<HouseOutlinedIcon />} label="Whole House" />
@@ -142,7 +142,7 @@ const checkIfSaved = (id)=>{
                     </div>
 
                   </Grid>
-                  <Grid item xs={12} md={2}>
+                  <Grid item xs={12} md={3}>
                     <div className="actions-listing">
                       <div className="listing-title">
                         C{formatter.format(item.fees.totalFee)}
@@ -153,10 +153,12 @@ const checkIfSaved = (id)=>{
                           isSaved={checkIfSaved(item.listing.id)}
                           onHandleSaved={handleSaved} />
                         <div className="margin-break"></div>
-                         <Button variant="contained" disabledElevation onClick={shareOnFacebook} color="warning"> <FacebookOutlinedIcon /> Share</Button>
+                         <Button
+                            sx={{minWidth: 160}}
+                           variant="contained" disabledElevation onClick={shareOnFacebook} color="warning"> <FacebookOutlinedIcon /> Share</Button>
                          <div className="margin-break"></div>
                         <Button
-                          variant="contained"
+                          variant="outlined"
                           color="primary"
                           onClick={(e) => {
                             handleModalOpen(e.target.value);

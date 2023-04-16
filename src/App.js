@@ -10,8 +10,11 @@ import ResetPasswordPage from "./pages/reset-password/ResetPasswordPage";
 import SignupPage from "./pages/signup/SignupPage";
 import ProtectedPage from "./pages/common/ProtectedPage";
 import SavedListingPage  from "./pages/saved-listing/SavedListingPage";
-
+import PropertiesPage from "./pages/properties/PropertiesPage";
 import {RoutesConst} from './constants/AppConstants';
+import ShowListingsPage from "./pages/listings/ShowListingsPage";
+import AddProperty from './pages/properties/AddProperty';
+import ListProperty from "./pages/properties/ListProperty";
 
 function App() {
   return ( 
@@ -30,6 +33,10 @@ function App() {
                   </ProtectedPage>
                 }>
                     <Route
+                    path={''}
+                    element={<ShowListingsPage/>
+                    }/>
+                    <Route
                     path={RoutesConst.ADD_LISTING_ROUTE}
                     element={<AddListingPage />
                     }/>
@@ -37,6 +44,22 @@ function App() {
                       <Route
                     path={RoutesConst.SAVED_LISTING_ROUTE}
                     element={<SavedListingPage />
+                    }/>
+          </Route>
+          <Route
+                path={RoutesConst.PROPERTY_ROUTE}
+                element={
+                  <ProtectedPage>
+                       <PropertiesPage />
+                  </ProtectedPage>
+                }>
+                    <Route
+                    path=''
+                    element={<ListProperty />
+                    }/>
+                  <Route
+                    path={RoutesConst.ADD_PROPERTY_ROUTE}
+                    element={<AddProperty />
                     }/>
           </Route>
         </Routes>
