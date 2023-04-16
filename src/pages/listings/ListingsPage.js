@@ -114,9 +114,7 @@ function ListingsPage() {
 
         }, 1500);
     
-    
-       
-        
+  
       }
       useEffect(() => {
         

@@ -121,33 +121,25 @@ function ShowListingsPage() {
       useEffect(() => {
         
         user.uid !== undefined && getUserType(user);
-        const timer = setTimeout(() => {
          
           getResults().then(d => setResults(d));
           setLoading(false);
-        }, 1500);
-        return () => clearTimeout(timer);
+       
       }, [user,location, userType]);
     
     return (
         <Box sx={{ display: 'flex' }}>
         <HeaderComponent 
         userType={userType}/>
-        {loading && <SpinnerLoader color={color} size={55} loading={loading}/>}
-        {!loading  &&     
+        { userType === FireStoreConst.USER_DOC_HOMEOWNER_USER  
+              &&   
          <Container fixed  sx={{marginTop: 1, lg:{maxWidth:1366}}}>
           <Outlet/>
               <Box display="grid" gap={1}>
                 <Box>
                   <Item>
-                    {isLoading
-                    &&  
-                      <div className="padding">
-                          <SpinnerLoader color={'#0d61b6'} size={55} loading={isLoading}/>
-                      </div>
-                    }
-                    {!isLoading
-                    &&
+                    
+                    {
                     <SearchResultsComponent 
                       data={results} 
                       filterValues={filterValues}

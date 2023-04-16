@@ -38,7 +38,7 @@ function PropertiesPage() {
         const userInfo =  await StorageService.getDocWhere(
           FireStoreConst.USER_DOC, 
           FireStoreConst.USER_DOC_KEY,
-          user.uid
+          user.email
       )
       setUserType(userInfo.usertype);
       setUser(userInfo);

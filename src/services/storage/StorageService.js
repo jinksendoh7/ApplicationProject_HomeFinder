@@ -10,7 +10,7 @@ export default class StorageService {
             return docRef;
         }
         catch(e){
-            console.log('Error saving in ', docName, 'with collection name =>', doc);
+            console.log('Error saving in ', docName, 'with collection name =>', doc, e);
         } 
     }
     
@@ -44,6 +44,26 @@ export default class StorageService {
                docsSnap.forEach((doc) => {
                  data[i] = doc.data()
                 i++;
+               })
+               return data;
+            }
+        } catch(e){
+            console.log('Error getting data in ', docName, 'with collection name =>', e);
+        }
+    }
+    static async getDocsById(docName, email){
+        let data = []
+        try {
+            const colRef = collection(db, docName);
+            const docsSnap = await getDocs(colRef);
+            if(docsSnap.docs.length > 0) {
+               docsSnap.forEach((doc) => {
+                if(email === doc.data().createdBy)
+                data.push({
+                    ...doc.data(),
+                    id: doc.id
+                  });
+            
                })
                return data;
             }

@@ -29,12 +29,15 @@ import { v4 as uuidv4 } from 'uuid';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import LocalStorage from '../../services/storage/LocalStorage';
 import { LocalStorageKeysConst, RoutesConst } from '../../constants/AppConstants';
-
+import { useState } from "react";
+import HandymanIcon from '@mui/icons-material/Handyman';
+import ModalElement from '../modal/ModalElement';
+import ViewAmenities from '../list-renovations/ListRenovations';
 import LikesButton from '../likes-button/LikesButton';
 import TotalViews from '../total-views/TotalViews';
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'left',
@@ -48,16 +51,28 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function SearchResultsComponent({ data, filterValues, handleSaved }) {
   const theme = useTheme();
 
-  const formatter = new Intl.NumberFormat('en-CA', {
-    style: 'currency',
-    currency: 'CAD',
+  console.log("data", data);
+  const formatter = new Intl.NumberFormat("en-CA", {
+    style: "currency",
+    currency: "CAD",
   });
-  const checkIfSaved = (id) => {
-    let bool = false;
-    const savedListing = LocalStorage.getStorageItem(LocalStorageKeysConst.SAVED_LISTING);
-    if (savedListing !== null) {
-      for (let key in savedListing) {
-        if (savedListing[key].listing.id === id) {
+   const [open, setOpen] = useState(false);
+  const [dataItem, setDataItem] = useState([]);
+const [dataItem2, setDataItem2] = useState([]);
+  const handleModalOpen = (getID) => {
+    setOpen(true);
+    setDataItem(getID);
+  };
+  const handleModalClose = () => {
+    setOpen(false);
+  };
+
+const checkIfSaved = (id)=>{
+  let bool = false; 
+  const savedListing = LocalStorage.getStorageItem(LocalStorageKeysConst.SAVED_LISTING);
+  if(savedListing !==null) {
+    for (let key in savedListing) {
+       if(savedListing[key].listing.id === id){
           bool = true;
         }
       }
@@ -140,20 +155,34 @@ export default function SearchResultsComponent({ data, filterValues, handleSaved
                           isSaved={checkIfSaved(item.listing.id)}
                           onHandleSaved={handleSaved} />
                         <div className="margin-break"></div>
-                        <Button variant="contained" disabledElevation onClick={shareOnFacebook} color="warning"> <FacebookOutlinedIcon /> Share</Button>
+                         <Button variant="contained" disabledElevation onClick={shareOnFacebook} color="warning"> <FacebookOutlinedIcon /> Share</Button>
+                         <div className="margin-break"></div>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={(e) => {
+                            handleModalOpen(e.target.value);
+                          }}
+                          value={item.renovations}
+                        >
+                          <HandymanIcon />RENOVATIONS
+                        </Button>
                       </div>
-
                     </div>
                   </Grid>
                 </Grid>
               </Item>
-
-
             ))}
         </Stack>
-
-
       </Box>
+      {open && (
+        <ModalElement
+          title={"List of Renovations"}
+          isOpen={open}
+          handleCloseModal={handleModalClose}
+          element={<ViewAmenities handleCloseModal={handleModalClose} dataItem={dataItem} />}
+        />
+      )}
     </>
   );
 }

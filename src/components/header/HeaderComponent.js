@@ -106,11 +106,14 @@ export default function HeaderComponent(props) {
       navigate(RoutesConst.SAVED_LISTING_ROUTE)
     
    }
-
+   const handleAddProperty = async() =>{
+    navigate(RoutesConst.ADD_PROPERTY_ROUTE)
+  
+ }
   const container = window !== undefined ? () => window().document.body : undefined;
   const menus = [
     {name: 'Add Listing', handler: handleAddListing},
-    {name: 'Add Property', handler: null},
+    {name: 'Add Property', handler: handleAddProperty},
     {name: 'Saved Listings', handler: handleSavedListing},
     {name: 'Logout', handler: handleLogout}]
     const menusForMember = [

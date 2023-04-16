@@ -14,6 +14,8 @@ import PropertiesPage from "./pages/properties/PropertiesPage";
 import {RoutesConst} from './constants/AppConstants';
 import ShowListingsPage from "./pages/listings/ShowListingsPage";
 import AddProperty from './pages/properties/AddProperty';
+import ListProperty from "./pages/properties/ListProperty";
+
 function App() {
   return ( 
      <AuthContextProvider>
@@ -51,6 +53,10 @@ function App() {
                        <PropertiesPage />
                   </ProtectedPage>
                 }>
+                    <Route
+                    path=''
+                    element={<ListProperty />
+                    }/>
                   <Route
                     path={RoutesConst.ADD_PROPERTY_ROUTE}
                     element={<AddProperty />

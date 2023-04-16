@@ -22,3 +22,12 @@
     flex: 4;
     margin: 0 1rem;
 }
+@media screen and (max-width: 600px) {
+    .flex-row{
+        flex-direction: column;
+    }
+    .flex-item{
+        flex: 1;
+        margin: 0 .5rem;
+    }
+}
