@@ -1,6 +1,6 @@
 
 import { db } from '../../configs/FirebaseConfig';
-import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
+import { collection, addDoc, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
 
 export default class StorageService {
 
@@ -69,6 +69,20 @@ export default class StorageService {
             }
         } catch(e){
             console.log('Error getting data in ', docName, 'with collection name =>', e);
+        }
+    }
+
+    static async update(collectionName, data, id){
+        //console.log('Updating....');
+        try {
+            const docRef = doc(db, collectionName, id);
+            await updateDoc(docRef, data);
+           // console.log('Success updating: ', docRef.id)
+            return true;
+        }
+        catch (error) {
+           // console.log(error);
+            return false;
         }
     }
 
